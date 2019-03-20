@@ -1,0 +1,5 @@
+#DJANGO
+.*
+venv
+db.sqlite3
+*.pyc
