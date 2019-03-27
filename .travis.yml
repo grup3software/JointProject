@@ -1,0 +1,24 @@
+language: python
+python:
+ - "3.6"
+ - "3.7-dev"
+
+env:
+ -DJANGO=2.1
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
+
+before_script:
+  - 'export PATH=$PATH:/usr/lib/chromium-browser/'
+
+install:
+ - pip install -r requeriments.txt
+
+branches:
+  only:
+    - master
+    - DEV
+
+script: python manage.py test
