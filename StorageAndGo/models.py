@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -14,7 +15,7 @@ class TaskMaintenance(models.Model):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT)
     temperature = models.IntegerField(default=0)
     description = models.TextField(default="")
-    user = models.ForeignKey("User", default="", on_delete=models.PROTECT, related_name="user")
+    user = models.ForeignKey(User, default="", on_delete=models.PROTECT, related_name="user_maintenance")
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
@@ -28,7 +29,7 @@ class TaskOperator(models.Model):
     quantity = models.ManyToManyField("Contenidor", default="")
     description = models.TextField()
     priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, default='A')
-    user = models.ForeignKey("User", default="", on_delete=models.PROTECT, related_name="user")
+    user = models.ForeignKey(User, default="", on_delete=models.PROTECT, related_name="user_operator")
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
