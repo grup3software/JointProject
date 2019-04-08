@@ -4,8 +4,8 @@
     <h1>LIST OF TASKS</h1><br>
     <h1>LIST OF TASKS</h1><br>
 
-    {% for task in unasigned_tasks %}
-        <h3>{{ task.pk }} - {{ task.description }}</h3><br>
+    {% for task in unasigned_operator %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:assign_task' task.pk %}">Assignar</a> </h3><br>
     {% endfor %}
 
 
