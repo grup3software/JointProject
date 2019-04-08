@@ -9,27 +9,28 @@ PRIORITY_TYPE = (('A', 'Alta'),
 
 class Task(models.Model):
     description = models.TextField(default="")
-    user = models.ForeignKey(User, default="", on_delete=models.PROTECT, related_name="user_maintenance")
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
 
 
 class TaskMaintenance(Task):
     # HI HA DOS PRIORITATS (AMB I SENSE)
-    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, default='A')
-    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT)
-    temperature = models.IntegerField(default=0)
-
+    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
+    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
+    temperature = models.IntegerField(default=0, blank=True)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.room
 
+    def get_class(self):
+        return TaskMaintenance.__class__
 
 class TaskOperator(Task):
-    product = models.TextField(default="")
-    origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin")
-    destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination")
-    quantity = models.ManyToManyField("Contenidor", default="")
-    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, default='A')
+    product = models.TextField(default="", blank=True)
+    origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True)
+    destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True)
+    quantity = models.ManyToManyField("Contenidor", default="", blank=True, null=True)
+    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description

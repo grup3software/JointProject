@@ -7,9 +7,9 @@ app_name = "storageandgo"
 
 urlpatterns = [
     # LIST OF TASKS
-    path('',
+    path('tasks/',
          ListView.as_view(
-            queryset=Task.objects.filter(user=""),
+            queryset=Task.objects.filter(user=None),
             context_object_name='unasigned_tasks',
             template_name='unasigned_task_list.html'),
          name='unasigned_task_list'),

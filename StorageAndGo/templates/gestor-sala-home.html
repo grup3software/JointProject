@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
     <title>Storage&Go</title>
@@ -67,6 +68,10 @@
 
         <!-- !PAGE CONTENT! -->
         <div class="w3-main" style="margin-left:340px;margin-right:40px">
+            {% block content %}
+
+            {% endblock %}
+        </div>
 
         <!-- Header -->
         <div class="w3-container" style="margin-top:80px" id="showcase">
@@ -99,4 +104,4 @@
 </html>
 
 
-<link rel="stylesheet" type="text/css" href="{% static '' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'gestor-sala-home.html' %}" />
