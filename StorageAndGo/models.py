@@ -53,6 +53,7 @@ class Manifesto(models.Model):
 
     def get_length(self):
         return Contenidor.objects.filter(Contenidor.manifesto == self.reference).count()
+
     def get_different_products(self):
         return Contenidor.objects.filter(Contenidor.manifesto == self.reference).distinct(Contenidor.name).count()
 
