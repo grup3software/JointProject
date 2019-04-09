@@ -8,11 +8,11 @@ app_name = "storageandgo"
 
 urlpatterns = [
     # LIST OF TASKS
-    path('tasks/',
+    path('unasigned_tasks/',
          ListUnasignedTasks.as_view(),
          name='unasigned_task_list'),
 
-    path('tasks/<int:pk>/assign/$',
+    path('tasks/<int:pk>/assign',
          TaskUpdate.as_view(),
          name='assign_task'),
 ]
