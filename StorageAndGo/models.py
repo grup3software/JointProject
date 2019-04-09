@@ -46,12 +46,39 @@ class TaskOperator(Task):
         return self.__class__.__name__
 
 
-class Contenidor(models.Model):
-    description = models.TextField(default="")
+class Manifesto(models.Model):
+    reference = models.BigIntegerField(primary_key=True, default=00000000000)
+    entry_date = models.DateField(auto_now=True)
+    origin = models.CharField(max_length=255)
+    destination= models.CharField(max_length=255)
+
+    def get_length(self):
+        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).count()
+
+    def get_different_products(self):
+        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).distinct(Contenidor.name).count()
 
     def __unicode__(self):
-        # return u"%d - %d - %s" % self.room, self.temperature, self.description
-        return u"%s" % self.description
+        return u"%s" % self.name
+
+
+class Contenidor(models.Model):
+    name = models.CharField(max_length=200)
+    temp_min = models.SmallIntegerField()
+    temp_max = models.SmallIntegerField()
+    moistness_min = models.PositiveSmallIntegerField()
+    moistness_max = models.PositiveSmallIntegerField()
+    limit_date = models.DateField(default="")
+    manifesto = models.ForeignKey(Manifesto, on_delete= models.CASCADE)
+
+    def create_container(self,name,temp_min,temp_max,moistness_min,limit_date,manifesto):
+        self.objects.create(name=name,temp_min=temp_min,temp_max=temp_max,moistness_min=moistness_min,limit_date=limit_date,manifesto=manifesto)
+
+    def delete_container(self):
+        Contenidor.objects.filter(self.id).delete()
+
+    def __unicode__(self):
+        return u"%s" % self.name
 
 
 class Room(models.Model):
