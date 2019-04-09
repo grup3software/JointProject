@@ -10,6 +10,7 @@ PRIORITY_TYPE = (('A', 'Alta'),
 class Task(models.Model):
     description = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
+    accepted = models.BooleanField(default=False)
 
     def get_class(self):
         # return self.__class__.__name__
