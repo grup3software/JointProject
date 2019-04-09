@@ -12,7 +12,15 @@ urlpatterns = [
          ListUnasignedTasks.as_view(),
          name='unasigned_task_list'),
 
-    path('tasks/<int:pk>/assign/$',
+    path('tasks/',
+         ListTasks.as_view(),
+         name='task_list'),
+
+    path('tasks/<int:pk>/assign',
          TaskUpdate.as_view(),
          name='assign_task'),
+
+    path('tasks/<int:pk>/accept',
+         TaskAccept.as_view(),
+         name='accept_task'),
 ]

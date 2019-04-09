@@ -8,8 +8,6 @@ from django.views.generic import ListView, UpdateView
 class ListUnasignedTasks(ListView):
     template_name = 'unasigned_task_list.html'
 
-    # Modifying the get_context_data method
-
     def get_context_data(self, **kwargs):
         context = super(ListUnasignedTasks, self).get_context_data(**kwargs)
         operator = TaskOperator.objects.filter(user=None)
@@ -24,6 +22,18 @@ class ListUnasignedTasks(ListView):
         return queryset
 
 
+class ListTasks(ListView):
+    template_name = 'task_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListTasks, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(accepted=False)
+        maintenance = TaskMaintenance.objects.filter(accepted=False)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['user']
@@ -32,3 +42,13 @@ class TaskUpdate(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskUpdate, self).form_valid(form)
+
+
+class TaskAccept(UpdateView):
+    model = Task
+    fields = ['accepted']
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskAccept, self).form_valid(form)
