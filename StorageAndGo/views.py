@@ -33,6 +33,11 @@ class ListTasks(ListView):
         context['task_maintenance'] = maintenance
         return context
 
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
 
 class TaskUpdate(UpdateView):
     model = Task
@@ -52,3 +57,13 @@ class TaskAccept(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskAccept, self).form_valid(form)
+
+
+class TaskModify(UpdateView):
+    model = TaskOperator
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskModify, self).form_valid(form)

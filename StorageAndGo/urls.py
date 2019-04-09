@@ -23,4 +23,8 @@ urlpatterns = [
     path('tasks/<int:pk>/accept',
          TaskAccept.as_view(),
          name='accept_task'),
+
+    path('tasks/<int:pk>/modify',
+         TaskModify.as_view(),
+         name='modify_task'),
 ]

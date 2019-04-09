@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+from django.urls import reverse
 
 # Create your models here.
 
@@ -44,6 +45,10 @@ class TaskOperator(Task):
 
     def get_class(self):
         return self.__class__.__name__
+
+    def get_absolute_url(self):
+        # return reverse('storageandgo:task_list', kwargs={'pk': self.pk})
+        return reverse('storageandgo:task_list')
 
 
 class Manifesto(models.Model):
