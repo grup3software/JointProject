@@ -19,6 +19,10 @@ class Task(models.Model):
         # return self.__class__.__name__
         return ""
 
+    def get_absolute_url(self):
+        # return reverse('storageandgo:task_list', kwargs={'pk': self.pk})
+        return reverse('storageandgo:task_list')
+
 
 class TaskMaintenance(Task):
     # HI HA DOS PRIORITATS (AMB I SENSE)
@@ -31,6 +35,10 @@ class TaskMaintenance(Task):
 
     def get_class(self):
         return self.__class__.__name__
+
+    def get_absolute_url(self):
+        # return reverse('storageandgo:task_list', kwargs={'pk': self.pk})
+        return reverse('storageandgo:task_list')
 
 
 class TaskOperator(Task):
