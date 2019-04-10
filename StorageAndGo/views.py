@@ -104,3 +104,18 @@ class TaskModify(UpdateView):
         form.instance.sender = self.request.user
         return super(TaskModify, self).form_valid(form)
 
+
+
+def create_task(request):
+    if request.method == 'POST':
+        if request.POST.get('description') and request.POST.get('user') and request.POST.get('product') and request.POST.get('origin') and request.POST.get('destin') and request.POST.get('quantity'):
+            task = TaskOperator()
+            task.product = request.POST.get('product')
+            task.origin = request.POST.get('origin')
+            task.origin = request.POST.get('destin')
+            task.origin = request.POST.get('quantity')
+            task.origin = request.POST.get('user')
+            task.origin = request.POST.get('description')
+            task.save()
+
+            '''return render(request, 'posts/create.html')'''
