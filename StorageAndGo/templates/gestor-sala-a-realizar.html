@@ -38,9 +38,9 @@
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
             <div class="w3-container">
                 <h3 class="w3-padding-32 w3-left-align"style="width: 250px"><b>A realizar</b></h3>
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Realizando</b></h3>
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Finalizado</b></h3>
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Añadir tarea</b></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Realizando</b><a href="{% url 'storageandgo:gestor_realizando' %}"></a></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Finalizado</b><a href="{% url 'storageandgo:gestor_finalizado' %}"></a></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><b>Añadir tarea</b><a href="{% url 'storageandgo:gestor_añadirtarea' %}"></a></h3>
             </div>
         </nav>
 

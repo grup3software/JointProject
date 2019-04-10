@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import *
 from django.views.generic import ListView, UpdateView
+from django.template import loader
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -32,3 +34,38 @@ class TaskUpdate(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskUpdate, self).form_valid(form)
+
+def gestor_home(request):
+    # getting our template
+    template = loader.get_template('gestor-sala-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+def gestor_arealizar(request):
+    # getting our template
+    template = loader.get_template('gestor-sala-a-realizar.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+def gestor_realizando(request):
+    # getting our template
+    template = loader.get_template('gestor-sala-realizando.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+def gestor_finalizado(request):
+    # getting our template
+    template = loader.get_template('gestor-sala-finalizado.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+def gestor_añadirtarea(request):
+    # getting our template
+    template = loader.get_template('gestor-sala-añadir-tarea.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
