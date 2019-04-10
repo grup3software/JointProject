@@ -9,9 +9,13 @@ app_name = "storageandgo"
 
 urlpatterns = [
     # LIST OF TASKS
-    path('tasks',
+    path('unasigned_tasks/',
          ListUnasignedTasks.as_view(),
          name='unasigned_task_list'),
+
+    path('tasks/',
+         ListTasks.as_view(),
+         name='task_list'),
 
     path('tasks/<int:pk>/assign',
          TaskUpdate.as_view(),
@@ -22,4 +26,12 @@ urlpatterns = [
     url(r'^gestor_realizando', gestor_realizando, name="gestor_realizando"),
     url(r'^gestor_finalizado', gestor_finalizado, name="gestor_finalizado"),
     url(r'^gestor_añadirtarea', gestor_añadirtarea, name="gestor_añadirtarea"),
+
+    path('tasks/<int:pk>/accept',
+         TaskAccept.as_view(),
+         name='accept_task'),
+
+    path('tasks/<int:pk>/modify',
+         TaskModify.as_view(),
+         name='modify_task'),
 ]

@@ -1,13 +1,16 @@
 {% extends "gestor-sala-home.html" %}
 {% block content %}
 
-    <h1>LIST OF TASKS</h1><br>
-    <h1>LIST OF TASKS</h1><br>
+    <h1>LIST OF OPERATOR UNASIGNED TASKS</h1><br>
 
     {% for task in unasigned_operator %}
         <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:assign_task' task.pk %}">Assignar</a> </h3><br>
     {% endfor %}
 
+    <h1>LIST OF MAINTENANCE UNASIGNED TASKS</h1><br>
 
+    {% for task in unasigned_maintenance %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:assign_task' task.pk %}">Assignar</a> </h3><br>
+    {% endfor %}
 
 {% endblock %}
