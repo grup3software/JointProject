@@ -85,6 +85,7 @@ def gestor_añadirtarea(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 class TaskAccept(UpdateView):
     model = Task
     fields = ['accepted']

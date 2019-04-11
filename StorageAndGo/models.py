@@ -24,6 +24,7 @@ class Task(models.Model):
         return reverse('storageandgo:task_list')
 
 
+# HI HA TRES TIPUS DE SUBCLASSE DE MANTENIMENT
 class TaskMaintenance(Task):
     # HI HA DOS PRIORITATS (AMB I SENSE)
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
