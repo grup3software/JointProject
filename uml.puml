@@ -29,19 +29,19 @@ class TaskOperator <<Task>> extends Task {
 
 class TaskTecnician <<Task>> extends Task {
     Sala room
-    Integer temperature
+    Integer EstimatedTime
 }
 
 class TaskMaintenance <<TaskTecnician>> extends TaskTecnician {
-
+    String description
 }
 
 class TaskClimatitzacio <<TaskTecnician>> extends TaskTecnician {
-
+    Integer temperature
 }
 
 class TaskRepair <<TaskTecnician>> extends TaskTecnician {
-
+    String description
 }
 
 class Sala <<Sala>> {
@@ -73,10 +73,17 @@ class Group <<Group>> {
 
 }
 
+class Notification <<Notification>> {
+    Task task
+    getUser()
+}
+
 TaskOperator --> Contenidor
 Sala --> Task
 Manifesto --> Contenidor
 User --> Group
 Task --> User
+Notification -- Task
+'Notification -- User
 
 @enduml
