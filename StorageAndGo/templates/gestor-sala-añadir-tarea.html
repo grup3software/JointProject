@@ -69,7 +69,51 @@
         <!-- !PAGE CONTENT! -->
         <div class="w3-main" style="margin-left:340px;margin-right:40px">
             {% block content %}
-
+                <form>
+                    <table>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr><td>&#160;</td></tr>
+                        <tr>
+                            <td>Producto</td>
+                            <td><input type="text" id="product" name="product"/></td>
+                        </tr>
+                        <tr>
+                            <td>Origen</td>
+                            <td><input type="text" id="origin" name="origin"/></td>
+                        </tr>
+                        <tr>
+                            <td>Destinación</td>
+                            <td><input type="text" id="destination" name="destination"/></td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad</td>
+                            <td><input type="text" id="quantity" name="quantity"/></td>
+                        </tr>
+                        <tr>
+                            <td>Descripción</td>
+                            <td><input type="text" id="quantity" name="quantity"/></td>
+                        </tr>
+                        <tr>
+                            <td>Operario</td>
+                            <td><input type="text" id="user" name="user"/></td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad</td>
+                            <td><input type="text" id="quantity" name="quantity"/></td>
+                        </tr>
+                        <tr>
+                            <td>&#160;</td>
+                            <td>&#160;</td>
+                            <td><a href="{% url 'storageandgo:CreateTaskView' %}">Crear</a></td>
+                        </tr>
+                    </table>
+                </form>
             {% endblock %}
         </div>
 
