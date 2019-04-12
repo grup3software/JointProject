@@ -2,7 +2,6 @@
 {% block content %}
 
     <h1>LIST OF TASKS</h1><br>
-    <h1>LIST OF TASKS</h1><br>
 
     {% for task in task_operator %}
         <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:assign_task' task.pk %}">Acceptar</a>
