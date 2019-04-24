@@ -13,15 +13,16 @@ urlpatterns = [
          ListUnasignedTasks.as_view(),
          name='unasigned_task_list'),
 
-    path('tasks/',
-         ListTasks.as_view(),
-         name='task_list'),
+    # path('tasks/',
+    #      ListTasks.as_view(),
+    #      name='task_list'),
 
     path('tasks/<int:pk>/assign',
          TaskUpdate.as_view(),
          name='assign_task'),
 
-    url(r'^gestor_home/', gestor_home, name="gestor_home"),
+    # url(r'^gestor_home/', gestor_home, name="gestor_home"),
+    path('gestor_home/', ListTasks.as_view(), name='task_list'),
     url(r'^gestor_arealizar', gestor_arealizar, name="gestor_arealizar"),
     url(r'^gestor_realizando', gestor_realizando, name="gestor_realizando"),
     url(r'^gestor_finalizado', gestor_finalizado, name="gestor_finalizado"),
