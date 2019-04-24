@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^gestor_arealizar', gestor_arealizar, name="gestor_arealizar"),
     url(r'^gestor_realizando', gestor_realizando, name="gestor_realizando"),
     url(r'^gestor_finalizado', gestor_finalizado, name="gestor_finalizado"),
-    url(r'^gestor_añadirtarea', gestor_añadirtarea, name="gestor_añadirtarea"),
+
+    path('gestor_creacion_tarea', CreateTaskView, name="CreateTaskView"),
 
     path('tasks/<int:pk>/accept',
          TaskAccept.as_view(),

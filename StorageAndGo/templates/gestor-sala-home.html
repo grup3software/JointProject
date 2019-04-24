@@ -34,13 +34,13 @@
         </div>
 
         <!-- Sidebar/menu -->
-        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-padding" style="z-index:3;width:250px;font-weight:bold;" id="mySidebar"><br>
+        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-padding" style="z-index:3;width: 250px;font-weight:bold;" id="mySidebar"><br>
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
             <div class="w3-container">
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_arealizar' %}"><b>A realizar</b></a></h3>
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_realizando' %}"></a><b>Realizando</b></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px;margin-top:80px"><a href="{% url 'storageandgo:gestor_arealizar' %}"><b>A realizar</b></a></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_realizando' %}"><b>Realizando</b></a></h3>
                 <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_finalizado' %}"><b>Finalizado</b></a></h3>
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_añadirtarea' %}"></a><b>Añadir tarea</b></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:CreateTaskView' %}"><b>Añadir tarea</b></a></h3>
             </div>
         </nav>
 
@@ -67,13 +67,8 @@
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:340px;margin-right:40px">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+        <div class="w3-main" style="margin-left:340px;margin-right:40px; margin-top: 15%">
+
             {% block content %}
 
             {% endblock %}

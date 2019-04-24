@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.views.generic import ListView, UpdateView
 from django.template import loader
 from django.http import HttpResponse
+from .forms import *
+from django.views.generic.edit import FormView
 
 # Create your views here.
-
 
 class ListUnasignedTasks(ListView):
     template_name = 'unasigned_task_list.html'
@@ -50,12 +51,14 @@ class TaskUpdate(UpdateView):
         form.instance.sender = self.request.user
         return super(TaskUpdate, self).form_valid(form)
 
+
 def gestor_home(request):
     # getting our template
     template = loader.get_template('gestor-sala-home.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
 
 def gestor_arealizar(request):
     # getting our template
@@ -64,6 +67,7 @@ def gestor_arealizar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 def gestor_realizando(request):
     # getting our template
     template = loader.get_template('gestor-sala-realizando.html')
@@ -71,12 +75,14 @@ def gestor_realizando(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 def gestor_finalizado(request):
     # getting our template
     template = loader.get_template('gestor-sala-finalizado.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
 
 def gestor_añadirtarea(request):
     # getting our template
@@ -106,17 +112,27 @@ class TaskModify(UpdateView):
         return super(TaskModify, self).form_valid(form)
 
 
+def CreateTaskView(request):
+    if request.method == "POST":
+        form = CreateTaskForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:gestor_arealizar')
 
-def create_task(request):
-    if request.method == 'POST':
-        if request.POST.get('description') and request.POST.get('user') and request.POST.get('product') and request.POST.get('origin') and request.POST.get('destin') and request.POST.get('quantity'):
-            task = TaskOperator()
-            task.product = request.POST.get('product')
-            task.origin = request.POST.get('origin')
-            task.origin = request.POST.get('destin')
-            task.origin = request.POST.get('quantity')
-            task.origin = request.POST.get('user')
-            task.origin = request.POST.get('description')
-            task.save()
+    else:
 
-            '''return render(request, 'posts/create.html')'''
+        form = CreateTaskForm()
+
+        return render(request, "form.html", {'form': form})
+
+
+'''class CreateTaskView(FormView):
+    template_name = 'form.html'
+    form = CreateTaskForm()
+    success_url = '/Task-Successfull/'
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        return super().form_valid(form)'''
