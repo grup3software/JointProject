@@ -63,8 +63,20 @@ class TaskOperator(Task):
 class Manifesto(models.Model):
     reference = models.CharField(primary_key=True, default="", max_length=50)
     entry_date = models.DateField(default=date.today)
+    revision_date = models.DateField(default = None)
+    withdraw = models.BooleanField(null= True)
+    number_packets = models.IntegerField(null= True)
     origin = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
+
+    def create_manifesto(self, diccionari):
+        self.objects.create(reference=diccionari['ref'],
+                            entry_date=diccionari['creationDate'],
+                            revision_date=diccionari['revisionDate'],
+                            withdraw=diccionari['withdrawal'],
+                            number_packets=diccionari['totalpackets'],
+                            origin=diccionari['fromLocation'],
+                            destination=diccionari['toLocation'])
 
     def get_length(self):
         return Contenidor.objects.filter(Contenidor.manifesto == self.reference).count()
@@ -78,6 +90,7 @@ class Manifesto(models.Model):
 
 class Contenidor(models.Model):
     name = models.CharField(max_length=200, null=True)
+    quantity= models.IntegerField(null=True)
     temp_min = models.SmallIntegerField(null=True)
     temp_max = models.SmallIntegerField(null=True)
     moistness_min = models.PositiveSmallIntegerField(null=True)
@@ -85,8 +98,14 @@ class Contenidor(models.Model):
     limit_date = models.DateField(default=None, null=True)
     manifesto = models.ForeignKey(Manifesto, on_delete=models.CASCADE, null=True)
 
-    def create_container(self, name, temp_min, temp_max, moistness_min, limit_date, manifesto):
-        self.objects.create(name=name, temp_min=temp_min, temp_max=temp_max, moistness_min=moistness_min, limit_date=limit_date, manifesto=manifesto)
+    def create_container(self, diccionari):
+        self.objects.create(name=diccionari['name'],
+                            quantity=diccionari['quantity'],
+                            temp_min=diccionari['temp_min'],
+                            temp_max=diccionari['temp_max'],
+                            moistness_min=diccionari['moistness_min'],
+                            limit_date=diccionari['limit_date'],
+                            manifesto=diccionari['manifesto'])
 
     def delete_container(self):
         Contenidor.objects.filter(self.id).delete()
