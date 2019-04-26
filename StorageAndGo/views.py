@@ -7,8 +7,8 @@ from .forms import *
 from django.views.generic.edit import FormView
 
 # FOR LOADING API
-import urllib.request
-import json
+import requests
+
 
 # Create your views here.
 
@@ -150,11 +150,11 @@ class ManifestoCreate(CreateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         ref = form.cleaned_data['reference']
-        print(ref)
 
-        with urllib.request.urlopen("https://ourfarms.herokuapp.com/apiRest/REF/?ref=" + ref) as url:
-            data = json.loads(url.read().decode())
-            print(data)
+        data = requests.get('https://ourfarms.herokuapp.com/apiRest/REF/?ref=' + ref, auth=('GR3', 'gr3124567890'))\
+            .json()
+        print(data)
+        Contenidor.create_container()
 
         # return super(ManifestoCreate, self).form_valid(form)
-        return redirect()
+        return redirect(reverse('storageandgo:gestor_arealizar'))
