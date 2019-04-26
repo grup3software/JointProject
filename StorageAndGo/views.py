@@ -8,6 +8,7 @@ from django.views.generic.edit import FormView
 
 # FOR LOADING API
 import requests
+import json
 
 
 # Create your views here.
@@ -144,17 +145,27 @@ def CreateTaskView(request):
 
 class ManifestoCreate(CreateView):
     model = Manifesto
-    fields = ['reference']
+    fields = ['ref']
     template_name = "form.html"
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        ref = form.cleaned_data['reference']
+        ref = form.cleaned_data['ref']
 
-        data = requests.get('https://ourfarms.herokuapp.com/apiRest/REF/?ref=' + ref, auth=('GR3', 'gr3124567890'))\
-            .json()
-        print(data)
-        Contenidor.create_container()
+        data = requests.get('https://ourfarms.herokuapp.com/apiRest/REF/?ref=' + ref,
+                            auth=('GR3', 'gr3124567890')).json()
 
-        # return super(ManifestoCreate, self).form_valid(form)
+        contenidors = []
+        for contenidor in data[0]['Products']:
+            cont = Contenidor(**contenidor)
+            cont.save()
+            contenidors.append(cont)
+
+        del data[0]['Products']
+
+        man = Manifesto(**data[0])
+        man.save()
+        for contenidor in contenidors:
+            man.Products.add(contenidor)
+
         return redirect(reverse('storageandgo:gestor_arealizar'))

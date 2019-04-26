@@ -61,13 +61,14 @@ class TaskOperator(Task):
 
 
 class Manifesto(models.Model):
-    reference = models.CharField(primary_key=True, default="", max_length=50)
-    entry_date = models.DateField(default=date.today)
-    revision_date = models.DateField(default = None)
-    withdraw = models.BooleanField(null= True)
-    number_packets = models.IntegerField(null= True)
-    origin = models.CharField(max_length=255)
-    destination = models.CharField(max_length=255)
+    ref = models.CharField(primary_key=True, default="", max_length=50)
+    creationDate = models.DateTimeField(default=date.today)
+    revisionDate = models.DateTimeField(null=True)
+    withdrawal = models.BooleanField(null=True)
+    totalpackets = models.IntegerField(null=True)
+    fromLocation = models.CharField(max_length=255)
+    toLocation = models.CharField(max_length=255)
+    Products = models.ManyToManyField('Contenidor', related_name='Products')
 
     def create_manifesto(self, diccionari):
         self.objects.create(reference=diccionari['ref'],
@@ -79,10 +80,10 @@ class Manifesto(models.Model):
                             destination=diccionari['toLocation'])
 
     def get_length(self):
-        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).count()
+        return Contenidor.objects.filter(Contenidor.manifesto == self.ref).count()
 
     def get_different_products(self):
-        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).distinct(Contenidor.name).count()
+        return Contenidor.objects.filter(Contenidor.manifesto == self.ref).distinct(Contenidor.name).count()
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -90,13 +91,13 @@ class Manifesto(models.Model):
 
 class Contenidor(models.Model):
     name = models.CharField(max_length=200, null=True)
-    quantity= models.IntegerField(null=True)
-    temp_min = models.SmallIntegerField(null=True)
-    temp_max = models.SmallIntegerField(null=True)
-    moistness_min = models.PositiveSmallIntegerField(null=True)
-    moistness_max = models.PositiveSmallIntegerField(null=True)
-    limit_date = models.DateField(default=None, null=True)
-    manifesto = models.ForeignKey(Manifesto, on_delete=models.CASCADE, null=True)
+    qty = models.IntegerField(null=True)
+    tempMinDegree = models.SmallIntegerField(null=True)
+    tempMaxDegree = models.SmallIntegerField(null=True)
+    humidMin = models.PositiveSmallIntegerField(null=True)
+    humidMax = models.PositiveSmallIntegerField(null=True)
+    sla = models.DateTimeField(null=True)
+    # manifesto = models.ForeignKey(Manifesto, on_delete=models.CASCADE, null=True)
 
     def create_container(self, diccionari):
         self.objects.create(name=diccionari['name'],
