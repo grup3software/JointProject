@@ -61,7 +61,7 @@ class TaskOperator(Task):
 
 
 class Manifesto(models.Model):
-    reference = models.BigIntegerField(primary_key=True, default=00000000000)
+    reference = models.CharField(primary_key=True, default="", max_length=50)
     entry_date = models.DateField(default=date.today)
     origin = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)

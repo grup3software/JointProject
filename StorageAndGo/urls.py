@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^gestor_realizando/', gestor_realizando, name="gestor_realizando"),
     url(r'^gestor_finalizado/', gestor_finalizado, name="gestor_finalizado"),
 
+    path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
+
     path('gestor_creacion_tarea', CreateTaskView, name="CreateTaskView"),
 
     path('tasks/<int:pk>/accept',

@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, CreateView
 from django.template import loader
 from django.http import HttpResponse
 from .forms import *
 from django.views.generic.edit import FormView
+
+# FOR LOADING API
+import urllib.request
+import json
 
 # Create your views here.
 
@@ -136,3 +140,21 @@ def CreateTaskView(request):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
         return super().form_valid(form)'''
+
+
+class ManifestoCreate(CreateView):
+    model = Manifesto
+    fields = ['reference']
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        ref = form.cleaned_data['reference']
+        print(ref)
+
+        with urllib.request.urlopen("https://ourfarms.herokuapp.com/apiRest/REF/?ref=" + ref) as url:
+            data = json.loads(url.read().decode())
+            print(data)
+
+        # return super(ManifestoCreate, self).form_valid(form)
+        return redirect()
