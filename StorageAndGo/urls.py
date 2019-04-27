@@ -27,6 +27,7 @@ urlpatterns = [
     path('gestor_arealizar/', ListTasks.as_view(), name="gestor_arealizar"),
     url(r'^gestor_realizando/', gestor_realizando, name="gestor_realizando"),
     url(r'^gestor_finalizado/', gestor_finalizado, name="gestor_finalizado"),
+    url(r'^mapa_salas/', mapa_salas, name="mapa_salas"),
 
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
