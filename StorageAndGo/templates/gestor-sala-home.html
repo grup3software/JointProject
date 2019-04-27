@@ -34,10 +34,10 @@
         </div>
 
         <!-- Sidebar/menu -->
-        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-padding w3-top" style="z-index:3;width: 250px;font-weight:bold;" id="mySidebar"><br>
+        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top" style="top:138px; vz-index:3; width:250px; height:80%; font-weight:bold; overflow:auto; overflow-x:hidden" id="mySidebar"><br>
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
             <div class="w3-container">
-                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px;margin-top:80px"><a href="{% url 'storageandgo:gestor_arealizar' %}"><b>A realizar</b></a></h3>
+                <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_arealizar' %}"><b>A realizar</b></a></h3>
                 <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_realizando' %}"><b>Realizando</b></a></h3>
                 <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:gestor_finalizado' %}"><b>Finalizado</b></a></h3>
                 <h3 class="w3-padding-32 w3-button w3-left-align"style="width: 250px"><a href="{% url 'storageandgo:CreateTaskView' %}"><b>Añadir tarea</b></a></h3>
