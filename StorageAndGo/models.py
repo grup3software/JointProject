@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
@@ -92,10 +93,14 @@ class Manifesto(models.Model):
 class Contenidor(models.Model):
     name = models.CharField(max_length=200, null=True)
     qty = models.IntegerField(null=True)
-    tempMinDegree = models.SmallIntegerField(null=True)
-    tempMaxDegree = models.SmallIntegerField(null=True)
-    humidMin = models.PositiveSmallIntegerField(null=True)
-    humidMax = models.PositiveSmallIntegerField(null=True)
+    tempMinDegree = models.SmallIntegerField(null=True, validators=[MinValueValidator(-30),
+                                                                    MaxValueValidator(30)])
+    tempMaxDegree = models.SmallIntegerField(null=True, validators=[MinValueValidator(-30),
+                                                                    MaxValueValidator(30)])
+    humidMin = models.PositiveSmallIntegerField(null=True, validators=[MinValueValidator(0),
+                                                                       MaxValueValidator(100)])
+    humidMax = models.PositiveSmallIntegerField(null=True, validators=[MinValueValidator(0),
+                                                                       MaxValueValidator(100)])
     sla = models.DateTimeField(null=True)
     # manifesto = models.ForeignKey(Manifesto, on_delete=models.CASCADE, null=True)
 
