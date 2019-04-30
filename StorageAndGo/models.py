@@ -126,3 +126,10 @@ class Room(models.Model):
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
+
+
+class Avaria(models.Model):
+    description = models.TextField(default="")
+
+    def __unicode__(self):
+        return self.description
