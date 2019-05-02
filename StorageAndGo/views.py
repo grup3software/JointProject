@@ -193,6 +193,28 @@ def CreateTaskView(request):
         return super().form_valid(form)'''
 
 
+def createTask(contenidor):
+
+    print(contenidor)
+
+    rooms = Room.objects.all()
+
+    avaliableRoom = 0
+
+    for room in rooms:
+        if room.temperature > contenidor.tempMinDegree and room.temperature < contenidor.tempMaxDegree and room.capacity-room.contenidorsInside > contenidor.qty:
+                avaliableRoom = room
+                break
+
+    if avaliableRoom == 0:
+        print(contenidor)
+        task = TaskOperator(description="No hi ha sales disponibles per a conteidors de " + contenidor["name"], product=contenidor["name"], quantity=contenidor["qty"])
+        task.save()
+    else:
+        task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliableRoom.description, quantity=contenidor.qty)
+        task.save()
+
+
 class ManifestoCreate(CreateView):
     model = Manifesto
     fields = ['ref']
@@ -210,6 +232,8 @@ class ManifestoCreate(CreateView):
             cont = Contenidor(**contenidor)
             cont.save()
             contenidors.append(cont)
+            createTask(contenidor);
+
 
         del data[0]['Products']
 
