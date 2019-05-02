@@ -44,6 +44,40 @@ class ListTasks(ListView):
         return queryset
 
 
+class ListRealizing(ListView):
+    template_name = 'gestor-sala-realizando.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListRealizing, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(accepted=True, finished=False)
+        maintenance = TaskMaintenance.objects.filter(accepted=True, finished=False)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
+class ListFinalized(ListView):
+    template_name = 'gestor-sala-finalizado.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListFinalized, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(finished=True)
+        maintenance = TaskMaintenance.objects.filter(finished=True)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
 class AvariaList(ListView):
     template_name = 'avaria_list.html'
 
