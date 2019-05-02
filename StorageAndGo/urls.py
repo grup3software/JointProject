@@ -27,7 +27,7 @@ urlpatterns = [
 
     url(r'^tecnics_home/', tecnics_home, name="tecnics_home"),
 
-    url(r'^tecnics_arealizar', tecnics_arealitzar, name="tecnics_arealizar"),
+    url(r'^tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
 
     path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
@@ -53,5 +53,7 @@ urlpatterns = [
 
     path('operari_home/', operari_home, name="operari_home"),
 
-    url(r'^añadir_sala/', añadir_sala, name="añadir_sala"),
+    # url(r'^añadir_sala/', CreateSalaView, name="añadir_sala"),
+    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
+    # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]

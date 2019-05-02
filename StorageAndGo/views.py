@@ -214,16 +214,6 @@ def CreateTaskView(request):
         return render(request, "form.html", {'form': form})
 
 
-'''class CreateTaskView(FormView):
-    template_name = 'form.html'
-    form = CreateTaskForm()
-    success_url = '/Task-Successfull/'
-
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        return super().form_valid(form)'''
-
 def CreateSalaView(request):
     if request.method == 'POST':
         form = CreateSala(request.POST)
@@ -233,7 +223,8 @@ def CreateSalaView(request):
             return redirect('storageandgo:mapa_salas')
     else:
         form = CreateSala()
-    return render(request, "form.html", {'form': form})
+        return render(request, "form.html", {'form': form})
+
 
 def createTask(contenidor):
 

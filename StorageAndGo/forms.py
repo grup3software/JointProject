@@ -7,6 +7,7 @@ class CreateTaskForm(ModelForm):
         model = TaskOperator
         fields = '__all__'
 
+
 class CreateSala(ModelForm):
     class Meta:
         model = Room
