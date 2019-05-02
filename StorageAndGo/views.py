@@ -47,6 +47,21 @@ class ListTasks(ListView):
         return queryset
 
 
+class AvariaList(ListView):
+    template_name = 'avaria_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AvariaList, self).get_context_data(**kwargs)
+        maintenance = Avaria.objects.filter(accepted=False)
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['user']

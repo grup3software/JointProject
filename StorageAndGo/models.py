@@ -130,6 +130,7 @@ class Room(models.Model):
 
 class Avaria(models.Model):
     description = models.TextField(default="")
+    accepted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.description
