@@ -210,9 +210,7 @@ def CreateTaskView(request):
             return redirect('storageandgo:gestor_arealizar')
 
     else:
-
         form = CreateTaskForm()
-
         return render(request, "form.html", {'form': form})
 
 
