@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^gestor_finalizado/', gestor_finalizado, name="gestor_finalizado"),
     url(r'^mapa_salas/', mapa_salas, name="mapa_salas"),
 
+    url(r'^tecnics_home/', tecnics_home, name="tecnics_home"),
+
+    url(r'^tecnics_arealizar', tecnics_arealitzar, name="tecnics_arealizar"),
+
     path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 

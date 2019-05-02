@@ -221,6 +221,22 @@ class ManifestoCreate(CreateView):
         return redirect(reverse('storageandgo:gestor_arealizar'))
 
 
+def tecnics_home(request):
+    # getting our template
+    template = loader.get_template('tecnics-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+
+def tecnics_arealitzar(request):
+    # getting our template
+    template = loader.get_template('tecnics-a-realizar.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+
 def operari_home(request):
     # getting our template
     template = loader.get_template('operari-home.html')
