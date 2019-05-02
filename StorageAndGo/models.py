@@ -14,6 +14,7 @@ class Task(models.Model):
     description = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
     accepted = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
     priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
 
     def get_class(self):
