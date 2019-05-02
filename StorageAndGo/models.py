@@ -133,6 +133,9 @@ class Room(models.Model):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
 
+    def get_absolute_url(self):
+        return reverse('storageandgo:mapa_salas')
+
 
 class Avaria(Task):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
