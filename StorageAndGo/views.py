@@ -44,6 +44,40 @@ class ListTasks(ListView):
         return queryset
 
 
+class ListRealizing(ListView):
+    template_name = 'gestor-sala-realizando.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListRealizing, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(accepted=True, finished=False)
+        maintenance = TaskMaintenance.objects.filter(accepted=True, finished=False)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
+class ListFinalized(ListView):
+    template_name = 'gestor-sala-finalizado.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListFinalized, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(finished=True)
+        maintenance = TaskMaintenance.objects.filter(finished=True)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
 class AvariaList(ListView):
     template_name = 'avaria_list.html'
 
@@ -192,6 +226,16 @@ def CreateTaskView(request):
         # It should return an HttpResponse.
         return super().form_valid(form)'''
 
+def CreateSalaView(request):
+    if request.method == 'POST':
+        form = CreateSala(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:mapa_salas')
+    else:
+        form = CreateSala()
+    return render(request, "form.html", {'form': form})
 
 class ManifestoCreate(CreateView):
     model = Manifesto
@@ -219,6 +263,22 @@ class ManifestoCreate(CreateView):
             man.Products.add(contenidor)
 
         return redirect(reverse('storageandgo:gestor_arealizar'))
+
+
+def tecnics_home(request):
+    # getting our template
+    template = loader.get_template('tecnics-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+
+def tecnics_arealitzar(request):
+    # getting our template
+    template = loader.get_template('tecnics-a-realizar.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
 
 
 def operari_home(request):

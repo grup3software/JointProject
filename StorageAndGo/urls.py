@@ -21,14 +21,19 @@ urlpatterns = [
     path('gestor_home/', ListTasks.as_view(), name='task_list'),
     # url(r'^gestor_arealizar', gestor_arealizar, name="gestor_arealizar"),
     path('gestor_arealizar/', ListTasks.as_view(), name="gestor_arealizar"),
-    url(r'^gestor_realizando/', gestor_realizando, name="gestor_realizando"),
-    url(r'^gestor_finalizado/', gestor_finalizado, name="gestor_finalizado"),
+    url(r'^gestor_realizando/', ListRealizing.as_view(), name="gestor_realizando"),
+    url(r'^gestor_finalizado/', ListFinalized.as_view(), name="gestor_finalizado"),
     url(r'^mapa_salas/', mapa_salas, name="mapa_salas"),
+
+    url(r'^tecnics_home/', tecnics_home, name="tecnics_home"),
+
+    url(r'^tecnics_arealizar', tecnics_arealitzar, name="tecnics_arealizar"),
 
     path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
     path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
+    path('creacio_sala/', CreateSala, name="CreateSalaView"),
 
     path('tasks/<int:pk>/accept/',
          TaskAccept.as_view(),
