@@ -277,3 +277,10 @@ def operari_home(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
+def añadir_sala(request):
+    # getting our template
+    template = loader.get_template('añadir_sala_form.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
