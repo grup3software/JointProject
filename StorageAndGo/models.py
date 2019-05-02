@@ -122,6 +122,7 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
+    name = models.CharField(max_length=200,null=True)
     description = models.TextField(default="")
 
     def __unicode__(self):

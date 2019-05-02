@@ -29,6 +29,7 @@ urlpatterns = [
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
     path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
+    path('creacio_sala/', CreateSala, name="CreateSalaView"),
 
     path('tasks/<int:pk>/accept/',
          TaskAccept.as_view(),
