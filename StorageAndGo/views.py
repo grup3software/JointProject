@@ -1,14 +1,11 @@
-from django.shortcuts import render, redirect
-from .models import *
-from django.views.generic import ListView, UpdateView, CreateView
-from django.template import loader
-from django.http import HttpResponse
-from .forms import *
-from django.views.generic.edit import FormView
-
 # FOR LOADING API
 import requests
-import json
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template import loader
+from django.views.generic import ListView, UpdateView, CreateView
+
+from .forms import *
 
 
 # Create your views here.
@@ -47,6 +44,21 @@ class ListTasks(ListView):
         return queryset
 
 
+class AvariaList(ListView):
+    template_name = 'avaria_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AvariaList, self).get_context_data(**kwargs)
+        maintenance = Avaria.objects.filter(accepted=False)
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Avaria.objects.filter()
+
+        return queryset
+
+
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['user']
@@ -55,6 +67,16 @@ class TaskUpdate(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskUpdate, self).form_valid(form)
+
+
+# class TaskUpdate(UpdateView):
+#     model = Task
+#     fields = ['user']
+#     template_name = "form.html"
+#
+#     def form_valid(self, form):
+#         form.instance.sender = self.request.user
+#         return super(TaskUpdate, self).form_valid(form)
 
 
 def gestor_home(request):
