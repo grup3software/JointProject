@@ -128,9 +128,9 @@ class Room(models.Model):
         return u"%s" % self.description
 
 
-class Avaria(models.Model):
-    description = models.TextField(default="")
-    accepted = models.BooleanField(default=False)
+class Avaria(Task):
+    # description = models.TextField(default="")
+    # accepted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.description

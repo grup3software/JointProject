@@ -29,16 +29,16 @@ urlpatterns = [
     url(r'^gestor_finalizado/', gestor_finalizado, name="gestor_finalizado"),
     url(r'^mapa_salas/', mapa_salas, name="mapa_salas"),
 
-    path('avaria_list', AvariaList.as_view(), name="AvariaList"),
+    path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
-    path('gestor_creacion_tarea', CreateTaskView, name="CreateTaskView"),
+    path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 
-    path('tasks/<int:pk>/accept',
+    path('tasks/<int:pk>/accept/',
          TaskAccept.as_view(),
          name='accept_task'),
 
-    path('tasks/<int:pk>/modify',
+    path('tasks/<int:pk>/modify/',
          TaskModify.as_view(),
          name='modify_task'),
 ]
