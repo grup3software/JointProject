@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
     <title>Storage&Go</title>
@@ -14,33 +15,32 @@
     <body>
 
         <!--- Header --->
-        <div class="w3-hide-small w3-hide-medium w3-red w3-top">
+        <div class="w3-hide-small w3-hide-medium w3-red w3-top"style="height: 20%; min-height: 100px">
             <div class="w3-container">
-                <h1 class="w3-padding-32"style="text-align: center"><b>Storage&Go</b></h1>
+                <h1 class=""style="margin-top: 3%;text-align: center"><b>Storage&Go</b></h1>
             </div>
 
             <div class="w3-container w3-cell w3-display-topright">
-                <h1 class="w3-padding-32"style="text-align: right"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 50px; height: 50px"></h1>
+                <h1 class=""style="margin-top:70%; text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 50px; height: 50px"></a></h1>
             </div>
 
-            <div class="w3-container w3-cell w3-display-topright"style="padding-right: 90px">
-                <h1 class="w3-padding-32"style="text-align: right"><img src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"style="width: 50px; height: 50px"></h1>
+            <div class="w3-container w3-cell w3-display-topright" style="right: 70px;">
+                <h1 class=""style="margin-top:70%; text-align: right"><img src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"style="width: 50px; height: 50px"></h1>
             </div>
 
-            <div class="w3-container w3-cell w3-display-topright"style="padding-right: 164px">
-                <!-- http://pngimg.com/uploads/exclamation_mark/exclamation_mark_PNG86.png Imatge per quan l'entrada de notificacio -->
-                <h1 class="w3-padding-32"style="text-align: right"><img src="https://image.flaticon.com/icons/svg/54/54810.svg" alt="Notification"style="width: 50px; height: 50px"></h1>
+            <div class="w3-container w3-cell w3-display-topright" style="right: 140px;">
+                <h1 class=""style="margin-top:70%; text-align: right"><img src="https://image.flaticon.com/icons/svg/54/54810.svg" alt="Notification"style="width: 50px; height: 50px"></h1>
             </div>
         </div>
 
         <!-- Sidebar/menu -->
-        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-padding" style="z-index:3;width:250px;font-weight:bold;" id="mySidebar"><br>
+        <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top" style="vz-index:3; top: 20%; width:250px; height: 80%; font-weight:bold; overflow:auto; overflow-x:hidden" id="mySidebar"><br>
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
             <div class="w3-container">
-                <h3 class="w3-padding-32"><b>A realizar</b></h3>
-                <h3 class="w3-padding-32"><b>Realizando</b></h3>
-                <h3 class="w3-padding-32"><b>Finalizado</b></h3>
-                <button class="w3-button w3-block w3-left-align">Button</button>
+
+                <a href= {% url 'storageandgo:tecnics_arealizar' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>A realizar</b></h3></a>
+                <a href= {% url 'storageandgo:gestor_realizando' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Realizando</b></h3></a>
+                <a href= {% url 'storageandgo:gestor_finalizado' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Finalizado</b></h3></a>
             </div>
         </nav>
 
@@ -50,14 +50,14 @@
             <span>Storage&Go</span>
 
             <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
-                <h7 class="w3-padding-16"style="text-align: right"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></h7>
+                <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
             </div>
 
-            <div class="w3-container w3-cell w3-display-topright"style="padding-top:15px; padding-right: 90px">
+            <div class="w3-container w3-cell w3-display-topright"style="padding-top:15px; right: 50px">
                 <h7 class="w3-padding-16"style="text-align: right"><img src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"style="width: 35px; height: 35px"></h7>
             </div>
 
-            <div class="w3-container w3-cell w3-display-topright"style="padding-top:15px; padding-right: 164px">
+            <div class="w3-container w3-cell w3-display-topright"style="padding-top:15px; right: 100px">
                 <h7 class="w3-padding-16"style="text-align: right"><img src="https://image.flaticon.com/icons/svg/54/54810.svg" alt="Notification"style="width: 35px; height: 35px"></h7>
             </div>
 
@@ -67,14 +67,18 @@
         <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
         <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:340px;margin-right:40px">
+        <div class="w3-main" style="margin-left:340px; margin-right:40px; margin-top:13%">
 
-            <!-- Header -->
-            <div class="w3-container" style="margin-top:80px" id="showcase">
-                <h1 class="w3-jumbo">
+            {% block content %}
 
-                </h1>
-            </div>
+            {% endblock %}
+        </div>
+
+        <!-- Header -->
+        <div class="w3-container" id="showcase">
+            <h1 class="w3-jumbo">
+
+            </h1>
         </div>
 
         <script>

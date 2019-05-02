@@ -1,14 +1,11 @@
-from django.shortcuts import render, redirect
-from .models import *
-from django.views.generic import ListView, UpdateView, CreateView
-from django.template import loader
-from django.http import HttpResponse
-from .forms import *
-from django.views.generic.edit import FormView
-
 # FOR LOADING API
 import requests
-import json
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template import loader
+from django.views.generic import ListView, UpdateView, CreateView
+
+from .forms import *
 
 
 # Create your views here.
@@ -47,6 +44,55 @@ class ListTasks(ListView):
         return queryset
 
 
+class ListRealizing(ListView):
+    template_name = 'gestor-sala-realizando.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListRealizing, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(accepted=True, finished=False)
+        maintenance = TaskMaintenance.objects.filter(accepted=True, finished=False)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
+class ListFinalized(ListView):
+    template_name = 'gestor-sala-finalizado.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListFinalized, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(finished=True)
+        maintenance = TaskMaintenance.objects.filter(finished=True)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
+class AvariaList(ListView):
+    template_name = 'avaria_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AvariaList, self).get_context_data(**kwargs)
+        avaria = Avaria.objects.filter(accepted=False)
+        context['task_avaria'] = avaria
+        return context
+
+    def get_queryset(self):
+        queryset = Avaria.objects.filter()
+
+        return queryset
+
+
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['user']
@@ -55,6 +101,16 @@ class TaskUpdate(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskUpdate, self).form_valid(form)
+
+
+# class TaskUpdate(UpdateView):
+#     model = Task
+#     fields = ['user']
+#     template_name = "form.html"
+#
+#     def form_valid(self, form):
+#         form.instance.sender = self.request.user
+#         return super(TaskUpdate, self).form_valid(form)
 
 
 def gestor_home(request):
@@ -115,14 +171,34 @@ class TaskAccept(UpdateView):
         return super(TaskAccept, self).form_valid(form)
 
 
-class TaskModify(UpdateView):
+class TaskOperatorModify(UpdateView):
     model = TaskOperator
     fields = '__all__'
     template_name = "form.html"
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        return super(TaskModify, self).form_valid(form)
+        return super(TaskOperatorModify, self).form_valid(form)
+
+
+class TaskMaintenanceModify(UpdateView):
+    model = TaskMaintenance
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskMaintenanceModify, self).form_valid(form)
+
+
+class TaskAvariaModify(UpdateView):
+    model = Avaria
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskAvariaModify, self).form_valid(form)
 
 
 def CreateTaskView(request):
@@ -177,3 +253,27 @@ class ManifestoCreate(CreateView):
             man.Products.add(contenidor)
 
         return redirect(reverse('storageandgo:gestor_arealizar'))
+
+
+def tecnics_home(request):
+    # getting our template
+    template = loader.get_template('tecnics-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+
+def tecnics_arealitzar(request):
+    # getting our template
+    template = loader.get_template('tecnics-a-realizar.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+
+def operari_home(request):
+    # getting our template
+    template = loader.get_template('operari-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())

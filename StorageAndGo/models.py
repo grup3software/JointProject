@@ -14,6 +14,7 @@ class Task(models.Model):
     description = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
     accepted = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
     priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
 
     def get_class(self):
@@ -128,8 +129,9 @@ class Room(models.Model):
         return u"%s" % self.description
 
 
-class Avaria(models.Model):
-    description = models.TextField(default="")
+class Avaria(Task):
+    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
+    object = models.TextField(default="", blank=True)
 
     def __unicode__(self):
         return self.description
