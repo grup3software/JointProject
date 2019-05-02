@@ -6,16 +6,13 @@ from django.urls import reverse
 
 # Create your models here.
 
-PRIORITY_TYPE = (('A', 'Alta'),
-                 ('S', 'Sense Prioritat'),)
-
 
 class Task(models.Model):
     description = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
     accepted = models.BooleanField(default=False)
     finished = models.BooleanField(default=False)
-    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
+    hight_priority = models.BooleanField(default=False)
 
     def get_class(self):
         # return self.__class__.__name__
@@ -122,6 +119,7 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
+    name = models.CharField(max_length=200,null=True)
     description = models.TextField(default="")
 
     def __unicode__(self):

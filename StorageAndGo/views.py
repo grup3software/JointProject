@@ -226,6 +226,16 @@ def CreateTaskView(request):
         # It should return an HttpResponse.
         return super().form_valid(form)'''
 
+def CreateSalaView(request):
+    if request.method == 'POST':
+        form = CreateSala(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:mapa_salas')
+    else:
+        form = CreateSala()
+    return render(request, "form.html", {'form': form})
 
 class ManifestoCreate(CreateView):
     model = Manifesto
