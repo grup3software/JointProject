@@ -57,7 +57,7 @@ class AvariaList(ListView):
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.filter()
+        queryset = Avaria.objects.filter()
 
         return queryset
 
