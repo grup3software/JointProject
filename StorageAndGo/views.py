@@ -243,3 +243,11 @@ class ManifestoCreate(CreateView):
             man.Products.add(contenidor)
 
         return redirect(reverse('storageandgo:gestor_arealizar'))
+
+
+def operari_home(request):
+    # getting our template
+    template = loader.get_template('operari-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
