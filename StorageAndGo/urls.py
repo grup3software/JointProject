@@ -52,4 +52,6 @@ urlpatterns = [
          name='modify_avaria'),
 
     path('operari_home/', operari_home, name="operari_home"),
+
+    url(r'^añadir_sala/', añadir_sala, name="añadir_sala"),
 ]
