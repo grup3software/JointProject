@@ -1,0 +1,32 @@
+{% extends "gestor-sala-home.html" %}
+{% block content %}
+
+    <form action="/my-handling-form-page" method="post">
+        <div>
+            <label for="numSala">Numero de Sala:</label>
+            <input type="number" id="numSala" />
+        </div>
+        <div>
+            <label for="capacidad">Capacidad:</label>
+            <input type="number" id="capacidad" />
+        </div>
+        <div>
+            <label for="maxTemp">Temperatura maxima:</label>
+            <input type="number" id="maxTemp" />
+        </div>
+        <div>
+            <label for="minTemp">Temperatura minima:</label>
+            <input type="number" id="minTemp" />
+        </div>
+        <div>
+            <label for="maxHum">Humedad maxima:</label>
+            <input type="number" id="maxHum" />
+        </div>
+        <div>
+            <label for="minHum">Humedad minima:</label>
+            <input type="number" id="minHum" />
+        </div>
+
+    </form>
+
+{% endblock %}
