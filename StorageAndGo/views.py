@@ -49,8 +49,8 @@ class AvariaList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AvariaList, self).get_context_data(**kwargs)
-        maintenance = Avaria.objects.filter(accepted=False)
-        context['task_maintenance'] = maintenance
+        avaria = Avaria.objects.filter(accepted=False)
+        context['task_avaria'] = avaria
         return context
 
     def get_queryset(self):
@@ -137,14 +137,34 @@ class TaskAccept(UpdateView):
         return super(TaskAccept, self).form_valid(form)
 
 
-class TaskModify(UpdateView):
+class TaskOperatorModify(UpdateView):
     model = TaskOperator
     fields = '__all__'
     template_name = "form.html"
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        return super(TaskModify, self).form_valid(form)
+        return super(TaskOperatorModify, self).form_valid(form)
+
+
+class TaskMaintenanceModify(UpdateView):
+    model = TaskMaintenance
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskMaintenanceModify, self).form_valid(form)
+
+
+class TaskAvariaModify(UpdateView):
+    model = Avaria
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskAvariaModify, self).form_valid(form)
 
 
 def CreateTaskView(request):

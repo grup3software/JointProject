@@ -3,15 +3,9 @@
 
     <h1>LIST OF TASKS</h1><br>
 
-    {% for task in task_operator %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a> /
-            <a href="{% url 'storageandgo:modify_task' task.pk %}">Editar</a>
-        </h3><br>
-    {% endfor %}
-
-    {% for task in task_maintenance %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>
-            <a href="">Editar</a>
+    {% for task in task_avaria %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.object }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>
+            <a href="{% url 'storageandgo:modify_avaria' task.pk %}">Editar</a>
         </h3><br>
     {% endfor %}
 

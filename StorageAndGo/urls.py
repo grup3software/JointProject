@@ -13,10 +13,6 @@ urlpatterns = [
          ListUnasignedTasks.as_view(),
          name='unasigned_task_list'),
 
-    # path('tasks/',
-    #      ListTasks.as_view(),
-    #      name='task_list'),
-
     path('tasks/<int:pk>/assign/',
          TaskUpdate.as_view(),
          name='assign_task'),
@@ -38,7 +34,15 @@ urlpatterns = [
          TaskAccept.as_view(),
          name='accept_task'),
 
-    path('tasks/<int:pk>/modify/',
-         TaskModify.as_view(),
-         name='modify_task'),
+    path('tasks/<int:pk>/modify_operator/',
+         TaskOperatorModify.as_view(),
+         name='modify_operator'),
+
+    path('tasks/<int:pk>/modify_maintenance/',
+         TaskMaintenanceModify.as_view(),
+         name='modify_maintenance'),
+
+    path('tasks/<int:pk>/modify_avaria/',
+         TaskAvariaModify.as_view(),
+         name='modify_avaria'),
 ]

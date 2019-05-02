@@ -130,7 +130,7 @@ class Room(models.Model):
 
 class Avaria(Task):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
-    object = models.TextField(default="")
+    object = models.TextField(default="", blank=True)
 
     def __unicode__(self):
         return self.description
