@@ -45,4 +45,6 @@ urlpatterns = [
     path('tasks/<int:pk>/modify_avaria/',
          TaskAvariaModify.as_view(),
          name='modify_avaria'),
+
+    path('operari_home/', operari_home, name="operari_home"),
 ]
