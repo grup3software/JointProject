@@ -1,4 +1,6 @@
 # FOR LOADING API
+import ctypes
+
 import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -232,19 +234,19 @@ def createTask(contenidor):
 
     rooms = Room.objects.all()
 
-    avaliableRoom = 0
+    avaliable_room = 0
 
     for room in rooms:
-        if room.temperature > contenidor.tempMinDegree and room.temperature < contenidor.tempMaxDegree and room.capacity-room.contenidorsInside > contenidor.qty:
-                avaliableRoom = room
+        if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] and room.capacity-room.contenidorsInside > contenidor.qty:
+                avaliable_room = room
                 break
 
-    if avaliableRoom == 0:
+    if avaliable_room == 0:
+        TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"], accepted=False, finished=False)
         print(contenidor)
-        task = TaskOperator(description="No hi ha sales disponibles per a conteidors de " + contenidor["name"], product=contenidor["name"], quantity=contenidor["qty"])
-        task.save()
+        ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
     else:
-        task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliableRoom.description, quantity=contenidor.qty)
+        task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliable_room.description, quantity=contenidor.qty, accepted=False, finished=False)
         task.save()
 
 

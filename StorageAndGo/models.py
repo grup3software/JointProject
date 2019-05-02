@@ -45,7 +45,7 @@ class TaskOperator(Task):
     product = models.TextField(default="", blank=True)
     origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True)
     destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True)
-    quantity = models.ManyToManyField("Contenidor", default="", blank=True)
+    quantity = models.IntegerField(null=False, default=0)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
