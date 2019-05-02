@@ -120,13 +120,14 @@ class Contenidor(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=200,null=True)
+    temperatureMin = models.IntegerField(null=False, default=0)
+    temperatureMax = models.IntegerField(null=False, default=0)
+    humitMin = models.IntegerField(null=False, default=0)
+    humitMax = models.IntegerField(null=False, default=0)
+    capacity = models.IntegerField(null=False, default=0)
+    contenidorsInside = models.IntegerField(null=False, default=0)
     description = models.TextField(default="")
-    temperatureMin = models.IntegerField
-    temperatureMax = models.IntegerField
-    humitMin = models.IntegerField
-    humitMax = models.IntegerField
-    capacity = models.IntegerField
-    contenidorsInside = models.IntegerField
+
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
