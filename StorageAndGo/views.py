@@ -249,7 +249,7 @@ def createTask(contenidor):
     avaliable_room = 0
 
     for room in rooms:
-        if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] and room.capacity-room.contenidorsInside > contenidor.qty:
+        if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] and room.capacity-room.contenidorsInside > contenidor['qty']:
                 avaliable_room = room
                 break
 
@@ -258,7 +258,7 @@ def createTask(contenidor):
         print(contenidor)
         # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
     else:
-        task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliable_room.description, quantity=contenidor.qty, accepted=False, finished=False)
+        task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'], product=contenidor['name'], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False, finished=False)
         task.save()
 
 
@@ -279,7 +279,7 @@ class ManifestoCreate(CreateView):
             cont = Contenidor(**contenidor)
             cont.save()
             contenidors.append(cont)
-            # createTask(contenidor)
+            createTask(contenidor)
 
 
         del data[0]['Products']
