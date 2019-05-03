@@ -320,6 +320,16 @@ def tecnics_realizando(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
+def tecnics_finalizado(request):
+    # getting our template
+    template = loader.get_template('tecnics-finalitzades.html')
+
+    tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True)
+    context = {'tasques_tecnics_finalitzades': tasques_tecnics_finalitzades}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
+
 
 def operari_home(request):
     # getting our template
