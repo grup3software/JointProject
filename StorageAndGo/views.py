@@ -149,6 +149,17 @@ def operari_home(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+def operari_arealitzar(request):
+    # getting our template
+    template = loader.get_template('operari-a-realitzar.html')
+
+    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
+    context={'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
+
+
 
 ############################################### TECNIC #################################################################
 
@@ -377,14 +388,3 @@ def createTask(contenidor):
         task.save()
 
 ######################################################## CEO ###########################################################
-
-
-def operari_arealitzar(request):
-    # getting our template
-    template = loader.get_template('operari-a-realitzar.html')
-
-    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
-    context={'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render(context))
