@@ -3,26 +3,9 @@
     {% block content %}
         <h1> Salas </h1>
 
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 1</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 2</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 3</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 4</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 5</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 6</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 7</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 8</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 9</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 10</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 11</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 12</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 13</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 14</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 15</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 16</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 17</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 18</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 19</button>
-            <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA 25</button>
+            {% for sala in rooms %}
+                <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }}</button>
+            {% endfor %}
 
-            <a href= {% url 'storageandgo:afegir_sala' %}><button class="w3-button w3-circle w3-black w3-display-bottomright"style="position: fixed; width:1.5cm; height:1.5cm; margin-right: 2%; margin-bottom: 2%"> + </button></a>
+            <a href= {% url 'storageandgo:afegir_sala' %}><button class="w3-button w3-circle w3-black w3-display-bottomright"style="position: fixed; width:1.5cm; height:1.5cm; margin-right: 2%; margin-bottom: 2%">+</button></a>
     {% endblock %}
