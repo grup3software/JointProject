@@ -1,4 +1,6 @@
 # FOR LOADING API
+import ctypes
+
 import requests
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -171,6 +173,16 @@ class TaskAccept(UpdateView):
         return super(TaskAccept, self).form_valid(form)
 
 
+class TaskFinish(UpdateView):
+    model = Task
+    fields = ['finished']
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskFinish, self).form_valid(form)
+
+
 class TaskOperatorModify(UpdateView):
     model = TaskOperator
     fields = '__all__'
@@ -210,21 +222,42 @@ def CreateTaskView(request):
             return redirect('storageandgo:gestor_arealizar')
 
     else:
-
         form = CreateTaskForm()
-
         return render(request, "form.html", {'form': form})
 
 
-'''class CreateTaskView(FormView):
-    template_name = 'form.html'
-    form = CreateTaskForm()
-    success_url = '/Task-Successfull/'
+def CreateSalaView(request):
+    if request.method == 'POST':
+        form = CreateSala(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:mapa_salas')
+    else:
+        form = CreateSala()
+        return render(request, "form.html", {'form': form})
 
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        return super().form_valid(form)'''
+
+def createTask(contenidor):
+
+    print(contenidor)
+
+    rooms = Room.objects.all()
+
+    avaliable_room = 0
+
+    for room in rooms:
+        if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] and room.capacity-room.contenidorsInside > contenidor.qty:
+                avaliable_room = room
+                break
+
+    if avaliable_room == 0:
+        TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"], accepted=False, finished=False)
+        print(contenidor)
+        # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
+    else:
+        task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliable_room.description, quantity=contenidor.qty, accepted=False, finished=False)
+        task.save()
 
 
 class ManifestoCreate(CreateView):
@@ -244,6 +277,8 @@ class ManifestoCreate(CreateView):
             cont = Contenidor(**contenidor)
             cont.save()
             contenidors.append(cont)
+            # createTask(contenidor)
+
 
         del data[0]['Products']
 
@@ -277,6 +312,13 @@ def tecnics_arealitzar(request):
 def operari_home(request):
     # getting our template
     template = loader.get_template('operari-home.html')
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render())
+
+def añadir_sala(request):
+    # getting our template
+    template = loader.get_template('añadir_sala_form.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())

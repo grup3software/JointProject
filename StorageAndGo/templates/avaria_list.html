@@ -1,7 +1,7 @@
 {% extends "gestor-sala-home.html" %}
 {% block content %}
 
-    <h1>LIST OF TASKS</h1><br>
+    <h1>LIST OF ISSUES</h1><br>
 
     {% for task in task_avaria %}
         <h3>{{ task.pk }} - {{ task.description }} - {{ task.object }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>

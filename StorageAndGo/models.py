@@ -6,16 +6,13 @@ from django.urls import reverse
 
 # Create your models here.
 
-PRIORITY_TYPE = (('A', 'Alta'),
-                 ('S', 'Sense Prioritat'),)
-
 
 class Task(models.Model):
     description = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
     accepted = models.BooleanField(default=False)
     finished = models.BooleanField(default=False)
-    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
+    hight_priority = models.BooleanField(default=False)
 
     def get_class(self):
         # return self.__class__.__name__
@@ -48,7 +45,7 @@ class TaskOperator(Task):
     product = models.TextField(default="", blank=True)
     origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True)
     destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True)
-    quantity = models.ManyToManyField("Contenidor", default="", blank=True)
+    quantity = models.IntegerField(null=False, default=0)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
@@ -122,11 +119,22 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
+    name = models.CharField(max_length=200,null=True)
+    temperatureMin = models.IntegerField(null=False, default=0)
+    temperatureMax = models.IntegerField(null=False, default=0)
+    humitMin = models.IntegerField(null=False, default=0)
+    humitMax = models.IntegerField(null=False, default=0)
+    capacity = models.IntegerField(null=False, default=0)
+    contenidorsInside = models.IntegerField(null=False, default=0)
     description = models.TextField(default="")
+
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
+
+    def get_absolute_url(self):
+        return reverse('storageandgo:mapa_salas')
 
 
 class Avaria(Task):
