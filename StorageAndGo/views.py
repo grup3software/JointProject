@@ -308,6 +308,16 @@ def tecnics_arealitzar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
+def tecnics_realizando(request):
+    # getting our template
+    template = loader.get_template('tecnics-realizando.html')
+
+    tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False)
+    context = {'tasques_tecnics_realizando': tasques_tecnics_realizando}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
+
 
 def operari_home(request):
     # getting our template

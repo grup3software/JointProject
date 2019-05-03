@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^tecnics_home/', tecnics_home, name="tecnics_home"),
 
     url(r'^tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
+    url(r'^tecnics_realitzant/', tecnics_realizando, name="tecnics_realizando"),
 
     path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
