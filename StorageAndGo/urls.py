@@ -60,4 +60,7 @@ urlpatterns = [
     # url(r'^añadir_sala/', CreateSalaView, name="añadir_sala"),
     path('afegir_sala/', CreateSalaView, name="afegir_sala"),
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
+
+    url(r'^operari_arealizar/', operari_arealitzar, name="operari_arealizar"),
+
 ]
