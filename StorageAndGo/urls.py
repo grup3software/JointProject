@@ -39,6 +39,10 @@ urlpatterns = [
          TaskAccept.as_view(),
          name='accept_task'),
 
+    path('tasks/<int:pk>/finish/',
+         TaskFinish.as_view(),
+         name='finish_task'),
+
     path('tasks/<int:pk>/modify_operator/',
          TaskOperatorModify.as_view(),
          name='modify_operator'),

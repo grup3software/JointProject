@@ -173,6 +173,16 @@ class TaskAccept(UpdateView):
         return super(TaskAccept, self).form_valid(form)
 
 
+class TaskFinish(UpdateView):
+    model = Task
+    fields = ['finished']
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(TaskFinish, self).form_valid(form)
+
+
 class TaskOperatorModify(UpdateView):
     model = TaskOperator
     fields = '__all__'
@@ -244,7 +254,7 @@ def createTask(contenidor):
     if avaliable_room == 0:
         TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"], accepted=False, finished=False)
         print(contenidor)
-        ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
+        # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
     else:
         task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name, product=contenidor.name, origin="Moll descarrega", destination=avaliable_room.description, quantity=contenidor.qty, accepted=False, finished=False)
         task.save()
@@ -267,7 +277,7 @@ class ManifestoCreate(CreateView):
             cont = Contenidor(**contenidor)
             cont.save()
             contenidors.append(cont)
-            createTask(contenidor);
+            # createTask(contenidor)
 
 
         del data[0]['Products']
