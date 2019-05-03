@@ -158,9 +158,11 @@ def gestor_añadirtarea(request):
 def mapa_salas(request):
     # getting our template
     template = loader.get_template('mapa-salas.html')
+    rooms = Room.objects.all()
 
     # rendering the template in HttpResponse
-    return HttpResponse(template.render())
+    # return HttpResponse(template.render())
+    return render(request, "mapa-salas2.html", {'rooms': rooms})
 
 
 class TaskAccept(UpdateView):
