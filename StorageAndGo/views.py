@@ -162,7 +162,7 @@ def mapa_salas(request):
 
     # rendering the template in HttpResponse
     # return HttpResponse(template.render())
-    return render(request, "mapa-salas2.html", {'rooms': rooms})
+    return render(request, "mapa-salas.html", {'rooms': rooms})
 
 
 class TaskAccept(UpdateView):
@@ -344,3 +344,14 @@ def añadir_sala(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
+
+def operari_arealitzar(request):
+    # getting our template
+    template = loader.get_template('operari-a-realitzar.html')
+
+    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
+    context={'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
