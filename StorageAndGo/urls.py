@@ -34,7 +34,6 @@ urlpatterns = [
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
     path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
-    path('creacio_sala/', CreateSala, name="CreateSalaView"),
 
     path('tasks/<int:pk>/accept/',
          TaskAccept.as_view(),
@@ -58,7 +57,6 @@ urlpatterns = [
 
     path('operari_home/', operari_home, name="operari_home"),
 
-    # url(r'^añadir_sala/', CreateSalaView, name="añadir_sala"),
     path('afegir_sala/', CreateSalaView, name="afegir_sala"),
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]

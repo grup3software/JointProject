@@ -162,7 +162,7 @@ def mapa_salas(request):
 
     # rendering the template in HttpResponse
     # return HttpResponse(template.render())
-    return render(request, "mapa-salas2.html", {'rooms': rooms})
+    return render(request, "mapa-salas.html", {'rooms': rooms})
 
 
 class TaskAccept(UpdateView):
