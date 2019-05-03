@@ -2,7 +2,7 @@
 import ctypes
 
 import requests
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.views.generic import ListView, UpdateView, CreateView
@@ -173,6 +173,7 @@ class TaskAccept(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskAccept, self).form_valid(form)
+        # return HttpResponseRedirect(self.request.path_info)
 
 
 class TaskFinish(UpdateView):
