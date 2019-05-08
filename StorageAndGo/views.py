@@ -188,7 +188,9 @@ class TaskMaintenanceModify(UpdateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        return super(TaskMaintenanceModify, self).form_valid(form)
+        # return super(TaskMaintenanceModify, self).form_valid(form)
+        url_report = self.request.META.get('HTTP_REFERER')
+        return redirect(url_report)
 
 
 class TaskAvariaModify(UpdateView):
