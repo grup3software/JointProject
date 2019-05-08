@@ -480,6 +480,26 @@ def operari_arealitzar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
+def operari_realizando(request):
+    # getting our template
+    template = loader.get_template('operari-realizando.html')
+
+    tasques_operari_realizando = TaskOperator.objects.filter(accepted=True, finished=False)
+    context = {'tasques_operari_realizando': tasques_operari_realizando}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
+
+def operari_finalizado(request):
+    # getting our template
+    template = loader.get_template('operari-finalizado.html')
+
+    tasques_operari_finalizado = TaskOperator.objects.filter(finished=True)
+    context = {'tasques_operari_finalizado': tasques_operari_finalizado}
+
+    # rendering the template in HttpResponse
+    return HttpResponse(template.render(context))
+
 
         # task = TaskOperator(description="Moure " + contenidor.qty + "conteidors de " + contenidor.name,
         #                     product=contenidor.name, origin="Moll descarrega", destination=avaliable_room.description,

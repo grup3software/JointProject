@@ -39,12 +39,14 @@ urlpatterns = [
 
 
     path('operari_home/', operari_home, name="operari_home"),
+    url(r'^operari_arealizar/', operari_arealitzar, name="operari_arealitzar"),
+    url(r'^operari_realizando/', operari_realizando, name="operari_realizando"),
+    url(r'^operari_finalizado/', operari_finalizado, name="operari_finalizado"),
 
     #                                              TECNIC
 
 
     url(r'^tecnics_home/', tecnics_home, name="tecnics_home"),
-
     url(r'^tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
     url(r'^tecnics_realitzant/', tecnics_realizando, name="tecnics_realizando"),
     url(r'^tecnics_finalizado/', tecnics_finalizado, name="tecnics_finalizado"),
