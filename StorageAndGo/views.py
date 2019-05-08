@@ -327,7 +327,8 @@ class TaskOperatorModify(UpdateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        return super(TaskOperatorModify, self).form_valid(form)
+        # FALTA GUARDAR MODIFICACIONS
+        return redirect('storageandgo:operari_home')
 
 
 class TaskMaintenanceModify(UpdateView):
