@@ -45,7 +45,7 @@ class TaskOperator(Task):
     product = models.TextField(default="", blank=True)
     origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True)
     destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True)
-    quantity = models.ManyToManyField("Contenidor", default="", blank=True)
+    quantity = models.IntegerField(null=False, default=0)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
@@ -119,19 +119,22 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=200,null=True)
-    temperatureMin = models.IntegerField(null=False, default=0)
-    temperatureMax = models.IntegerField(null=False, default=0)
-    humitMin = models.IntegerField(null=False, default=0)
-    humitMax = models.IntegerField(null=False, default=0)
-    capacity = models.IntegerField(null=False, default=0)
-    contenidorsInside = models.IntegerField(null=False, default=0)
-    description = models.TextField(default="")
+    name = models.CharField("Nombre",max_length=200,null=True)
+    temperatureMin = models.IntegerField("Temperatura MIN",null=False, default=0)
+    temperatureMax = models.IntegerField("Temperatura MAX",null=False, default=0)
+    humitMin = models.IntegerField("Humedad MIN",null=False, default=0)
+    humitMax = models.IntegerField("Humedad MAX",null=False, default=0)
+    capacity = models.IntegerField("Capacidad",null=False, default=0)
+    contenidorsInside = models.IntegerField("Contenedores Dentro", null=False, default=0)
+    description = models.TextField("Descripción",default="",null=True)
 
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
+
+    def get_absolute_url(self):
+        return reverse('storageandgo:mapa_salas')
 
 
 class Avaria(Task):

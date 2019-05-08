@@ -1,0 +1,12 @@
+{% extends 'tecnics-home.html' %}
+
+    {% block content %}
+        <h3>Llista tasques realitzant manteniment:</h3>
+        {% if tasques_tecnics_realizando %}
+            <ul>
+                {% for task in tasques_tecnics_realizando %}
+                    <a href="#">{{ task.description }}</a> - <a href="{% url 'storageandgo:finish_task' task.pk %}">Finalitzar</a>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}

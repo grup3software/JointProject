@@ -1,6 +1,12 @@
 {% extends 'tecnics-home.html' %}
 
     {% block content %}
-
-
+        <h3>Llista tasques a realitzar manteniment:</h3>
+        {% if tasques_tecnics_a_realitzar %}
+            <ul>
+                {% for task in tasques_tecnics_a_realitzar %}
+                    <a href="#">{{ task.description }}</a> - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endblock %}

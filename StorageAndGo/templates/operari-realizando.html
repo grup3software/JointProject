@@ -1,0 +1,12 @@
+{% extends 'operari-home.html' %}
+
+    {% block content %}
+        <h3>Lista tareas realizando:</h3>
+        {% if tasques_operari_realizando %}
+            <ul>
+                {% for task in tasques_operari_realizando %}
+                    <a href="#">{{ task.description }}</a> - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a> / <a href="{% url 'storageandgo:accept_task' task.pk %}"></a>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
