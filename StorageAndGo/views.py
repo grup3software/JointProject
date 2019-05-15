@@ -453,7 +453,7 @@ def tecnics_finalizado(request):
 
 def operari_home(request):
     # getting our template
-    template = loader.get_template('operari-home.html')
+    template = loader.get_template('Operaris/operari-home.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
