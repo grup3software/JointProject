@@ -299,25 +299,18 @@ class TaskUpdate(UpdateView):
         return super(TaskUpdate, self).form_valid(form)
 
 
-class TaskAccept(UpdateView):
-    model = Task
-    fields = ['accepted']
-    template_name = "form.html"
-
-    def form_valid(self, form):
-        form.instance.sender = self.request.user
-        return super(TaskAccept, self).form_valid(form)
-        # return HttpResponseRedirect(self.request.path_info)
+def task_accept(request, pk):
+    task = Task.objects.get(pk=pk)
+    task.accepted = True
+    task.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
-class TaskFinish(UpdateView):
-    model = Task
-    fields = ['finished']
-    template_name = "form.html"
-
-    def form_valid(self, form):
-        form.instance.sender = self.request.user
-        return super(TaskFinish, self).form_valid(form)
+def task_finish(request, pk):
+    task = Task.objects.get(pk=pk)
+    task.finished = True
+    task.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 class TaskOperatorModify(UpdateView):
