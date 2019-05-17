@@ -407,6 +407,7 @@ class TaskAccept(UpdateView):
 def task_accept(request, pk):
     task = Task.objects.get(pk=pk)
     task.accepted = True
+    task.user = User.objects.get(username=request.user.username)
     task.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
