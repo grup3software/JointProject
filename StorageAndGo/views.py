@@ -37,7 +37,7 @@ from .forms import *
 
 
 def redirect_to_home(request):
-    if request.user.is_authenticated == False:
+    if not request.user.is_authenticated:
         return redirect("/accounts/login/")
 
     group = User.objects.get(username=request.user).groups.all()[0]
@@ -47,7 +47,7 @@ def redirect_to_home(request):
     elif group.name == 'Tecnic':
         return redirect("storageandgo:tecnics_home")
     elif group.name == 'Gestor':
-        return None
+        return redirect("storageandgo:task_list")
 
 
 class ManifestoCreate(CreateView):
