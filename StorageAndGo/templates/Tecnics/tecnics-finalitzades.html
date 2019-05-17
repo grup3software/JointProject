@@ -1,0 +1,12 @@
+{% extends 'Tecnics/tecnics-home.html' %}
+
+    {% block content %}
+        <h3>Llista tasques finalitzades manteniment:</h3>
+        {% if tasques_tecnics_finalitzades %}
+            <ul>
+                {% for task in tasques_tecnics_finalitzades %}
+                    <a href="#">{{ task.description }}</a>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}

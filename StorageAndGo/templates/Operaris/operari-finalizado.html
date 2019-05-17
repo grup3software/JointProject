@@ -1,0 +1,12 @@
+{% extends 'Operaris/operari-home.html' %}
+
+    {% block content %}
+        <h3>Lista tareas realizadas:</h3>
+        {% if tasques_operari_finalizado %}
+            <ul>
+                {% for task in tasques_operari_finalizado %}
+                    <a href="#">{{ task.description }}</a>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}

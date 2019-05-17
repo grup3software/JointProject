@@ -1,0 +1,19 @@
+{% extends 'Gestor_Sala/gestor-sala-home.html' %}
+{% block content %}
+
+    <h1>LIST OF OPERATOR TASKS</h1><br>
+
+    {% for task in task_operator %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:finish_task' task.pk %}">Finalitzar</a>
+        </h3><br>
+    {% endfor %}
+
+    <h1>LIST OF MAINTENANCE TASKS</h1><br>
+
+    {% for task in task_maintenance %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:finish_task' task.pk %}">Finalitzar</a>
+
+        </h3><br>
+    {% endfor %}
+
+{% endblock %}

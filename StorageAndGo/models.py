@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
@@ -5,15 +6,13 @@ from django.urls import reverse
 
 # Create your models here.
 
-PRIORITY_TYPE = (('A', 'Alta'),
-                 ('S', 'Sense Prioritat'),)
-
 
 class Task(models.Model):
-    description = models.TextField(default="")
-    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True)
-    accepted = models.BooleanField(default=False)
-    priority = models.CharField('Priority', max_length=1, choices=PRIORITY_TYPE, blank=True, null=True)
+    description = models.TextField(default="",verbose_name= 'Descripción')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="user_maintenance", blank=True, null=True, verbose_name='Usuario')
+    accepted = models.BooleanField(default=False,verbose_name= 'Acceptado')
+    finished = models.BooleanField(default=False,verbose_name='Acabado')
+    hight_priority = models.BooleanField(default=False, verbose_name='Alta prioridad')
 
     def get_class(self):
         # return self.__class__.__name__
@@ -24,12 +23,11 @@ class Task(models.Model):
         return reverse('storageandgo:task_list')
 
 
-# HI HA TRES TIPUS DE SUBCLASSE DE  (MANTENIMENT, CLIMATITZACIO, REPARACIO)
-# CANVIAR NOM A TECNIC
+# HI HA TRES TIPUS DE SUBCLASSE DE MANTENIMENT
 class TaskMaintenance(Task):
     # HI HA DOS PRIORITATS (AMB I SENSE)
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
-    temperature = models.IntegerField(default=0, blank=True)
+    temperature = models.IntegerField(default=0, blank=True, verbose_name='Temperatura')
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
@@ -44,10 +42,10 @@ class TaskMaintenance(Task):
 
 
 class TaskOperator(Task):
-    product = models.TextField(default="", blank=True)
-    origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True)
-    destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True)
-    quantity = models.ManyToManyField("Contenidor", default="", blank=True)
+    product = models.TextField(default="", blank=True,verbose_name='Producto')
+    origin = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="origin", blank=True, null=True,verbose_name='Origen')
+    destination = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, related_name="destination", blank=True, null=True,verbose_name='Destino')
+    quantity = models.IntegerField(null=False, default=0,verbose_name='Cantidad')
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
@@ -62,32 +60,55 @@ class TaskOperator(Task):
 
 
 class Manifesto(models.Model):
-    reference = models.BigIntegerField(primary_key=True, default=00000000000)
-    entry_date = models.DateField(default=date.today)
-    origin = models.CharField(max_length=255)
-    destination = models.CharField(max_length=255)
+    ref = models.CharField(primary_key=True, default="", max_length=50,verbose_name='Referencia')
+    creationDate = models.DateTimeField(default=date.today,verbose_name='Fecha de creación')
+    revisionDate = models.DateTimeField(null=True,verbose_name='Fecha de revisión')
+    withdrawal = models.BooleanField(null=True,verbose_name='Salida')
+    totalpackets = models.IntegerField(null=True,verbose_name='Numero total de paquetes')
+    fromLocation = models.CharField(max_length=255,verbose_name='Des de')
+    toLocation = models.CharField(max_length=255,verbose_name='Para')
+    products = models.ManyToManyField('Contenidor', related_name='Products',verbose_name='Productos')
+
+    def create_manifesto(self, diccionari):
+        self.objects.create(reference=diccionari['ref'],
+                            entry_date=diccionari['creationDate'],
+                            revision_date=diccionari['revisionDate'],
+                            withdraw=diccionari['withdrawal'],
+                            number_packets=diccionari['totalpackets'],
+                            origin=diccionari['fromLocation'],
+                            destination=diccionari['toLocation'])
 
     def get_length(self):
-        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).count()
+        return Contenidor.objects.filter(Contenidor.manifesto == self.ref).count()
 
     def get_different_products(self):
-        return Contenidor.objects.filter(Contenidor.manifesto == self.reference).distinct(Contenidor.name).count()
+        return Contenidor.objects.filter(Contenidor.manifesto == self.ref).distinct(Contenidor.name).count()
 
     def __unicode__(self):
         return u"%s" % self.name
 
 
 class Contenidor(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    temp_min = models.SmallIntegerField(null=True)
-    temp_max = models.SmallIntegerField(null=True)
-    moistness_min = models.PositiveSmallIntegerField(null=True)
-    moistness_max = models.PositiveSmallIntegerField(null=True)
-    limit_date = models.DateField(default=None, null=True)
-    manifesto = models.ForeignKey(Manifesto, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=200, null=True,verbose_name='Nombre contenedor')
+    qty = models.IntegerField(null=True,verbose_name='Cantidad')
+    tempMinDegree = models.SmallIntegerField(null=True, validators=[MinValueValidator(-30),
+                                                                    MaxValueValidator(30)],verbose_name='Temperatura mínima')
+    tempMaxDegree = models.SmallIntegerField(null=True, validators=[MinValueValidator(-30),
+                                                                    MaxValueValidator(30)],verbose_name='Temperatura máxima')
+    humidMin = models.PositiveSmallIntegerField(null=True, validators=[MinValueValidator(0),
+                                                                       MaxValueValidator(100)],verbose_name='Humedad mínima')
+    humidMax = models.PositiveSmallIntegerField(null=True, validators=[MinValueValidator(0),
+                                                                       MaxValueValidator(100)],verbose_name='Humedad máxima')
+    sla = models.DateTimeField(null=True)
 
-    def create_container(self, name, temp_min, temp_max, moistness_min, limit_date, manifesto):
-        self.objects.create(name=name, temp_min=temp_min, temp_max=temp_max, moistness_min=moistness_min, limit_date=limit_date, manifesto=manifesto)
+    def create_container(self, diccionari):
+        self.objects.create(name=diccionari['name'],
+                            quantity=diccionari['quantity'],
+                            temp_min=diccionari['temp_min'],
+                            temp_max=diccionari['temp_max'],
+                            moistness_min=diccionari['moistness_min'],
+                            limit_date=diccionari['limit_date'],
+                            manifesto=diccionari['manifesto'])
 
     def delete_container(self):
         Contenidor.objects.filter(self.id).delete()
@@ -97,8 +118,26 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
-    description = models.TextField(default="")
+    name = models.CharField(max_length=200,null=True,verbose_name='Nombre sala')
+    temperatureMin = models.IntegerField("Temperatura mínima",null=False, default=0,)
+    temperatureMax = models.IntegerField("Temperatura máxima",null=False, default=0,)
+    humitMin = models.IntegerField("Humedad mínima",null=False, default=0)
+    humitMax = models.IntegerField("Humedad máxima",null=False, default=0)
+    capacity = models.IntegerField("Capacidad",null=False, default=0)
+    contenidorsInside = models.IntegerField("Contenedores Dentro", null=False, default=0)
+    description = models.TextField("Descripción",default="",null=True)
 
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
+
+    def get_absolute_url(self):
+        return reverse('storageandgo:mapa_salas')
+
+
+class Avaria(Task):
+    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
+    object = models.TextField("Objecto",default="", blank=True)
+
+    def __unicode__(self):
+        return self.description
