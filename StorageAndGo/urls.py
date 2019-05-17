@@ -9,6 +9,8 @@ app_name = "storageandgo"
 
 urlpatterns = [
 
+    path('', redirect_to_home),
+
     # LIST OF TASKS
 
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),

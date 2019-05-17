@@ -36,6 +36,20 @@ from .forms import *
 #         return super(TaskUpdate, self).form_valid(form)
 
 
+def redirect_to_home(request):
+    if request.user.is_authenticated == False:
+        return redirect("/accounts/login/")
+
+    group = User.objects.get(username=request.user).groups.all()[0]
+
+    if group.name == "Ceo":
+        return None
+    elif group.name == 'Tecnic':
+        return redirect("storageandgo:tecnics_home")
+    elif group.name == 'Gestor':
+        return None
+
+
 class ManifestoCreate(CreateView):
     model = Manifesto
     fields = ['ref']
