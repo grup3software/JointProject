@@ -49,6 +49,8 @@ def redirect_to_home(request):
         return redirect("storageandgo:tecnics_home")
     elif group.name == 'Gestor':
         return redirect("storageandgo:task_list")
+    elif group.name == 'Operari':
+        return redirect("storageandgo:operari_home")
 
 class ManifestoCreate(CreateView):
     model = Manifesto
