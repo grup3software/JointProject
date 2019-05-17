@@ -5,6 +5,9 @@ app_name = "storageandgo"
 
 pathpatterns = [
 
+    path('', redirect_to_home),
+
+    # LIST OF TASKS
 
     path('avaria_list/', AvariaList.as_view(), name="AvariaList"),
 
