@@ -267,7 +267,7 @@ class ListUnasignedTasks(ListView):
 
 @login_required(login_url='/accounts/login')
 class ListTasks(ListView):
-    template_name = 'task_list.html'
+    template_name = 'Gestor_Sala/gestor-sala-a-realizar.html'
 
     def get_context_data(self, **kwargs):
         context = super(ListTasks, self).get_context_data(**kwargs)
