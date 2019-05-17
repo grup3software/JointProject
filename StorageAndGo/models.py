@@ -26,7 +26,7 @@ class Task(models.Model):
 # HI HA TRES TIPUS DE SUBCLASSE DE MANTENIMENT
 class TaskMaintenance(Task):
     # HI HA DOS PRIORITATS (AMB I SENSE)
-    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Sala')
+    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
     temperature = models.IntegerField(default=0, blank=True, verbose_name='Temperatura')
 
     def __unicode__(self):
@@ -118,7 +118,7 @@ class Contenidor(models.Model):
 
 
 class Room(models.Model):
-    name = models.CharField("Nombre",max_length=200,null=True,verbose_name='Nombre sala')
+    name = models.CharField(max_length=200,null=True,verbose_name='Nombre sala')
     temperatureMin = models.IntegerField("Temperatura mínima",null=False, default=0,)
     temperatureMax = models.IntegerField("Temperatura máxima",null=False, default=0,)
     humitMin = models.IntegerField("Humedad mínima",null=False, default=0)
@@ -137,7 +137,7 @@ class Room(models.Model):
 
 
 class Avaria(Task):
-    room = models.ForeignKey("Sala", default=1, on_delete=models.PROTECT, blank=True, null=True)
+    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
     object = models.TextField("Objecto",default="", blank=True)
 
     def __unicode__(self):
