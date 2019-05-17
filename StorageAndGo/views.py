@@ -3,7 +3,7 @@ import ctypes
 
 import requests
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.views.generic import ListView, UpdateView, CreateView
@@ -123,12 +123,9 @@ def gestor_añadirtarea(request):
 
 @login_required(login_url='/accounts/login')
 def mapa_salas(request):
-    # getting our template
-    template = loader.get_template('mapa-salas.html')
     rooms = Room.objects.all()
 
     # rendering the template in HttpResponse
-    # return HttpResponse(template.render())
     return render(request, "mapa-salas.html", {'rooms': rooms})
 
 
@@ -147,12 +144,15 @@ def CreateSalaView(request):
 
 ############################################## OPERARI #################################################################
 
+
 def operari_home(request):
     # getting our template
     template = loader.get_template('Operaris/operari-home.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
+
 @login_required(login_url='/accounts/login')
 def operari_arealitzar(request):
     # getting our template
@@ -164,6 +164,7 @@ def operari_arealitzar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
+
 def operari_realizando(request):
     # getting our template
     template = loader.get_template('Operaris/operari-realizando.html')
@@ -173,6 +174,7 @@ def operari_realizando(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
+
 
 def operari_finalizado(request):
     # getting our template
@@ -185,9 +187,9 @@ def operari_finalizado(request):
     return HttpResponse(template.render(context))
 
 
-
-
 ############################################### TECNIC #################################################################
+
+
 @login_required(login_url='/accounts/login')
 def tecnics_home(request):
     # getting our template
@@ -211,6 +213,7 @@ class AvariaList(ListView):
 
         return queryset
 
+
 @login_required(login_url='/accounts/login')
 def tecnics_arealitzar(request):
     # getting our template
@@ -222,6 +225,7 @@ def tecnics_arealitzar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
+
 @login_required(login_url='/accounts/login')
 def tecnics_realizando(request):
     # getting our template
@@ -232,6 +236,7 @@ def tecnics_realizando(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
+
 
 @login_required(login_url='/accounts/login')
 def tecnics_finalizado(request):
@@ -262,6 +267,7 @@ class ListUnasignedTasks(ListView):
 
         return queryset
 
+
 class ListTasks(ListView):
     template_name = 'Gestor_Sala/gestor-sala-a-realizar.html'
 
@@ -277,6 +283,7 @@ class ListTasks(ListView):
         queryset = Task.objects.filter()
 
         return queryset
+
 
 class ListRealizing(ListView):
     template_name = 'Gestor_Sala/gestor-sala-realizando.html'
@@ -294,6 +301,7 @@ class ListRealizing(ListView):
 
         return queryset
 
+
 class ListFinalized(ListView):
     template_name = 'Gestor_Sala/gestor-sala-finalizado.html'
 
@@ -309,6 +317,7 @@ class ListFinalized(ListView):
         queryset = Task.objects.filter()
 
         return queryset
+
 
 class TaskUpdate(UpdateView):
     model = Task
@@ -329,6 +338,7 @@ class TaskUpdate(UpdateView):
 #         form.instance.sender = self.request.user
 #         return super(TaskUpdate, self).form_valid(form)
 
+
 @login_required(login_url='/accounts/login')
 def gestor_home(request):
     # getting our template
@@ -336,6 +346,7 @@ def gestor_home(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
 
 @login_required(login_url='/accounts/login')
 def gestor_arealizar(request):
@@ -345,6 +356,7 @@ def gestor_arealizar(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 @login_required(login_url='/accounts/login')
 def gestor_realizando(request):
     # getting our template
@@ -352,6 +364,7 @@ def gestor_realizando(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
 
 @login_required(login_url='/accounts/login')
 def gestor_finalizado(request):
@@ -361,6 +374,7 @@ def gestor_finalizado(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 @login_required(login_url='/accounts/login')
 def gestor_añadirtarea(request):
     # getting our template
@@ -368,6 +382,8 @@ def gestor_añadirtarea(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
+
 @login_required(login_url='/accounts/login')
 def gestor_registrar_manifest(request):
     # getting our template
@@ -376,6 +392,7 @@ def gestor_registrar_manifest(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
+
 @login_required(login_url='/accounts/login')
 def mapa_salas(request):
     # getting our template
@@ -383,6 +400,7 @@ def mapa_salas(request):
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
+
 
 class TaskAccept(UpdateView):
     model = Task
