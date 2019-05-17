@@ -127,7 +127,6 @@ class Room(models.Model):
     contenidorsInside = models.IntegerField("Contenedores Dentro", null=False, default=0)
     description = models.TextField("Descripción",default="",null=True)
 
-
     def __unicode__(self):
         # return u"%d - %d - %s" % self.room, self.temperature, self.description
         return u"%s" % self.description
