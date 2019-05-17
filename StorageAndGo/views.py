@@ -50,7 +50,6 @@ def redirect_to_home(request):
     elif group.name == 'Gestor':
         return redirect("storageandgo:task_list")
 
-@login_required(login_url='/accounts/login')
 class ManifestoCreate(CreateView):
     model = Manifesto
     fields = ['ref']
@@ -198,7 +197,6 @@ def tecnics_home(request):
     return HttpResponse(template.render())
 
 
-@login_required(login_url='/accounts/login')
 class AvariaList(ListView):
     template_name = 'avaria_list.html'
 
@@ -248,7 +246,6 @@ def tecnics_finalizado(request):
 
 
 ################################################# TASKS ################################################################
-@login_required(login_url='/accounts/login')
 class ListUnasignedTasks(ListView):
     template_name = 'unasigned_task_list.html'
 
@@ -265,9 +262,8 @@ class ListUnasignedTasks(ListView):
 
         return queryset
 
-@login_required(login_url='/accounts/login')
 class ListTasks(ListView):
-    template_name = 'task_list.html'
+    template_name = 'Gestor_Sala/gestor-sala-a-realizar.html'
 
     def get_context_data(self, **kwargs):
         context = super(ListTasks, self).get_context_data(**kwargs)
@@ -282,7 +278,6 @@ class ListTasks(ListView):
 
         return queryset
 
-@login_required(login_url='/accounts/login')
 class ListRealizing(ListView):
     template_name = 'Gestor_Sala/gestor-sala-realizando.html'
 
@@ -299,7 +294,6 @@ class ListRealizing(ListView):
 
         return queryset
 
-@login_required(login_url='/accounts/login')
 class ListFinalized(ListView):
     template_name = 'Gestor_Sala/gestor-sala-finalizado.html'
 
@@ -316,7 +310,6 @@ class ListFinalized(ListView):
 
         return queryset
 
-@login_required(login_url='/accounts/login')
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['user']
@@ -391,7 +384,6 @@ def mapa_salas(request):
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
-@login_required(login_url='/accounts/login')
 class TaskAccept(UpdateView):
     model = Task
     fields = ['accepted']
@@ -420,7 +412,6 @@ def task_finish(request, pk):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='/accounts/login')
 class TaskOperatorModify(UpdateView):
     model = TaskOperator
     fields = '__all__'
@@ -432,7 +423,6 @@ class TaskOperatorModify(UpdateView):
         return redirect('storageandgo:operari_home')
 
 
-@login_required(login_url='/accounts/login')
 class TaskMaintenanceModify(UpdateView):
     model = TaskMaintenance
     fields = '__all__'
@@ -445,7 +435,6 @@ class TaskMaintenanceModify(UpdateView):
         return redirect(url_report)
 
 
-@login_required(login_url='/accounts/login')
 class TaskAvariaModify(UpdateView):
     model = Avaria
     fields = '__all__'
