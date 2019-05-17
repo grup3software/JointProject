@@ -3,7 +3,7 @@ from .views import *
 
 app_name = "storageandgo"
 
-pathpatterns = [
+urlpatterns = [
 
     path('', redirect_to_home),
 
@@ -20,12 +20,12 @@ pathpatterns = [
     path('gestor_finalizado/', ListFinalized.as_view(), name="gestor_finalizado"),
     path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
-    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
 
 
     #SALA
 
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
+    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
 
 
     #OPERARI
@@ -76,6 +76,5 @@ pathpatterns = [
 
     #CEO
 
-    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]
