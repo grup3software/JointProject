@@ -198,6 +198,16 @@ def operari_finalizado(request):
     return HttpResponse(template.render(context))
 
 
+def operari_notification(request):
+    current_user = request.user.id
+    tasks = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
+    if tasks.exists():
+        return HttpResponse(1)
+    else:
+        return HttpResponse(0)
+
+
+
 ############################################### TECNIC #################################################################
 
 
