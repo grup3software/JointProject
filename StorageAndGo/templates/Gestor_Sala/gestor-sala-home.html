@@ -53,9 +53,15 @@
             <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
             <span>Storage&Go</span>
 
-            <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
-                <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
-            </div>
+            {%  if user.user %}
+                <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
+                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'logout' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
+                </div>
+            {% else %}
+                <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
+                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
+                </div>
+            {% endif %}
 
             <div class="w3-container w3-cell w3-display-topright"style="padding-top:15px; right: 50px">
                 <h7 class="w3-padding-16"style="text-align: right"><img src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"style="width: 35px; height: 35px"></h7>
