@@ -4,16 +4,14 @@
     <h1>LLISTA TASQUES OPERADOR</h1><br>
 
     {% for task in task_operator %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a> /
-            <a href="{% url 'storageandgo:modify_operator' task.pk %}">Editar</a>
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}
         </h3><br>
     {% endfor %}
 
     <h1>LLISTA TASQUES DE MANTENIMENT</h1><br>
 
     {% for task in task_maintenance %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>
-            <a href="{% url 'storageandgo:modify_maintenance' task.pk %}">Editar</a>
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}
         </h3><br>
     {% endfor %}
 
