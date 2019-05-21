@@ -198,6 +198,16 @@ def operari_finalizado(request):
     return HttpResponse(template.render(context))
 
 
+def operari_notification(request):
+    current_user = request.user.id
+    tasks = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
+    if tasks.exists():
+        return HttpResponse(1)
+    else:
+        return HttpResponse(0)
+
+
+
 ############################################### TECNIC #################################################################
 
 
@@ -509,3 +519,13 @@ def login_success(request):
 
 ######################################################## CEO ###########################################################
 
+
+class InformeSla(ListView):
+    model = Avaria
+    template_name = "ceo/document_sla.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InformeSla, self).get_context_data(**kwargs)
+        context['manifestos_entrada'] = Manifesto.objects.all().filter(withdrawal=False)
+        context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
+        return context

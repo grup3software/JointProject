@@ -38,7 +38,7 @@ urlpatterns = [
     path('operari_arealizar/', operari_arealitzar, name="operari_arealitzar"),
     path('operari_realizando/', operari_realizando, name="operari_realizando"),
     path('operari_finalizado/', operari_finalizado, name="operari_finalizado"),
-
+    path('operari_notification/', operari_notification, name="operari_notification"),
 
     #TECNIC
 
@@ -79,5 +79,6 @@ urlpatterns = [
 
 
     #CEO
+    url(r'informes/', InformeSla.as_view(), name="informe")
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]
