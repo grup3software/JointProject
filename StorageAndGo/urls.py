@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.urls import path
 from .views import *
 
@@ -75,6 +76,6 @@ urlpatterns = [
 
 
     #CEO
-
+    url(r'informes/', InformeSla.as_view(), name="informe")
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]

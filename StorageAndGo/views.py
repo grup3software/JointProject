@@ -496,3 +496,13 @@ def createTask(contenidor):
 
 ######################################################## CEO ###########################################################
 
+
+class InformeSla(ListView):
+    model = Avaria
+    template_name = "ceo/document_sla.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InformeSla, self).get_context_data(**kwargs)
+        context['manifestos_entrada'] = Manifesto.objects.all().filter(withdrawal=False)
+        context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
+        return context

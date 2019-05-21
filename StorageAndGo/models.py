@@ -1,7 +1,8 @@
+from django.utils.timezone import now
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
 from django.urls import reverse
 
 # Create your models here.
@@ -61,12 +62,12 @@ class TaskOperator(Task):
 
 class Manifesto(models.Model):
     ref = models.CharField(primary_key=True, default="", max_length=50,verbose_name='Referencia')
-    creationDate = models.DateTimeField(default=date.today,verbose_name='Fecha de creación')
-    revisionDate = models.DateTimeField(null=True,verbose_name='Fecha de revisión')
-    withdrawal = models.BooleanField(null=True,verbose_name='Salida')
-    totalpackets = models.IntegerField(null=True,verbose_name='Numero total de paquetes')
-    fromLocation = models.CharField(max_length=255,verbose_name='Des de')
-    toLocation = models.CharField(max_length=255,verbose_name='Para')
+    creationDate = models.DateTimeField(default=now, verbose_name='Fecha de creación')
+    revisionDate = models.DateTimeField(null=True, verbose_name='Fecha de revisión')
+    withdrawal = models.BooleanField(null=True, verbose_name='Salida')
+    totalpackets = models.IntegerField(null=True, verbose_name='Numero total de paquetes')
+    fromLocation = models.CharField(max_length=255, verbose_name='Des de')
+    toLocation = models.CharField(max_length=255, verbose_name='Para')
     products = models.ManyToManyField('Contenidor', related_name='Products',verbose_name='Productos')
 
     def create_manifesto(self, diccionari):
