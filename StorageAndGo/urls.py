@@ -20,6 +20,7 @@ urlpatterns = [
     #GESTOR SALA
 
     path('gestor_home/', ListTasks.as_view(), name='task_list'),
+    path('gestor_historial', ListHistoryTasks.as_view(), name='task_history_list'),
     path('gestor_arealizar/', ListTasks.as_view(), name="gestor_arealizar"),
     path('gestor_realizando/', ListRealizing.as_view(), name="gestor_realizando"),
     path('gestor_finalizado/', ListFinalized.as_view(), name="gestor_finalizado"),

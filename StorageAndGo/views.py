@@ -306,6 +306,23 @@ class ListTasks(ListView):
         return queryset
 
 
+class ListHistoryTasks(ListView):
+    template_name = 'Gestor_Sala/gestor-sala-history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListHistoryTasks, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(finished=True)
+        maintenance = TaskMaintenance.objects.filter(finished=True)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
 class ListRealizing(ListView):
     template_name = 'Gestor_Sala/gestor-sala-realizando.html'
 
