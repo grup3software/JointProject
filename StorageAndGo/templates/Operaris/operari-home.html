@@ -1,177 +1,19 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<title>Storage&Go</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<style>
-    body, h1, h2, h3, h4, h5 {
-        font-family: "Poppins", sans-serif
-    }
-
-    body {
-        font-size: 16px;
-    }
-
-    .w3-half img {
-        margin-bottom: -6px;
-        margin-top: 16px;
-        opacity: 0.8;
-        cursor: pointer
-    }
-
-    .w3-half img:hover {
-        opacity: 1
-    }
-</style>
-{% block javascript %}
-    <script>
-        function start_notification_check() {
-            window.setInterval(function () {
-                $.ajax({
-                    url: '/storageandgo/operari_notification/',
-                    type: 'get',
-                    success: function (data) {
-                        if (data == '1') {
-                            document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
-                        } else {
-                            document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
-                        }
-                    },
-                    failure: function (data) {
-                        alert('Got an error dude');
-                    }
-                });
-            }, 10000);
-        }
-    </script>
-{% endblock %}
-<body>
-<!--- Header --->
-<div class="w3-hide-small w3-hide-medium w3-red w3-top" style="height: 20%; min-height: 100px">
-    <div class="w3-container">
-        <h1 class="" style="margin-top: 3%;text-align: center"><b>Storage&Go</b></h1>
-    </div>
-
-    <div class="w3-container w3-cell w3-display-topright">
-        <h1 class="" style="margin-top:70%; text-align: right"><a href="{% url 'login' %}"><img
-                src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"
-                style="width: 50px; height: 50px"></a></h1>
-    </div>
-
-    <div class="w3-container w3-cell w3-display-topright" style="right: 70px;">
-        <h1 class="" style="margin-top:70%; text-align: right"><img
-                src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"
-                style="width: 50px; height: 50px"></h1>
-    </div>
-
-    <div class="w3-container w3-cell w3-display-topright" style="right: 140px;">
-        <h1 class="" style="margin-top:70%; text-align: right"><img
-                alt="Notification" id="notification" src="https://image.flaticon.com/icons/svg/54/54810.svg"
-                style="width: 50px; height: 50px"></h1>
-    </div>
-</div>
-
+{% extends "home.html" %}
+{% block sidebar %}
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-red w3-collapse w3-large w3-top"
-     style="vz-index:3; top: 20%; width:250px; height: 80%; font-weight:bold; overflow:auto; overflow-x:hidden"
-     id="mySidebar"><br>
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
-       style="width:100%;font-size:22px">Close Menu</a>
-    <div class="w3-container">
+    <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top"
+         style="vz-index:3; top: 20%; width:250px; height: 80%; font-weight:bold; overflow:auto; overflow-x:hidden"
+         id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
+           style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
 
-        <a href= {% url 'storageandgo:operari_arealitzar' %}><h3 class="w3-padding-32 w3-button w3-left-align"
-                                                                 style="width: 240px"><b>A realizar</b></h3></a>
-        <a href= {% url 'storageandgo:operari_realizando' %}><h3 class="w3-padding-32 w3-button w3-left-align"
-                                                                 style="width: 240px"><b>Realizando</b></h3></a>
-        <a href= {% url 'storageandgo:operari_finalizado' %}><h3 class="w3-padding-32 w3-button w3-left-align"
-                                                                 style="width: 240px"><b>Finalizado</b></h3></a>
-    </div>
-</nav>
-
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-    <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-    <span>Storage&Go</span>
-
-    <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
-        <h7 class="w3-padding-16" style="text-align: right"><a href="{% url 'login' %}"><img
-                src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"
-                style="width: 35px; height: 35px"></a></h7>
-    </div>
-
-    <div class="w3-container w3-cell w3-display-topright" style="padding-top:15px; right: 50px">
-        <h7 class="w3-padding-16" style="text-align: right"><img
-                src="http://pluspng.com/img-png/user-png-icon-male-user-icon-512.png" alt="User"
-                style="width: 35px; height: 35px"></h7>
-    </div>
-
-    <div class="w3-container w3-cell w3-display-topright" style="padding-top:15px; right: 100px">
-        <h7 class="w3-padding-16" style="text-align: right"><img src="https://image.flaticon.com/icons/svg/54/54810.svg"
-                                                                 alt="Notification" style="width: 35px; height: 35px">
-        </h7>
-    </div>
-
-</header>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
-     id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px; margin-right:40px; margin-top:13%">
-
-    {% block content %}
-
-    {% endblock %}
-</div>
-
-<!-- Header -->
-<div class="w3-container" id="showcase">
-    <h1 class="w3-jumbo">
-
-    </h1>
-</div>
-
-<script>
-    $.ajax({
-        url: '/storageandgo/operari_notification/',
-        type: 'get',
-        success: function (data) {
-            if (data == '1') {
-                document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
-            } else {
-                document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
-            }
-        },
-        failure: function (data) {
-            alert('Got an error dude');
-        }
-    });
-    start_notification_check();
-</script>
-<script>
-    // Script to open and close sidebar
-    function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-    }
-
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-    }
-
-    // Modal Image Gallery
-    function onClick(element) {
-        document.getElementById("img01").src = element.src;
-        document.getElementById("modal01").style.display = "block";
-        var captionText = document.getElementById("caption");
-        captionText.innerHTML = element.alt;
-    }
-</script>
-</body>
-</html>
+            <a href= {% url 'storageandgo:operari_arealitzar' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>A realizar</b></h3></a>
+            <a href= {% url 'storageandgo:operari_realizando' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>Realizando</b></h3></a>
+            <a href= {% url 'storageandgo:operari_finalizado' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>Finalizado</b></h3></a>
+        </div>
+    </nav>
+{% endblock %}
