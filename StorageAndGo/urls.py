@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
+
+from StorageAndGo import views
 from .views import *
 
 app_name = "storageandgo"
@@ -7,6 +9,8 @@ app_name = "storageandgo"
 urlpatterns = [
 
     path('', redirect_to_home),
+
+    url(r'login_success/$', views.login_success, name='login_success'),
 
     # LIST OF TASKS
 

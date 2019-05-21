@@ -494,6 +494,19 @@ def createTask(contenidor):
     else:
         ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles", "Error", 1)
 
+
+
+######################################################## Login ###########################################################
+
+def login_success(request):
+    if request.user.groups.filter(name="operari").exists():
+        # user is an admin
+        return redirect("storageandgo:operari_home")
+    elif request.user.groups.filter(name="tecnic").exists():
+        return redirect("storageandgo:tecnics_home")
+    elif request.user.groups.filter(name="gestor").exists():
+        return redirect("storageandgo:gestor_arealizar")
+
 ######################################################## CEO ###########################################################
 
 
