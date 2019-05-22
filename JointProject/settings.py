@@ -120,4 +120,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/storageandgo/login_success/'
+LOGIN_REDIRECT_URL = '/storageandgo/'
