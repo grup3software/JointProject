@@ -1,11 +1,18 @@
+from django.conf.urls import url
 from django.urls import path
+
+from StorageAndGo import views
 from .views import *
+
 
 app_name = "storageandgo"
 
 urlpatterns = [
 
     path('', redirect_to_home),
+
+    url(r'login_success/$', views.login_success, name='login_success'),
+    url(r'log_out_success/$', views.logout_view, name='logout_success'),
 
     # LIST OF TASKS
 
@@ -15,6 +22,7 @@ urlpatterns = [
     #GESTOR SALA
 
     path('gestor_home/', ListTasks.as_view(), name='task_list'),
+    path('gestor_historial', ListHistoryTasks.as_view(), name='task_history_list'),
     path('gestor_arealizar/', ListTasks.as_view(), name="gestor_arealizar"),
     path('gestor_realizando/', ListRealizing.as_view(), name="gestor_realizando"),
     path('gestor_finalizado/', ListFinalized.as_view(), name="gestor_finalizado"),
@@ -25,7 +33,6 @@ urlpatterns = [
     #SALA
 
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
-    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
 
 
     #OPERARI
@@ -34,7 +41,7 @@ urlpatterns = [
     path('operari_arealizar/', operari_arealitzar, name="operari_arealitzar"),
     path('operari_realizando/', operari_realizando, name="operari_realizando"),
     path('operari_finalizado/', operari_finalizado, name="operari_finalizado"),
-
+    path('operari_notification/', operari_notification, name="operari_notification"),
 
     #TECNIC
 
@@ -75,6 +82,6 @@ urlpatterns = [
 
 
     #CEO
-
+    url(r'informes/', InformeSla.as_view(), name="informe")
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]

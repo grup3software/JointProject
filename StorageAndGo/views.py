@@ -2,6 +2,7 @@
 import ctypes
 
 import requests
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -35,6 +36,10 @@ from .forms import *
 #     def form_valid(self, form):
 #         form.instance.sender = self.request.user
 #         return super(TaskUpdate, self).form_valid(form)
+
+def logout_view(request):
+    logout(request)
+
 
 @login_required()
 def redirect_to_home(request):
@@ -198,6 +203,16 @@ def operari_finalizado(request):
     return HttpResponse(template.render(context))
 
 
+def operari_notification(request):
+    current_user = request.user.id
+    tasks = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
+    if tasks.exists():
+        return HttpResponse(1)
+    else:
+        return HttpResponse(0)
+
+
+
 ############################################### TECNIC #################################################################
 
 
@@ -286,6 +301,23 @@ class ListTasks(ListView):
         context = super(ListTasks, self).get_context_data(**kwargs)
         operator = TaskOperator.objects.filter(accepted=False)
         maintenance = TaskMaintenance.objects.filter(accepted=False)
+        context['task_operator'] = operator
+        context['task_maintenance'] = maintenance
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+
+        return queryset
+
+
+class ListHistoryTasks(ListView):
+    template_name = 'Gestor_Sala/gestor-sala-history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListHistoryTasks, self).get_context_data(**kwargs)
+        operator = TaskOperator.objects.filter(finished=True)
+        maintenance = TaskMaintenance.objects.filter(finished=True)
         context['task_operator'] = operator
         context['task_maintenance'] = maintenance
         return context
@@ -471,7 +503,6 @@ def CreateTaskView(request):
 
 @login_required()
 def createTask(contenidor):
-    print(contenidor)
 
     rooms = Room.objects.all()
 
@@ -486,7 +517,7 @@ def createTask(contenidor):
             TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"],
                          origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"],
                          accepted=False,  finished=False, hight_priority=False)
-            print(contenidor)
+
             # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
         else:
             task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'], product=contenidor['name'], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor['qty'],  accepted=False, finished=False, hight_priority=False)
@@ -494,5 +525,28 @@ def createTask(contenidor):
     else:
         ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles", "Error", 1)
 
+
+
+######################################################## Login ###########################################################
+
+def login_success(request):
+    if request.user.groups.filter(name="operari").exists():
+        # user is an admin
+        return redirect("storageandgo:operari_home")
+    elif request.user.groups.filter(name="tecnic").exists():
+        return redirect("storageandgo:tecnics_home")
+    elif request.user.groups.filter(name="gestor").exists():
+        return redirect("storageandgo:gestor_arealizar")
+
 ######################################################## CEO ###########################################################
 
+
+class InformeSla(ListView):
+    model = Avaria
+    template_name = "ceo/document_sla.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InformeSla, self).get_context_data(**kwargs)
+        context['manifestos_entrada'] = Manifesto.objects.all().filter(withdrawal=False)
+        context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
+        return context

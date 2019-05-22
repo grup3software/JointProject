@@ -1,0 +1,19 @@
+{% extends "Gestor_Sala/gestor-sala-home.html" %}
+{% block content %}
+<table>
+{% if manifestos_entrada%}
+    <tr>
+        <th>Fecha entrada</th>
+        <th>Producto</th>
+        <th>Fecha salida</th>
+    </tr>
+    {% for manifesto in manifestos_entrada %}
+        <tr>
+            <td>{{ manifesto.creationDate }}</td>
+            <td>{{ manifesto.products.name }}</td>
+            <td>{{ manifesto.revisionDate }}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+</table>
+{% endblock %}
