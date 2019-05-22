@@ -501,7 +501,7 @@ def CreateTaskView(request):
         return render(request, "form.html", {'form': form})
 
 
-@login_required()
+# @login_required()
 def createTask(contenidor):
 
     rooms = Room.objects.all()
