@@ -5,7 +5,7 @@ import requests
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.views.generic import ListView, UpdateView, CreateView
 
@@ -550,3 +550,14 @@ class InformeSla(ListView):
         context['manifestos_entrada'] = Manifesto.objects.all().filter(withdrawal=False)
         context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
         return context
+
+def sala_detail(request, pk):
+    datos = get_object_or_404(Room, pk=pk)
+
+    context = {'sala': datos}
+    return render(request, 'info_sala.html', context)
+
+def sala_delete(request, pk):
+    sala = get_object_or_404(Room, pk=pk)
+    sala.delete()
+    return redirect(reverse('mapa_salas'))
