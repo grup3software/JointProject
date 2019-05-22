@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('storageandgo/', include('StorageAndGo.urls', namespace='storageandgo')),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('', include('StorageAndGo.urls')),
+    path('', include('StorageAndGo.urls')),
 ]

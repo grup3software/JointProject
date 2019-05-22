@@ -1,5 +1,6 @@
 {% extends "Gestor_Sala/gestor-sala-home.html" %}
 {% block content %}
+    <h1>INFORMES ENTRADA</h1>
 <table>
     {% if manifestos_entrada%}
         <tr>
@@ -15,7 +16,11 @@
             </tr>
         {% endfor %}
     {% endif %}
+</table>
+    <table>
+    <h1>INFORMES SALIDA</h1>
     {% if manifestos_sortida %}
+
         <tr>
             <th>Fecha entrada</th>
             <th>Producto</th>
