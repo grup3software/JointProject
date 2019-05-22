@@ -2,14 +2,15 @@
 {% block content %}
     <h1> Sala {{ sala.name }}</h1>
     <ul>
-        <li>{{ sala.pk }}</li>
-        <li>{{ sala.contenidorsInside }}<h10> Contenedores</h10>/{{ sala.capacity }}</li><h10> Capacidad</h10>
-        <li>{{ sala.humitMin }}</li><h10>Humedad MAX</h10>
-        <li>{{ sala.humitMax }}</li><h10>Humedad MIN</h10>
-        <li>{{ sala.temperatureMin }}</li><h10>Humedad MAX</h10>
-        <li>{{ sala.temperatureMax }}</li><h10>Humedad MIN</h10>
-        <li>{{ sala.description }}</li><h10>Descripcioón</h10>
+        <li><b>SALA: </b> </b> {{ sala.pk }}</li>
+        <li><b>CONTENEDORES: </b> {{ sala.contenidorsInside }}/{{ sala.capacity }}
+        <li><b>HUMEDAD MAXIMA: </b> {{ sala.humitMin }}</li>
+        <li><b>HUMEDAD MINIMA: </b> {{ sala.humitMax }}</li>
+        <li><b>TEMPERATURA MAXIMA: </b> {{ sala.temperatureMin }}
+        <li><b>TEMPERATURA MAXIMA: </b> {{ sala.temperatureMax }}
+        <li><b>DESCRIPCION: </b> {{ sala.description }}</li>
         </ul>
 
-    <a href='{% url "storageandgo:sala_delete" sala.pk %}'><button class="w3-button w3-white" style="width: 100px; height: 100px; margin: 15px">DELETE</button></a>
+    <a href='{% url "storageandgo:mapa_salas" %}'><button class="w3-button w3-green" style="width: 100px; height: 50px; margin: 15px">VOLVER</button></a>
+    <a href='{% url "storageandgo:sala_delete" sala.pk %}'><button class="w3-button w3-red" style="width: 100px; height: 50px; margin: 15px">ELIMINAR</button></a>
 {% endblock %}
