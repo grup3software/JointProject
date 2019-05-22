@@ -33,6 +33,7 @@ urlpatterns = [
     #SALA
 
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
+    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
 
 
     #OPERARI
