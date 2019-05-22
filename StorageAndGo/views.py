@@ -205,12 +205,17 @@ def operari_finalizado(request):
 
 def operari_notification(request):
     current_user = request.user.id
-    tasks = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
-    if tasks.exists():
-        return HttpResponse(1)
-    else:
-        return HttpResponse(0)
+    task = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
 
+    if task.exists():
+        return HttpResponse(task[0].pk)
+    else:
+        return HttpResponse("-1")
+
+
+def operari_detall_tasca(request, pk):
+    task = TaskOperator.objects.get(id=pk)
+    return render(request, 'Operaris/operari-detall-tasca.html', {'tasca': task})
 
 
 ############################################### TECNIC #################################################################

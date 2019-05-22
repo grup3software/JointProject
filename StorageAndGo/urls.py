@@ -45,6 +45,7 @@ urlpatterns = [
     path('operari_realizando/', operari_realizando, name="operari_realizando"),
     path('operari_finalizado/', operari_finalizado, name="operari_finalizado"),
     path('operari_notification/', operari_notification, name="operari_notification"),
+    path('operari_detall_tasca/<pk>/', operari_detall_tasca, name="operari_detall_tasca"),
 
     #TECNIC
 
