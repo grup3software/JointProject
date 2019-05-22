@@ -35,7 +35,7 @@ urlpatterns = [
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
     path('afegir_sala/', CreateSalaView, name="afegir_sala"),
     path('sala/<int:pk>/', views.sala_detail, name='sala_detail'),
-    path('sala/<int:pk>/', views.sala_delete, name='sala_delete'),
+    path('sala/<int:pk>/delete', views.sala_delete, name='sala_delete'),
 
 
     #OPERARI

@@ -4,6 +4,7 @@ import ctypes
 import requests
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.core.checks import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
@@ -158,6 +159,7 @@ def CreateSalaView(request):
         form = CreateSala()
         return render(request, "form.html", {'form': form})
 
+
 ############################################## OPERARI #################################################################
 
 
@@ -175,7 +177,7 @@ def operari_arealitzar(request):
     template = loader.get_template('Operaris/operari-a-realitzar.html')
 
     tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
-    context={'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
+    context = {'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
@@ -216,7 +218,6 @@ def operari_notification(request):
 def operari_detall_tasca(request, pk):
     task = TaskOperator.objects.get(id=pk)
     return render(request, 'Operaris/operari-detall-tasca.html', {'tasca': task})
-
 
 ############################################### TECNIC #################################################################
 
@@ -508,28 +509,30 @@ def CreateTaskView(request):
 
 # @login_required()
 def createTask(contenidor):
-
     rooms = Room.objects.all()
 
     avaliable_room = 0
     if rooms:
         for room in rooms:
-            if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] and room.capacity-room.contenidorsInside > contenidor['qty']:
+            if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor[
+                "tempMaxDegree"] and room.capacity - room.contenidorsInside > contenidor['qty']:
                 avaliable_room = room
                 break
 
         if avaliable_room == 0:
             TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"],
                          origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"],
-                         accepted=False,  finished=False, hight_priority=False)
+                         accepted=False, finished=False, hight_priority=False)
 
             # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
         else:
-            task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'], product=contenidor['name'], origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor['qty'],  accepted=False, finished=False, hight_priority=False)
+            task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'],
+                                product=contenidor['name'], origin=Room.objects.all()[0],
+                                destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False,
+                                finished=False, hight_priority=False)
             task.save()
     else:
         ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles", "Error", 1)
-
 
 
 ######################################################## Login ###########################################################
@@ -542,6 +545,7 @@ def login_success(request):
         return redirect("storageandgo:tecnics_home")
     elif request.user.groups.filter(name="gestor").exists():
         return redirect("storageandgo:gestor_arealizar")
+
 
 ######################################################## CEO ###########################################################
 
@@ -556,13 +560,18 @@ class InformeSla(ListView):
         context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
         return context
 
+
 def sala_detail(request, pk):
     datos = get_object_or_404(Room, pk=pk)
 
     context = {'sala': datos}
     return render(request, 'info_sala.html', context)
 
+
 def sala_delete(request, pk):
-    sala = get_object_or_404(Room, pk=pk)
-    sala.delete()
-    return redirect(reverse('mapa_salas'))
+    try:
+        item = get_object_or_404(Room, pk=pk)
+        item.delete()
+        return redirect(reverse('storageandgo:mapa_salas'))
+    except:
+        return HttpResponse("ERROR: HAY TAREAS O CONTENEDORES ASSIGNADOS A LA SALA")
