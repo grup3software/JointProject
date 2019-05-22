@@ -1,4 +1,11 @@
 {% extends "home.html" %}
+
+{% block notification %}
+    <div class="w3-container w3-cell w3-display-topright" style="right: 140px;">
+                <h1 class=""style="margin-top:70%; text-align: right"><img id="notification" src="https://image.flaticon.com/icons/svg/54/54810.svg" alt="Notification"style="width: 50px; height: 50px"></h1>
+    </div>
+{% endblock %}
+
 {% block sidebar %}
 <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top"
@@ -16,4 +23,47 @@
                                                                      style="width: 240px"><b>Finalizado</b></h3></a>
         </div>
     </nav>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function start_notification_check() {
+            window.setInterval(function () {
+                $.ajax({
+                    url: '/storageandgo/operari_notification/',
+                    type: 'get',
+                    success: function (data) {
+                        if (data == '1') {
+                            document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
+                        } else {
+                            document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
+                        }
+                    },
+                    failure: function (data) {
+                        alert('Got an error dude');
+                    }
+                });
+            }, 10000);
+        }
+    </script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $.ajax({
+        url: '/storageandgo/operari_notification/',
+        type: 'get',
+        success: function (data) {
+            if (data == '1') {
+                document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
+            } else {
+                document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
+            }
+        },
+        failure: function (data) {
+            alert('Got an error dude');
+        }
+    });
+    start_notification_check();
+</script>
 {% endblock %}
