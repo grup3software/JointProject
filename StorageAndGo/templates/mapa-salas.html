@@ -4,7 +4,7 @@
         <h1> Salas </h1>
 
             {% for sala in rooms %}
-                <button class="w3-button w3-green"style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }}</button>
+               <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-green" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }}</button></a>
             {% endfor %}
 
             <a href= {% url 'storageandgo:afegir_sala' %}><button class="w3-button w3-circle w3-black w3-display-bottomright"style="position: fixed; width:1.5cm; height:1.5cm; margin-right: 2%; margin-bottom: 2%">+</button></a>
