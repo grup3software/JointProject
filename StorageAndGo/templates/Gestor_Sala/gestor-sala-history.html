@@ -4,17 +4,13 @@
     <h1>LISTA TAREAS OPERADOR</h1><br>
 
     {% for task in task_operator %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}
-        </h3><br>
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
     {% endfor %}
 
     <h1>LISTA TAREAS MANTENIMIENTO</h1><br>
 
     {% for task in task_maintenance %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}
-        </h3><br>
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
     {% endfor %}
-
-
 
 {% endblock %}

@@ -4,19 +4,24 @@
     <h1>OPERARIO - TAREAS A REALIZAR</h1><br>
 
     {% for task in task_operator %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a> /
-            <a href="{% url 'storageandgo:modify_operator' task.pk %}">Editar</a>
-        </h3><br>
+        <table style="width: 100%">
+        <tr>
+            <td><h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - </h3></td>
+            <td><a href='{% url "storageandgo:modify_operator" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
+        </tr>
+        </table>
     {% endfor %}
 
     <h1>TÉCNICO - TAREAS A REALIZAR</h1><br>
 
     {% for task in task_maintenance %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a>
-            <a href="{% url 'storageandgo:modify_maintenance' task.pk %}">Editar</a>
-        </h3><br>
+        <table style="width: 100%">
+        <tr>
+            <td><h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - </h3></td>
+            <td><a href='{% url "storageandgo:modify_maintenance" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
+        </tr>
+        </table>
+
     {% endfor %}
-
-
 
 {% endblock %}

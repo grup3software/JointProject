@@ -1,12 +1,19 @@
 {% extends 'Tecnics/tecnics-home.html' %}
+{% block content %}
 
-    {% block content %}
-        <h1>TAREAS REALIZANDO</h1>
-        {% if tasques_tecnics_realizando %}
-            <ul>
-                {% for task in tasques_tecnics_realizando %}
-                    <a href="#">{{ task.description }}</a> - <a href="{% url 'storageandgo:finish_task' task.pk %}">Finalitzar</a>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endblock %}
+    <h1>TAREAS REALIZANDO</h1>
+
+    {% if tasques_tecnics_realizando %}
+        <ul>
+            {% for task in tasques_tecnics_realizando %}
+                <table style="width: 100%">
+                <tr>
+                    <td><h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - </h3></td>
+                    <td><a href='{% url "storageandgo:finish_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">FINALIZAR</button></a></td>
+                </tr>
+                </table>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+{% endblock %}

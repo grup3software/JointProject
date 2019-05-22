@@ -1,12 +1,19 @@
 {% extends 'Operaris/operari-home.html' %}
+{% block content %}
 
-    {% block content %}
-        <h1>TAREAS A REALIZAR</h1>
-        {% if tasques_operari_a_realitzar %}
-            <ul>
-                {% for task in tasques_operari_a_realitzar %}
-                    <a href="#">{{ task.description }}</a> - <a href="{% url 'storageandgo:accept_task' task.pk %}">Acceptar</a> / <a href="{% url 'storageandgo:modify_operator' task.pk %}">Editar</a>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endblock %}
+    <h1>TAREAS A REALIZAR</h1>
+
+    {% if tasques_operari_a_realitzar %}
+        <ul>
+            {% for task in tasques_operari_a_realitzar %}
+                <table style="width: 100%">
+                <tr>
+                    <td><h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - </h3></td>
+                    <td><a href='{% url "storageandgo:accept_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">ACEPTAR</button></a></td>
+                </tr>
+                </table>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
