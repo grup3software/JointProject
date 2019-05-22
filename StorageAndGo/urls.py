@@ -11,8 +11,8 @@ urlpatterns = [
 
     path('', redirect_to_home),
 
-    url(r'login_success/$', views.login_success, name='login_success'),
-    url(r'log_out_success/$', views.logout_view, name='logout_success'),
+    # url(r'login_success/$', views.login_success, name='login_success'),
+    # url(r'log_out_success/$', views.logout_view, name='logout_success'),
 
     # LIST OF TASKS
 
@@ -33,6 +33,7 @@ urlpatterns = [
     #SALA
 
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
+    path('afegir_sala/', CreateSalaView, name="afegir_sala"),
 
 
     #OPERARI

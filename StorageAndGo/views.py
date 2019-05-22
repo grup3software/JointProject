@@ -375,7 +375,7 @@ class TaskUpdate(UpdateView):
 @login_required()
 def gestor_home(request):
     # getting our template
-    template = loader.get_template('gestor-sala-home.html')
+    template = loader.get_template('Gestor_Sala/gestor-sala-home.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
@@ -384,7 +384,7 @@ def gestor_home(request):
 @login_required()
 def gestor_arealizar(request):
     # getting our template
-    template = loader.get_template('gestor-sala-a-realizar.html')
+    template = loader.get_template('Gestor_Sala/gestor-sala-a-realizar.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
@@ -393,7 +393,7 @@ def gestor_arealizar(request):
 @login_required()
 def gestor_realizando(request):
     # getting our template
-    template = loader.get_template('gestor-sala-realizando.html')
+    template = loader.get_template('Gestor_Sala/gestor-sala-realizando.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
@@ -402,7 +402,7 @@ def gestor_realizando(request):
 @login_required()
 def gestor_finalizado(request):
     # getting our template
-    template = loader.get_template('gestor-sala-finalizado.html')
+    template = loader.get_template('Gestor_Sala/gestor-sala-finalizado.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
@@ -411,7 +411,7 @@ def gestor_finalizado(request):
 @login_required()
 def gestor_añadirtarea(request):
     # getting our template
-    template = loader.get_template('gestor-sala-añadir-tarea.html')
+    template = loader.get_template('Gestor_Sala/gestor-sala-añadir-tarea.html')
 
     # rendering the template in HttpResponse
     return HttpResponse(template.render())
@@ -501,7 +501,7 @@ def CreateTaskView(request):
         return render(request, "form.html", {'form': form})
 
 
-@login_required()
+# @login_required()
 def createTask(contenidor):
 
     rooms = Room.objects.all()
