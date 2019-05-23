@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
 
-from StorageAndGo import views
 from .views import *
 
 
@@ -34,8 +33,8 @@ urlpatterns = [
 
     path('mapa_salas/', mapa_salas, name="mapa_salas"),
     path('afegir_sala/', CreateSalaView, name="afegir_sala"),
-    path('sala/<int:pk>/', views.sala_detail, name='sala_detail'),
-    path('sala/<int:pk>/delete', views.sala_delete, name='sala_delete'),
+    path('sala/<int:pk>/', sala_detail, name='sala_detail'),
+    path('sala/<int:pk>/delete', sala_delete, name='sala_delete'),
 
 
     #OPERARI

@@ -15,9 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views
-from django.views.generic import RedirectView
-from django.urls import path, include
 
 urlpatterns = [
     # path('', RedirectView.as_view(pattern_name='storageandgo:task_list'), name='home'),
