@@ -3,6 +3,8 @@
 
     <h1>OPERARIO - TAREAS A REALIZAR</h1><br>
 
+
+    <h1>USUARIO: {{ user.username }} - {{ user.is_authenticated }}</h1>
     {% for task in task_operator %}
         <table style="width: 100%">
         <tr>
