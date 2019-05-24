@@ -173,35 +173,29 @@ def operari_home(request):
 
 @login_required()
 def operari_arealitzar(request):
-    # getting our template
     template = loader.get_template('Operaris/operari-a-realitzar.html')
 
     tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
     context = {'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
 def operari_realizando(request):
-    # getting our template
     template = loader.get_template('Operaris/operari-realizando.html')
 
     tasques_operari_realizando = TaskOperator.objects.filter(accepted=True, finished=False, user=request.user)
     context = {'tasques_operari_realizando': tasques_operari_realizando}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
 def operari_finalizado(request):
-    # getting our template
     template = loader.get_template('Operaris/operari-finalizado.html')
 
     tasques_operari_finalizado = TaskOperator.objects.filter(finished=True, user=request.user)
     context = {'tasques_operari_finalizado': tasques_operari_finalizado}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
@@ -224,10 +218,8 @@ def operari_detall_tasca(request, pk):
 
 @login_required()
 def tecnics_home(request):
-    # getting our template
     template = loader.get_template('Tecnics/tecnics-home.html')
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
 
@@ -248,37 +240,31 @@ class AvariaList(ListView):
 
 @login_required()
 def tecnics_arealitzar(request):
-    # getting our template
     template = loader.get_template('Tecnics/tecnics-a-realizar.html')
 
     tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=False)
     context = {'tasques_tecnics_a_realitzar': tasques_tecnics_a_realitzar}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
 @login_required()
 def tecnics_realizando(request):
-    # getting our template
     template = loader.get_template('Tecnics/tecnics-realizando.html')
 
     tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False, user=requests.user)
     context = {'tasques_tecnics_realizando': tasques_tecnics_realizando}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
 @login_required()
 def tecnics_finalizado(request):
-    # getting our template
     template = loader.get_template('Tecnics/tecnics-finalitzades.html')
 
     tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True, user=requests.user)
     context = {'tasques_tecnics_finalitzades': tasques_tecnics_finalitzades}
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render(context))
 
 
@@ -379,42 +365,6 @@ class TaskUpdate(UpdateView):
 
 
 @login_required()
-def gestor_home(request):
-    # getting our template
-    template = loader.get_template('Gestor_Sala/gestor-sala-home.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
-def gestor_arealizar(request):
-    # getting our template
-    template = loader.get_template('Gestor_Sala/gestor-sala-a-realizar.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
-def gestor_realizando(request):
-    # getting our template
-    template = loader.get_template('Gestor_Sala/gestor-sala-realizando.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
-def gestor_finalizado(request):
-    # getting our template
-    template = loader.get_template('Gestor_Sala/gestor-sala-finalizado.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
 def gestor_añadirtarea(request):
     # getting our template
     template = loader.get_template('Gestor_Sala/gestor-sala-añadir-tarea.html')
@@ -425,10 +375,8 @@ def gestor_añadirtarea(request):
 
 @login_required()
 def gestor_registrar_manifest(request):
-    # getting our template
     template = loader.get_template('gestor_sala_registrar_manifest.html')
 
-    # rendering the template in HttpResponse
     return HttpResponse(template.render())
 
 
@@ -440,7 +388,6 @@ class TaskAccept(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         return super(TaskAccept, self).form_valid(form)
-        # return HttpResponseRedirect(self.request.path_info)
 
 
 @login_required(login_url='/accounts/login')
@@ -468,7 +415,11 @@ class TaskOperatorModify(UpdateView):
     def form_valid(self, form):
         form.instance.sender = self.request.user
         # FALTA GUARDAR MODIFICACIONS
-        return redirect('storageandgo:operari_home')
+
+        if self.request.user.groups.all()[0] == "Operari":
+            return redirect('storageandgo:operari_home')
+        else:
+            return redirect('storageandgo:gestor_arealizar')
 
 
 class TaskMaintenanceModify(UpdateView):
