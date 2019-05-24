@@ -176,7 +176,7 @@ def operari_arealitzar(request):
     # getting our template
     template = loader.get_template('Operaris/operari-a-realitzar.html')
 
-    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False, user=request.user)
+    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
     context = {'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
 
     # rendering the template in HttpResponse
@@ -251,7 +251,7 @@ def tecnics_arealitzar(request):
     # getting our template
     template = loader.get_template('Tecnics/tecnics-a-realizar.html')
 
-    tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=True, user=requests.user)
+    tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=False)
     context = {'tasques_tecnics_a_realitzar': tasques_tecnics_a_realitzar}
 
     # rendering the template in HttpResponse
