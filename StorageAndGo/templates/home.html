@@ -25,12 +25,12 @@
 
             {% if user.is_authenticated %}
             <div class="w3-container w3-cell w3-display-topright">
-                <h1 class=""style="margin-top:70%; text-align: right"><a href="{% url 'logout' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 50px; height: 50px"></a></h1>
+                <h1 class=""style="margin-top:70%; text-align: right"><a href="{% url 'logout' %}"><img src="{% static "img/logout.png" %}" alt="Logout"style="width: 50px; height: 50px"></a></h1>
             </div>
             {% else %}
 
             <div class="w3-container w3-cell w3-display-topright">
-                <h1 class=""style="margin-top:70%; text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 50px; height: 50px"></a></h1>
+                <h1 class=""style="margin-top:70%; text-align: right"><a href="{% url 'login' %}"><img src="{% static "img/login.png" %}" alt="Logout"style="width: 50px; height: 50px"></a></h1>
             </div>
             {% endif %}
 
@@ -56,11 +56,11 @@
 
             {%  if user.is_authenticated %}
                 <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
-                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'logout' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
+                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'logout' %}"><img src="{% static "img/logout.png" %}" alt="Logout"style="width: 35px; height: 35px"></a></h7>
                 </div>
             {% else %}
                 <div class="w3-container w3-cell w3-display-topright" style="padding-top: 15px">
-                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'login' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_211158.png" alt="Logout"style="width: 35px; height: 35px"></a></h7>
+                    <h7 class="w3-padding-16"style="text-align: right"><a href="{% url 'login' %}"><img src="{% static "img/login.png" %}" alt="Logout"style="width: 35px; height: 35px"></a></h7>
                 </div>
             {% endif %}
 
