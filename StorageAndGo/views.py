@@ -5,6 +5,7 @@ import requests
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
+from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
@@ -574,4 +575,4 @@ def sala_delete(request, pk):
         item.delete()
         return redirect(reverse('storageandgo:mapa_salas'))
     except:
-        return HttpResponse("ERROR: HAY TAREAS O CONTENEDORES ASSIGNADOS A LA SALA")
+        return HttpResponse("Contenedores o Tareas referenciados")
