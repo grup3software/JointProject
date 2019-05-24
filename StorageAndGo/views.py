@@ -176,7 +176,7 @@ def operari_arealitzar(request):
     # getting our template
     template = loader.get_template('Operaris/operari-a-realitzar.html')
 
-    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
+    tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False, user=request.user)
     context = {'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
 
     # rendering the template in HttpResponse
@@ -187,7 +187,7 @@ def operari_realizando(request):
     # getting our template
     template = loader.get_template('Operaris/operari-realizando.html')
 
-    tasques_operari_realizando = TaskOperator.objects.filter(accepted=True, finished=False)
+    tasques_operari_realizando = TaskOperator.objects.filter(accepted=True, finished=False, user=request.user)
     context = {'tasques_operari_realizando': tasques_operari_realizando}
 
     # rendering the template in HttpResponse
@@ -198,7 +198,7 @@ def operari_finalizado(request):
     # getting our template
     template = loader.get_template('Operaris/operari-finalizado.html')
 
-    tasques_operari_finalizado = TaskOperator.objects.filter(finished=True)
+    tasques_operari_finalizado = TaskOperator.objects.filter(finished=True, user=request.user)
     context = {'tasques_operari_finalizado': tasques_operari_finalizado}
 
     # rendering the template in HttpResponse
@@ -236,7 +236,7 @@ class AvariaList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AvariaList, self).get_context_data(**kwargs)
-        avaria = Avaria.objects.filter(accepted=False)
+        avaria = Avaria.objects.filter(accepted=False, user=requests.user)
         context['task_avaria'] = avaria
         return context
 
@@ -251,7 +251,7 @@ def tecnics_arealitzar(request):
     # getting our template
     template = loader.get_template('Tecnics/tecnics-a-realizar.html')
 
-    tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=False)
+    tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=True, user=requests.user)
     context = {'tasques_tecnics_a_realitzar': tasques_tecnics_a_realitzar}
 
     # rendering the template in HttpResponse
@@ -263,7 +263,7 @@ def tecnics_realizando(request):
     # getting our template
     template = loader.get_template('Tecnics/tecnics-realizando.html')
 
-    tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False)
+    tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False, user=requests.user)
     context = {'tasques_tecnics_realizando': tasques_tecnics_realizando}
 
     # rendering the template in HttpResponse
@@ -275,7 +275,7 @@ def tecnics_finalizado(request):
     # getting our template
     template = loader.get_template('Tecnics/tecnics-finalitzades.html')
 
-    tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True)
+    tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True, user=requests.user)
     context = {'tasques_tecnics_finalitzades': tasques_tecnics_finalitzades}
 
     # rendering the template in HttpResponse
