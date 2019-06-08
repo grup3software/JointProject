@@ -1,7 +1,7 @@
 {% extends 'Gestor_Sala/gestor-sala-home.html' %}
 
     {% block content %}
-        <h1> Salas </h1>
+        <h1> SALAS </h1>
 
             {% for sala in rooms %}
                <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-green" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }}</button></a>
