@@ -466,8 +466,8 @@ def createTask(contenidor):
     avaliable_room = 0
     if rooms:
         for room in rooms:
-            if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor[
-                "tempMaxDegree"] and room.capacity - room.contenidorsInside > contenidor['qty']:
+            if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] \
+                    and room.capacity - room.contenidorsInside > contenidor['qty']:
                 avaliable_room = room
                 break
 
