@@ -51,7 +51,7 @@ def redirect_to_home(request):
     group = User.objects.get(username=request.user).groups.all()[0]
 
     if group.name == "Ceo":
-        return None
+        return redirect("storageandgo:informe")
     elif group.name == 'Tecnic':
         return redirect("storageandgo:tecnics_home")
     elif group.name == 'Gestor':
