@@ -144,7 +144,7 @@ class Room(models.Model):
         return reverse('storageandgo:mapa_salas')
 
     def percent_ocupation(self):
-        return (100 * Room.contenidorsInside) / Room.capacity
+        return (100 * self.contenidorsInside) / self.capacity
 
 
 class Avaria(Task):
