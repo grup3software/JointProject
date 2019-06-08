@@ -143,6 +143,9 @@ class Room(models.Model):
     def get_absolute_url(self):
         return reverse('storageandgo:mapa_salas')
 
+    def percent_ocupation(self):
+        return (100 * self.contenidorsInside) / self.capacity
+
 
 class Avaria(Task):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
