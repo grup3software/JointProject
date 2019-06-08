@@ -1,0 +1,14 @@
+{% extends 'Operaris/operari-home.html' %}
+
+{% block content %}
+
+    <h3>DETALLE TAREA</h3>
+
+        <ul>
+            <li>{{ tasca.description }}</li>
+            <li>{{ tasca.product }}</li>
+            <li>{{ tasca.origin }}</li>
+            <li>{{ tasca.destination}}</li>
+            <li>{{ tasca.quantity }}</li>
+        </ul>
+{% endblock %}

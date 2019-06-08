@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block sidebar %}
+    <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top" style="vz-index:3; top: 20%; width:250px; height: 80%; font-weight:bold; overflow:auto; overflow-x:hidden" id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+
+            <a href= {% url 'storageandgo:gestor_arealizar' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>A realizar</b></h3></a>
+            <a href= {% url 'storageandgo:gestor_realizando' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Realizando</b></h3></a>
+            <a href= {% url 'storageandgo:gestor_finalizado' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Finalizado</b></h3></a>
+            <a href= {% url 'storageandgo:mapa_salas' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Salas</b></h3></a>
+            <a href= {% url 'storageandgo:CreateTaskView' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Añadir tarea</b></h3></a>
+            <a href= {% url 'storageandgo:CreateManifesto' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Añadir pedido</b></h3></a>
+            <a href= {% url 'storageandgo:task_history_list' %}><h3 class="w3-padding-32 w3-button w3-left-align"style="width: 240px"><b>Historial</b></h3></a>
+        </div>
+    </nav>
+{% endblock %}
