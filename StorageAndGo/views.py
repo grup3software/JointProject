@@ -253,7 +253,7 @@ def tecnics_arealitzar(request):
 def tecnics_realizando(request):
     template = loader.get_template('Tecnics/tecnics-realizando.html')
 
-    tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False, user=requests.user)
+    tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False, user=request.user)
     context = {'tasques_tecnics_realizando': tasques_tecnics_realizando}
 
     return HttpResponse(template.render(context))
@@ -263,7 +263,7 @@ def tecnics_realizando(request):
 def tecnics_finalizado(request):
     template = loader.get_template('Tecnics/tecnics-finalitzades.html')
 
-    tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True, user=requests.user)
+    tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True, user=request.user)
     context = {'tasques_tecnics_finalitzades': tasques_tecnics_finalitzades}
 
     return HttpResponse(template.render(context))
