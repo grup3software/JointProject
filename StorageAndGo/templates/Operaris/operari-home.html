@@ -1,0 +1,96 @@
+{% extends "home.html" %}
+
+{% block notification %}
+    <div class="w3-container w3-cell w3-display-topright" style="right: 140px;">
+                <h1 class=""style="margin-top:70%; text-align: right"><img id="notification" src="https://image.flaticon.com/icons/svg/54/54810.svg" alt="Notification"style="width: 50px; height: 50px; cursor: pointer" onclick="notification();"></h1>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-large w3-top"
+         style="vz-index:3; top: 20%; width:250px; height: 80%; font-weight:bold; overflow:auto; overflow-x:hidden"
+         id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
+           style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+
+            <a href= {% url 'storageandgo:operari_arealitzar' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>A realizar</b></h3></a>
+            <a href= {% url 'storageandgo:operari_realizando' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>Realizando</b></h3></a>
+            <a href= {% url 'storageandgo:operari_finalizado' %}><h3 class="w3-padding-32 w3-button w3-left-align"
+                                                                     style="width: 240px"><b>Finalizado</b></h3></a>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function start_notification_check() {
+            window.setInterval(function () {
+                $.ajax({
+                    url: '/storageandgo/operari_notification/',
+                    type: 'get',
+                    success: function (data) {
+                        if (data != '-1') {
+                            document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
+                            document.getElementById("id_tasca").value = data;
+                        } else {
+                            document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
+                            document.getElementById("id_tasca").value = "-1";
+                        }
+                    },
+                    failure: function (data) {
+                    }
+                });
+            }, 10000);
+        }
+
+        function notification() {
+            if (document.getElementById("id_tasca").value == "-1") {
+                alert("No tienes ninguna tarea de alta prioridad asignada");
+            } else {
+                var id = document.getElementById("id_tasca").value;
+                document.location.href = '/storageandgo/operari_detall_tasca/' + id ;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var f = document.createElement("form");
+    f.setAttribute("name", "frm");
+    f.setAttribute("id", "frm");
+    f.setAttribute('method',"post");
+    f.setAttribute('action',"");
+
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", "id_tasca");
+    input.setAttribute("id", "id_tasca");
+    input.setAttribute("value", "-1");
+
+    f.appendChild(input);
+
+    document.getElementsByTagName('body')[0].appendChild(f);
+
+    $.ajax({
+        url: '/storageandgo/operari_notification/',
+        type: 'get',
+        success: function (data) {
+            if (data != '-1') {
+                document.getElementById("notification").setAttribute("src", "https://cdn.pixabay.com/photo/2013/07/12/11/59/warning-145066_1280.png");
+                document.getElementById("id_tasca").value = data;
+            } else {
+                document.getElementById("notification").setAttribute("src", "https://image.flaticon.com/icons/svg/54/54810.svg");
+                document.getElementById("id_tasca").value = "-1";
+            }
+        },
+        failure: function (data) {
+        }
+    });
+    start_notification_check();
+</script>
+{% endblock %}

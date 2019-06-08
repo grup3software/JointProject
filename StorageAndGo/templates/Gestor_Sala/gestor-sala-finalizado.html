@@ -1,0 +1,16 @@
+{% extends 'Gestor_Sala/gestor-sala-home.html' %}
+{% block content %}
+
+    <h1>OPERARIO - TAREAS FINALIZADAS</h1><br>
+
+    {% for task in task_operator %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
+    {% endfor %}
+
+    <h1>TÉCNICO - TAREAS FINALIZADAS</h1><br>
+
+    {% for task in task_maintenance %}
+        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
+    {% endfor %}
+
+{% endblock %}

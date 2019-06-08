@@ -1,0 +1,38 @@
+{% extends "Gestor_Sala/gestor-sala-home.html" %}
+{% block content %}
+    <h1>INFORMES ENTRADA</h1>
+<table>
+    {% if manifestos_entrada%}
+        <tr>
+            <th style="width:20%; text-align: left">Fecha entrada</th>
+            <th style="width:20%; text-align: left">Producto</th>
+            <th style="width:20%; text-align: left">Fecha salida</th>
+        </tr>
+        {% for manifesto in manifestos_entrada %}
+            <tr>
+                <td>{{ manifesto.creationDate }}</td>
+                <td>{{ manifesto.products.name }}</td>
+                <td>{{ manifesto.revisionDate }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+    <table>
+    <h1>INFORMES SALIDA</h1>
+    {% if manifestos_sortida %}
+
+        <tr>
+            <th style="width:20%; text-align: left">Fecha entrada</>
+            <th style="width:20%; text-align: left">Producto</th>
+            <th style="width:20%; text-align: left">Fecha salida</th>
+        </tr>
+        {% for manifesto in manifestos_sortida %}
+            <tr>
+                <td>{{ manifesto.creationDate }}</td>
+                <td>{{ manifesto.products.name }}</td>
+                <td>{{ manifesto.revisionDate }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+{% endblock %}

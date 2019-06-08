@@ -1,0 +1,89 @@
+@startuml
+scale 800*800
+skinparam dpi 200
+skinparam classAttributeFontSize 8
+skinparam classArrowFontSize 9
+skinparam classFontSize 10
+skinparam nodesep 120
+skinparam ranksep 40
+hide stereotype
+skinparam class {
+	BackgroundColor White
+	BackgroundColor<<User>> LightBlue
+	BackgroundColor<<Card>> LightYellow
+}
+
+class Task <<Task>> {
+    User user
+    String Description
+    Boolean accepted
+    Char priority
+}
+
+class TaskOperator <<Task>> extends Task {
+    Product product
+    Sala origin
+    Sala destination
+    Contenidor quantity
+}
+
+class TaskTecnician <<Task>> extends Task {
+    Sala room
+    Integer EstimatedTime
+}
+
+class TaskMaintenance <<TaskTecnician>> extends TaskTecnician {
+    String description
+}
+
+class TaskClimatitzacio <<TaskTecnician>> extends TaskTecnician {
+    Integer temperature
+}
+
+class TaskRepair <<TaskTecnician>> extends TaskTecnician {
+    String description
+}
+
+class Sala <<Sala>> {
+    String description
+}
+
+class Contenidor <<Contenidor>> {
+    String name
+    Integer temp_min
+    Integer temp_max
+    Integer moistness_min
+    Integer moistness_max
+    Date limit_date
+    Manifesto manifesto
+}
+
+class Manifesto <<Manifisto>> {
+    BigInt reference
+    Date entry_date
+    String origin
+    String destination
+}
+
+class User <<User>> {
+
+}
+
+class Group <<Group>> {
+
+}
+
+class Notification <<Notification>> {
+    Task task
+    getUser()
+}
+
+TaskOperator --> Contenidor
+Sala --> Task
+Manifesto --> Contenidor
+User --> Group
+Task --> User
+Notification -- Task
+'Notification -- User
+
+@enduml
