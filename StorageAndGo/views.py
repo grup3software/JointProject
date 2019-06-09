@@ -4,8 +4,6 @@ import ctypes
 import requests
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.core.checks import messages
-from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
@@ -129,20 +127,20 @@ def gestor_finalizado(request):
 
 
 @login_required()
-def gestor_añadirtarea(request):
-    # getting our template
-    template = loader.get_template('gestor-sala-añadir-tarea.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
 def mapa_salas(request):
     rooms = Room.objects.all()
-
+    colors ={}
+    i = 1
+    for room in rooms:
+        if room.contenidorsInside /room.capacity > 0.50:
+            colors['color'] = "w3-yellow"
+        if room.contenidorsInside /room.capacity > 0.75:
+            colors['color'] = "w3-orange"
+        if room.contenidorsInside /room.capacity < 0.50:
+            colors['color'] = "w3-green"
+        i = i +1
     # rendering the template in HttpResponse
-    return render(request, "mapa-salas.html", {'rooms': rooms})
+    return render(request, "mapa-salas.html", {'rooms': zip(rooms, colors)})
 
 
 ################################################# SALA ###############################################################
@@ -366,15 +364,6 @@ class TaskUpdate(UpdateView):
 
 
 @login_required()
-def gestor_añadirtarea(request):
-    # getting our template
-    template = loader.get_template('Gestor_Sala/gestor-sala-añadir-tarea.html')
-
-    # rendering the template in HttpResponse
-    return HttpResponse(template.render())
-
-
-@login_required()
 def gestor_registrar_manifest(request):
     template = loader.get_template('gestor_sala_registrar_manifest.html')
 
@@ -476,7 +465,6 @@ def createTask(contenidor):
                          origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"],
                          accepted=False, finished=False, hight_priority=False)
 
-            # ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles per a conteidors de " + contenidor["name"], "Error", 1)
         else:
             task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'],
                                 product=contenidor['name'], origin=Room.objects.all()[0],
