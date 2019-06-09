@@ -93,5 +93,6 @@ urlpatterns = [
     path(r'informes/', InformeSla.as_view(), name="informe"),
     path('complets_sla/', complets_sla, name="complets_sla"),
     path('capacitat/', capacitat, name="capacitat"),
-    path('complets_mes/', complets_mes, name="complets_mes")
+    path('complets_mes/', complets_mes, name="complets_mes"),
+    path('ceo_historial', ListHistoryTasks.as_view(), name='task_history_list'),
 ]

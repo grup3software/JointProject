@@ -131,6 +131,7 @@ def gestor_finalizado(request):
 def mapa_salas(request):
     rooms = Room.objects.all()
     colors ={}
+    group = User.objects.get(username=request.user).groups.all()[0]
     i = 1
     for room in rooms:
         if room.contenidorsInside /room.capacity > 0.50:
@@ -141,6 +142,8 @@ def mapa_salas(request):
             colors['color'] = "w3-green"
         i = i +1
     # rendering the template in HttpResponse
+    if group.name == "Ceo":
+        return render(request, "mapa-salas2.html", {'rooms': rooms})
     return render(request, "mapa-salas.html", {'rooms': rooms})
 
 
@@ -319,7 +322,7 @@ class ListTasks(ListView):
 
 
 class ListHistoryTasks(ListView):
-    template_name = 'Gestor_Sala/gestor-sala-history.html'
+    template_name = 'ceo/ceo-history.html'
 
     def get_context_data(self, **kwargs):
         context = super(ListHistoryTasks, self).get_context_data(**kwargs)
