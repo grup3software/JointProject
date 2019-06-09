@@ -2,15 +2,35 @@
 {% block content %}
 
     <h1>OPERARIO - TAREAS FINALIZADAS</h1><br>
-
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+        </tr>
     {% for task in task_operator %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
+        <tr>
+            <td>{{ task.pk }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.product }}</td>
+        </tr>
     {% endfor %}
+    </table>
 
     <h1>TÉCNICO - TAREAS FINALIZADAS</h1><br>
-
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+        </tr>
     {% for task in task_maintenance %}
-        <h3>{{ task.pk }} - {{ task.description }} - {{ task.product }}</h3><br>
+        <tr>
+            <td>{{ task.pk }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.product }}</td>
+        </tr>
     {% endfor %}
+    </table>
 
 {% endblock %}
