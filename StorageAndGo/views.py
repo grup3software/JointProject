@@ -10,6 +10,7 @@ from django.template import loader
 from django.views.generic import ListView, UpdateView, CreateView
 
 from .forms import *
+import datetime
 
 
 # Create your views here.
@@ -497,6 +498,7 @@ class InformeSla(ListView):
         context = super(InformeSla, self).get_context_data(**kwargs)
         context['manifestos_entrada'] = Manifesto.objects.all().filter(withdrawal=False)
         context['manifestos_sortida'] = Manifesto.objects.all().filter(withdrawal=True)
+        context['range'] = reversed(range(1, datetime.date.today().month + 1))
         return context
 
 

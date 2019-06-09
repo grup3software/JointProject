@@ -6,12 +6,21 @@
     </div>
     <h1></h1>
 
-    <h1>CAPACIDAD</h1>
+    <h1>CAPACIDAD USADA</h1>
     <div class="myProgress" id="capacidadProgress">
         <div class="myBar" id="capacidadBar">0%</div>
     </div>
 
-    <h1>ESTE MES</h1>
+    <h1>MES
+        <select name="monthlist" >
+            {% for i in range %}
+                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+            {% endfor %}
+        </select>
+    </h1>
+    <div class="myProgress" id="monthProgress">
+        <div class="myBar" id="monthBar">0%</div>
+    </div>
 
     <h1>INFORMES ENTRADA</h1>
 <table>
