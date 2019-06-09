@@ -2,8 +2,13 @@
 {% block content %}
     <h1>TOTAL COMPLETOS</h1>
     <div id="myProgress">
-        <div id="myBar">10%</div>
+        <div id="myBar">0%</div>
     </div>
+    <h1></h1>
+
+    <h1>CAPACIDAD</h1>
+
+    <h1>ESTE MES</h1>
 
     <h1>INFORMES ENTRADA</h1>
 <table>
@@ -16,7 +21,12 @@
         {% for manifesto in manifestos_entrada %}
             <tr>
                 <td>{{ manifesto.creationDate }}</td>
-                <td>{{ manifesto.products.name }}</td>
+{#                <td>{{ manifesto.products.name }}</td>#}
+                <td>
+                    {% for product in manifesto.products.all %}
+                        {{ product.name }} (x{{ product.qty }}) <br>
+                    {% endfor %}
+                </td>
                 <td>{{ manifesto.revisionDate }}</td>
             </tr>
         {% endfor %}
@@ -43,7 +53,7 @@
 <script>
 function move(num) {
   var elem = document.getElementById("myBar");
-  var width = 10;
+  var width = 0;
   var id = setInterval(function() {frame(num);}, 10);
   function frame(num) {
     if (width >= num) {

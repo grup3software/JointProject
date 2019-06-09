@@ -503,7 +503,16 @@ class InformeSla(ListView):
 
 def complets_sla(request):
     manifestos = Manifesto.objects.all()
-    return HttpResponse(3/5*100)
+    total = 0
+    correct = 0
+    for manifesto in manifestos:
+        for product in manifesto.products.all():
+            # print(product.name)
+            if manifesto.revisionDate < product.sla:
+                correct += 1
+            total += 1
+    # return HttpResponse(9/100*100)
+    return HttpResponse(correct/total*100)
 
 
 def sala_detail(request, pk):
