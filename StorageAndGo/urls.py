@@ -25,7 +25,8 @@ urlpatterns = [
     path('gestor_arealizar/', ListTasks.as_view(), name="gestor_arealizar"),
     path('gestor_realizando/', ListRealizing.as_view(), name="gestor_realizando"),
     path('gestor_finalizado/', ListFinalized.as_view(), name="gestor_finalizado"),
-    path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
+    path('gestor_creacion_tarea_operario/', CreateOperatorTaskView, name="CreateOperatorTaskView"),
+    path('gestor_creacion_tarea_tecnic/', CreateTecnicTaskView, name="CreateTecnicTaskView"),
     path('pedido/', ManifestoCreate.as_view(), name="CreateManifesto"),
 
 

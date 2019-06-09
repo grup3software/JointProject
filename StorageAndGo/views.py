@@ -442,16 +442,30 @@ class TaskAvariaModify(UpdateView):
 
 
 @login_required(login_url='/accounts/login')
-def CreateTaskView(request):
+def CreateOperatorTaskView(request):
     if request.method == "POST":
-        form = CreateTaskForm(request.POST)
+        form = CreateOperatorTaskForm(request.POST)
         if form.is_valid():
             model_instance = form.save(commit=False)
             model_instance.save()
             return redirect('storageandgo:gestor_arealizar')
 
     else:
-        form = CreateTaskForm()
+        form = CreateOperatorTaskForm()
+        return render(request, "form.html", {'form': form})
+
+
+@login_required(login_url='/accounts/login')
+def CreateTecnicTaskView(request):
+    if request.method == "POST":
+        form = CreateTecnicTaskForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:gestor_arealizar')
+
+    else:
+        form = CreateTecnicTaskForm()
         return render(request, "form.html", {'form': form})
 
 
