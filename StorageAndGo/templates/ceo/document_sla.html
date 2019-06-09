@@ -12,7 +12,7 @@
     </div>
 
     <h1>MES
-        <select name="monthlist" >
+        <select id="monthlist" name="monthlist" onChange="month_data();" >
             {% for i in range %}
                 <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
             {% endfor %}
@@ -64,6 +64,7 @@
 <script>
 function move(num, tag) {
   var elem = document.getElementById(tag);
+  elem.style.backgroundColor = "#4CAF50";
   var width = 0;
   var id = setInterval(function() {frame(num);}, 10);
   function frame(num) {
@@ -77,6 +78,33 @@ function move(num, tag) {
   }
 }
 
+function month_data() {
+    var element = document.getElementById("monthlist")
+    var month = element.options[element.selectedIndex].value;
+    {#move(month, "monthBar")#}
+    $.ajax({
+        url: '/storageandgo/complets_mes/',
+        {#type: 'post',#}
+        dataType: 'json',
+        data: {
+              'month': month
+            },
+        success: function (data) {
+            if (data !== -1) {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data, "monthBar")
+            } else {
+                document.getElementById("monthBar").style.width = 100 + '%';
+                document.getElementById("monthBar").style.backgroundColor = "#af100d";
+                document.getElementById("monthBar").innerHTML = "NO HAY DATOS PARA ESTE MES";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("monthBar").innerHTML = "ERROR1";
+        }
+    });
+}
+
 $.ajax({
         url: '/storageandgo/complets_sla/',
         type: 'get',
@@ -85,11 +113,11 @@ $.ajax({
                 {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
                 move(data, "completosBar")
             } else {
-                document.getElementById("myBar").innerHTML = "ERROR2";
+                document.getElementById("completosBar").innerHTML = "ERROR2";
             }
         },
         failure: function (data) {
-            document.getElementById("myBar").innerHTML = "ERROR1";
+            document.getElementById("completosBar").innerHTML = "ERROR1";
         }
     });
 
@@ -101,11 +129,11 @@ $.ajax({
                 {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
                 move(data, "capacidadBar")
             } else {
-                document.getElementById("myBar").innerHTML = "ERROR2";
+                document.getElementById("capacidadBar").innerHTML = "ERROR2";
             }
         },
         failure: function (data) {
-            document.getElementById("myBar").innerHTML = "ERROR1";
+            document.getElementById("capacidadBar").innerHTML = "ERROR1";
         }
     });
 </script>

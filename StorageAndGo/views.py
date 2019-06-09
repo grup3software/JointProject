@@ -11,6 +11,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from .forms import *
 import datetime
+import pytz
 
 
 # Create your views here.
@@ -514,6 +515,40 @@ def complets_sla(request):
             total += 1
     # return HttpResponse(9/100*100)
     return HttpResponse(correct/total*100)
+
+
+def complets_mes(request):
+    month = int(request.GET.get('month', None))
+    print(month)
+
+    first = datetime.datetime.now().replace(day=1, month=month)
+    last = last_day_of_month(first)
+    timezone = pytz.timezone("UTC")
+    first = timezone.localize(first)
+    last = timezone.localize(last)
+    # print(first)
+    pass
+
+    manifestos = Manifesto.objects.filter(creationDate__gte=first, creationDate__lte=last)
+
+    total = 0
+    correct = 0
+    for manifesto in manifestos:
+        for product in manifesto.products.all():
+            # print(product.name)
+            if manifesto.revisionDate < product.sla:
+                correct += 1
+            total += 1
+    # return HttpResponse(9/100*100)
+    # return HttpResponse(10 * int(month))
+    if total is 0:
+        return HttpResponse(-1)
+    return HttpResponse(correct / total * 100)
+
+
+def last_day_of_month(any_day):
+    next_month = any_day.replace(day=28) + datetime.timedelta(days=4)  # this will never fail
+    return next_month - datetime.timedelta(days=next_month.day)
 
 
 def capacitat(request):
