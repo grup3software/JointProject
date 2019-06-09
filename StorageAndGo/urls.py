@@ -85,6 +85,7 @@ urlpatterns = [
 
 
     #CEO
-    url(r'informes/', InformeSla.as_view(), name="informe")
+    url(r'informes/', InformeSla.as_view(), name="informe"),
+    path('complets_sla/', complets_sla, name="complets_sla"),
     # path('gestor_creacion_tarea/', CreateTaskView, name="CreateTaskView"),
 ]

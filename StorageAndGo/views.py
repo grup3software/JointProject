@@ -513,6 +513,11 @@ class InformeSla(ListView):
         return context
 
 
+def complets_sla(request):
+    manifestos = Manifesto.objects.all()
+    return HttpResponse(3/5*100)
+
+
 def sala_detail(request, pk):
     datos = get_object_or_404(Room, pk=pk)
 

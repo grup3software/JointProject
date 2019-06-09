@@ -1,5 +1,10 @@
 {% extends "Gestor_Sala/gestor-sala-home.html" %}
 {% block content %}
+    <div id="myProgress">
+        <div id="myBar">10%</div>
+    </div>
+    <button onclick="move(75)">Click Me</button>
+
     <h1>INFORMES ENTRADA</h1>
 <table>
     {% if manifestos_entrada%}
@@ -35,4 +40,36 @@
         {% endfor %}
     {% endif %}
 </table>
+<script>
+function move(num) {
+  var elem = document.getElementById("myBar");
+  var width = 10;
+  var id = setInterval(function() {frame(num);}, 10);
+  function frame(num) {
+    if (width >= num) {
+      clearInterval(id);
+    } else {
+      width++;
+      elem.style.width = width + '%';
+      elem.innerHTML = width * 1 + '%';
+    }
+  }
+}
+
+$.ajax({
+        url: '/storageandgo/complets_sla/',
+        type: 'get',
+        success: function (data) {
+            if (data != '-1') {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data)
+            } else {
+                document.getElementById("myBar").innerHTML = "ERROR2";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("myBar").innerHTML = "ERROR1";
+        }
+    });
+</script>
 {% endblock %}
