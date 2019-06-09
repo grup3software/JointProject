@@ -4,11 +4,20 @@
     <h1>TAREAS REALIZADAS</h1>
 
     {% if tasques_tecnics_finalitzades %}
-        <ul>
+        <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+        </tr>
             {% for task in tasques_tecnics_finalitzades %}
-                <a href="#"><h3>{{ task.description }}</h3></a>
+                <tr>
+                    <td>{{ task.pk }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.product }}</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     {% endif %}
 
 {% endblock %}
