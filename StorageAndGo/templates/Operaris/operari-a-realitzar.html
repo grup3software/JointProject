@@ -4,16 +4,23 @@
     <h1>TAREAS A REALIZAR</h1>
 
     {% if tasques_operari_a_realitzar %}
-        <ul>
+        <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+                <th style="width:20%; text-align: left">Función</th>
+        </tr>
             {% for task in tasques_operari_a_realitzar %}
-                <table style="width: 100%">
                 <tr>
-                    <td><h3>{{ task.pk }} - {{ task.description }} - {{ task.product }} - </h3></td>
+                    <td>{{ task.pk }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.product }}</td>
                     <td><a href='{% url "storageandgo:accept_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">ACEPTAR</button></a></td>
                 </tr>
-                </table>
+
             {% endfor %}
-        </ul>
+        </table>
     {% endif %}
 
 {% endblock %}
