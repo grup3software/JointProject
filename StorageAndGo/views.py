@@ -160,6 +160,16 @@ def CreateSalaView(request):
         return render(request, "form.html", {'form': form})
 
 
+class SalaModify(UpdateView):
+    model = Room
+    fields = '__all__'
+    template_name = "form.html"
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        return super(SalaModify, self).form_valid(form)
+
+
 ############################################## OPERARI #################################################################
 
 

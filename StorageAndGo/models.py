@@ -141,7 +141,7 @@ class Room(models.Model):
         return u"%s" % self.description
 
     def get_absolute_url(self):
-        return reverse('storageandgo:mapa_salas')
+        return reverse('storageandgo:sala_detail', kwargs={'pk': self.pk})
 
     def percent_ocupation(self):
         return (100 * self.contenidorsInside) / self.capacity
