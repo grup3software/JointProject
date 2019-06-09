@@ -140,7 +140,7 @@ def mapa_salas(request):
             colors['color'] = "w3-green"
         i = i +1
     # rendering the template in HttpResponse
-    return render(request, "mapa-salas.html", {'rooms': zip(rooms, colors)})
+    return render(request, "mapa-salas.html", {'rooms': rooms})
 
 
 ################################################# SALA ###############################################################
