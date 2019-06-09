@@ -1,4 +1,4 @@
-{% extends "Gestor_Sala/gestor-sala-home.html" %}
+{% extends "ceo/ceo-home.html" %}
 {% block content %}
     <h1>TOTAL COMPLETOS</h1>
     <div class="myProgress" id="completosProgress">
@@ -12,9 +12,9 @@
     </div>
 
     <h1>MES
-        <select id="monthlist" name="monthlist" onChange="month_data();" >
+        <select style="font-size: 12px" id="monthlist" name="monthlist" onChange="month_data();" >
             {% for i in range %}
-                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                <option style="font-size: 12px" value="{{ forloop.counter }}">{{ forloop.counter }}</option>
             {% endfor %}
         </select>
     </h1>
