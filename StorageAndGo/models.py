@@ -128,11 +128,11 @@ class Contenidor(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=200, null=True, verbose_name='Nombre sala')
-    temperatureMin = models.IntegerField("Temperatura mínima", null=False, default=0, )
-    temperatureMax = models.IntegerField("Temperatura máxima", null=False, default=0, )
+    temperatureMin = models.IntegerField("Temperatura mínima", null=False, default=0)
+    temperatureMax = models.IntegerField("Temperatura máxima", null=False, default=0)
     humitMin = models.IntegerField("Humedad mínima", null=False, default=0)
     humitMax = models.IntegerField("Humedad máxima", null=False, default=0)
-    capacity = models.IntegerField("Capacidad", null=False, default=0)
+    capacity = models.PositiveSmallIntegerField("Capacidad", null=False, validators=[MinValueValidator(1)])
     contenidorsInside = models.IntegerField("Contenedores Dentro", null=False, default=0)
     description = models.TextField("Descripción", default="", null=True)
 
