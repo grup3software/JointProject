@@ -132,7 +132,7 @@ class Room(models.Model):
     temperatureMax = models.IntegerField("Temperatura máxima", null=False, default=0)
     humitMin = models.IntegerField("Humedad mínima", null=False, default=0)
     humitMax = models.IntegerField("Humedad máxima", null=False, default=0)
-    capacity = models.IntegerField("Capacidad", null=False, default=1)
+    capacity = models.PositiveSmallIntegerField("Capacidad", null=False, validators=[MinValueValidator(1)])
     contenidorsInside = models.IntegerField("Contenedores Dentro", null=False, default=0)
     description = models.TextField("Descripción", default="", null=True)
 
