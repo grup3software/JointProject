@@ -163,12 +163,14 @@ def CreateSalaView(request):
 ############################################## OPERARI #################################################################
 
 
+@login_required()
 def operari_home(request):
     # getting our template
     template = loader.get_template('Operaris/operari-home.html')
 
     # rendering the template in HttpResponse
-    return HttpResponse(template.render())
+    # return HttpResponse(template.render())
+    return render(request, "Operaris/operari-home.html", {})
 
 
 @login_required()
@@ -178,25 +180,28 @@ def operari_arealitzar(request):
     tasques_operari_a_realitzar = TaskOperator.objects.filter(accepted=False)
     context = {'tasques_operari_a_realitzar': tasques_operari_a_realitzar}
 
-    return HttpResponse(template.render(context))
+    # return HttpResponse(template.render(context))
+    return render(request, "Operaris/operari-a-realitzar.html", context=context)
 
 
+@login_required()
 def operari_realizando(request):
     template = loader.get_template('Operaris/operari-realizando.html')
 
     tasques_operari_realizando = TaskOperator.objects.filter(accepted=True, finished=False, user=request.user)
     context = {'tasques_operari_realizando': tasques_operari_realizando}
 
-    return HttpResponse(template.render(context))
+    return render(request, "Operaris/operari-realizando.html", context=context)
 
 
+@login_required()
 def operari_finalizado(request):
     template = loader.get_template('Operaris/operari-finalizado.html')
 
     tasques_operari_finalizado = TaskOperator.objects.filter(finished=True, user=request.user)
     context = {'tasques_operari_finalizado': tasques_operari_finalizado}
 
-    return HttpResponse(template.render(context))
+    return render(request, "Operaris/operari-finalizado.html", context=context)
 
 
 def operari_notification(request):
@@ -220,7 +225,7 @@ def operari_detall_tasca(request, pk):
 def tecnics_home(request):
     template = loader.get_template('Tecnics/tecnics-home.html')
 
-    return HttpResponse(template.render())
+    return render(request, "Tecnics/tecnics-home.html")
 
 
 class AvariaList(ListView):
@@ -245,7 +250,7 @@ def tecnics_arealitzar(request):
     tasques_tecnics_a_realitzar = TaskMaintenance.objects.filter(accepted=False)
     context = {'tasques_tecnics_a_realitzar': tasques_tecnics_a_realitzar}
 
-    return HttpResponse(template.render(context))
+    return render(request, "Tecnics/tecnics-a-realizar.html", context=context)
 
 
 @login_required()
@@ -255,7 +260,7 @@ def tecnics_realizando(request):
     tasques_tecnics_realizando = TaskMaintenance.objects.filter(accepted=True, finished=False, user=request.user)
     context = {'tasques_tecnics_realizando': tasques_tecnics_realizando}
 
-    return HttpResponse(template.render(context))
+    return render(request, "Tecnics/tecnics-realizando.html", context=context)
 
 
 @login_required()
@@ -265,7 +270,7 @@ def tecnics_finalizado(request):
     tasques_tecnics_finalitzades = TaskMaintenance.objects.filter(finished=True, user=request.user)
     context = {'tasques_tecnics_finalitzades': tasques_tecnics_finalitzades}
 
-    return HttpResponse(template.render(context))
+    return render(request, "Tecnics/tecnics-finalitzades.html", context=context)
 
 
 ################################################# TASKS ################################################################
@@ -368,7 +373,8 @@ class TaskUpdate(UpdateView):
 def gestor_registrar_manifest(request):
     template = loader.get_template('gestor_sala_registrar_manifest.html')
 
-    return HttpResponse(template.render())
+    # return HttpResponse(template.render())
+    return render(request, "gestor_sala_registrar_manifest.html")
 
 
 class TaskAccept(UpdateView):
