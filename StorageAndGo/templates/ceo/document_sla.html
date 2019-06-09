@@ -1,12 +1,15 @@
 {% extends "Gestor_Sala/gestor-sala-home.html" %}
 {% block content %}
     <h1>TOTAL COMPLETOS</h1>
-    <div id="myProgress">
-        <div id="myBar">0%</div>
+    <div class="myProgress" id="completosProgress">
+        <div class="myBar" id="completosBar">0%</div>
     </div>
     <h1></h1>
 
     <h1>CAPACIDAD</h1>
+    <div class="myProgress" id="capacidadProgress">
+        <div class="myBar" id="capacidadBar">0%</div>
+    </div>
 
     <h1>ESTE MES</h1>
 
@@ -50,8 +53,8 @@
     {% endif %}
 </table>
 <script>
-function move(num) {
-  var elem = document.getElementById("myBar");
+function move(num, tag) {
+  var elem = document.getElementById(tag);
   var width = 0;
   var id = setInterval(function() {frame(num);}, 10);
   function frame(num) {
@@ -71,7 +74,23 @@ $.ajax({
         success: function (data) {
             if (data != '-1') {
                 {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
-                move(data)
+                move(data, "completosBar")
+            } else {
+                document.getElementById("myBar").innerHTML = "ERROR2";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("myBar").innerHTML = "ERROR1";
+        }
+    });
+
+$.ajax({
+        url: '/storageandgo/capacitat/',
+        type: 'get',
+        success: function (data) {
+            if (data != '-1') {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data, "capacidadBar")
             } else {
                 document.getElementById("myBar").innerHTML = "ERROR2";
             }

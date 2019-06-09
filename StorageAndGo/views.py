@@ -514,6 +514,17 @@ def complets_sla(request):
     return HttpResponse(correct/total*100)
 
 
+def capacitat(request):
+    rooms = Room.objects.all()
+    used = 0
+    total = 0
+    for room in rooms:
+        total += room.capacity
+        used += room.contenidorsInside
+
+    # return HttpResponse(50/100*100)
+    return HttpResponse(used/total*100)
+
 def sala_detail(request, pk):
     datos = get_object_or_404(Room, pk=pk)
 
