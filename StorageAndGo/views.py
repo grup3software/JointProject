@@ -69,7 +69,6 @@ class ManifestoCreate(CreateView):
 
         data = requests.get('https://ourfarms.herokuapp.com/apiRest/REF/?ref=' + ref,
                             auth=('GR3', 'gr3124567890')).json()
-        print(data)
 
         contenidors = []
         if data:
