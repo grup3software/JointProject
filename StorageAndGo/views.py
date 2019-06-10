@@ -595,10 +595,15 @@ def capacitat(request):
     # return HttpResponse(50/100*100)
     return HttpResponse(used/total*100)
 
+
 def sala_detail(request, pk):
     datos = get_object_or_404(Room, pk=pk)
+    group = User.objects.get(username=request.user).groups.all()[0]
 
     context = {'sala': datos}
+
+    if group.name == "Ceo":
+        return render(request, 'info_sala2.html', context)
     return render(request, 'info_sala.html', context)
 
 
