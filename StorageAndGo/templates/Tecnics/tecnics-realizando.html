@@ -13,9 +13,9 @@
         </tr>
             {% for task in tasques_tecnics_realizando %}
                <tr>
-                    <td>{{ task.pk }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>{{ task.room }}</td>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
                     <td><a href='{% url "storageandgo:finish_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">FINALIZAR</button></a></td>
                 </tr>
             {% endfor %}

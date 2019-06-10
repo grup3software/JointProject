@@ -12,9 +12,9 @@
         </tr>
             {% for task in tasques_operari_finalizado %}
                 <tr>
-                    <td>{{ task.pk }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>{{ task.product }}</td>
+                    <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+                    <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+                    <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.product }}</a></td>
                 </tr>
             {% endfor %}
        </table>

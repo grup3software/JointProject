@@ -10,9 +10,9 @@
         </tr>
     {% for task in task_operator %}
         <tr>
-            <td>{{ task.pk }}</td>
-            <td>{{ task.description }}</td>
-            <td>{{ task.product }}</td>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.product }}</a></td>
         </tr>
     {% endfor %}
     </table>
@@ -26,9 +26,9 @@
         </tr>
     {% for task in task_maintenance %}
         <tr>
-            <td>{{ task.pk }}</td>
-            <td>{{ task.description }}</td>
-            <td>{{ task.room }}</td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
         </tr>
     {% endfor %}
     </table>
