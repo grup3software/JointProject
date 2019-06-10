@@ -5,16 +5,16 @@
 
             {% for sala in rooms %}
                {% if sala.percent_ocupation < 50 %}
-                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-green" style="width: 120px; height: 120px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} <br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
+                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-green" style="width: 120px; height: 120px; margin: 15px"><b>SALA {{ sala.pk }} </b><br> {{ sala.contenidorsInside }}/{{ sala.capacity }} <br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
                {% endif %}
                {% if sala.percent_ocupation >= 50 and sala.percent_ocupation < 75 %}
-                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-yellow" style="width: 120px; height: 120px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }}<br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
+                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-yellow" style="width: 120px; height: 120px; margin: 15px"><b>SALA {{ sala.pk }} </b> <br> {{ sala.contenidorsInside }}/{{ sala.capacity }}<br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
                {% endif %}
                {% if sala.percent_ocupation >= 75 and sala.percent_ocupation < 100 %}
-                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-orange" style="width: 120px; height: 120px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }}<br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
+                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-orange" style="width: 120px; height: 120px; margin: 15px"><b>SALA {{ sala.pk }} </b> <br> {{ sala.contenidorsInside }}/{{ sala.capacity }}<br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
                {% endif %}
                {% if sala.percent_ocupation >= 100 %}
-                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-red" style="width: 120px; height: 120px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} <br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
+                   <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-red" style="width: 120px; height: 120px; margin: 15px"><b>SALA {{ sala.pk }} </b> <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} <br>{{ sala.temperatureMin }}-{{ sala.temperatureMax }}ºC <br>{{ sala.humitMin }}-{{ sala.humitMax }}% </button></a>
                {% endif %}
             {% endfor %}
 
