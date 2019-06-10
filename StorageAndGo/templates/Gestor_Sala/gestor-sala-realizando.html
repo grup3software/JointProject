@@ -25,14 +25,14 @@
         <tr>
                 <th style="width:20%; text-align: left">Id</th>
                 <th style="width:20%; text-align: left">Descripción</th>
-                <th style="width:20%; text-align: left">Producto</th>
+                <th style="width:20%; text-align: left">Sala</th>
                 <th style="width:20%; text-align: left">Función</th>
         </tr>
     {% for task in task_maintenance %}
         <tr>
             <td>{{ task.pk }}</td>
             <td>{{ task.description }}</td>
-            <td>{{ task.product }}</td>
+            <td>{{ task.room }}</td>
             <td><a href='{% url "storageandgo:finish_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">FINALIZAR</button></a></td>
         </tr>
 
