@@ -78,7 +78,10 @@ class ManifestoCreate(CreateView):
                 cont = Contenidor(**contenidor)
                 cont.save()
                 contenidors.append(cont)
-                createTask(contenidor)
+                if not data[0]['withdrawal']:
+                    createTask(contenidor)
+                else:
+                    createTask2(contenidor)
 
             del data[0]['Products']
 
@@ -421,14 +424,23 @@ def task_finish(request, pk):
     task.save()
     if TaskOperator.objects.filter(pk=pk).exists():
         task = TaskOperator.objects.get(pk=pk)
-        origin = task.origin
-        destination = task.destination
+        if task.origin is None:
+            destination = task.destination
+            destination.contenidorsInside += task.quantity
+            destination.save()
+        elif task.destination is None:
+            origin = task.origin
+            origin.contenidorsInside -= task.quantity
+            origin.save()
+        else:
+            origin = task.origin
+            destination = task.destination
 
-        origin.contenidorsInside -= task.quantity
-        destination.contenidorsInside += task.quantity
+            origin.contenidorsInside -= task.quantity
+            destination.contenidorsInside += task.quantity
 
-        origin.save()
-        destination.save()
+            origin.save()
+            destination.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -516,13 +528,40 @@ def createTask(contenidor):
 
         if avaliable_room == 0:
             TaskOperator(description="Mover " + "contenedores de " + contenidor["name"], product=contenidor["name"],
-                         origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"],
+                         origin=None, destination=Room.objects.all()[0], quantity=contenidor["qty"],
+                         accepted=False, finished=False, hight_priority=False)
+
+        else:
+            task = TaskOperator(description="Mover " + str(contenidor['qty']) + " contenedores de " + contenidor['name'],
+                                product=contenidor['name'], origin=None,
+                                destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False,
+                                finished=False, hight_priority=False)
+            task.save()
+    else:
+        ctypes.windll.user32.MessageBoxW(0, "No hay salas disponibles", "Error", 1)
+
+
+# @login_required()
+def createTask2(contenidor):
+    rooms = Room.objects.all()
+
+    avaliable_room = 0
+    if rooms:
+        for room in rooms:
+            if room.temperatureMin > contenidor["tempMinDegree"] and room.temperatureMax < contenidor["tempMaxDegree"] \
+                    and room.capacity - room.contenidorsInside > contenidor['qty']:
+                avaliable_room = room
+                break
+
+        if avaliable_room == 0:
+            TaskOperator(description="Mover " + "contenedores de " + contenidor["name"], product=contenidor["name"],
+                         origin=Room.objects.all()[0], destination=None, quantity=contenidor["qty"],
                          accepted=False, finished=False, hight_priority=False)
 
         else:
             task = TaskOperator(description="Mover " + str(contenidor['qty']) + " contenedores de " + contenidor['name'],
                                 product=contenidor['name'], origin=Room.objects.all()[0],
-                                destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False,
+                                destination=None, quantity=contenidor['qty'], accepted=False,
                                 finished=False, hight_priority=False)
             task.save()
     else:
