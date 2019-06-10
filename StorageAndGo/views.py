@@ -506,18 +506,18 @@ def createTask(contenidor):
                 break
 
         if avaliable_room == 0:
-            TaskOperator(description="Moure " + "conteidors de " + contenidor["name"], product=contenidor["name"],
+            TaskOperator(description="Mover " + "contenedores de " + contenidor["name"], product=contenidor["name"],
                          origin=Room.objects.all()[0], destination=Room.objects.all()[0], quantity=contenidor["qty"],
                          accepted=False, finished=False, hight_priority=False)
 
         else:
-            task = TaskOperator(description="Moure " + str(contenidor['qty']) + "conteidors de " + contenidor['name'],
+            task = TaskOperator(description="Mover " + str(contenidor['qty']) + " contenedores de " + contenidor['name'],
                                 product=contenidor['name'], origin=Room.objects.all()[0],
                                 destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False,
                                 finished=False, hight_priority=False)
             task.save()
     else:
-        ctypes.windll.user32.MessageBoxW(0, "No hi ha sales disponibles", "Error", 1)
+        ctypes.windll.user32.MessageBoxW(0, "No hay salas disponibles", "Error", 1)
 
 
 ######################################################## Login ###########################################################
