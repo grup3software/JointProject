@@ -411,9 +411,20 @@ def task_accept(request, pk):
 
 @login_required(login_url='/accounts/login')
 def task_finish(request, pk):
+    group = User.objects.get(username=request.user).groups.all()[0]
     task = Task.objects.get(pk=pk)
     task.finished = True
     task.save()
+    if TaskOperator.objects.filter(pk=pk).exists():
+        task = TaskOperator.objects.get(pk=pk)
+        origin = task.origin
+        destination = task.destination
+
+        origin.contenidorsInside -= task.quantity
+        destination.contenidorsInside += task.quantity
+
+        origin.save()
+        destination.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
 
