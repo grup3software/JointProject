@@ -1,0 +1,10 @@
+{% extends 'ceo/ceo-home.html' %}
+
+{% block content %}
+
+    <h3>DETALLE AVERÍA</h3>
+        <ul>
+            <li><b>DESCRIPCION: </b>{{ avaria.object }}</li>
+            <li><b>SALA: </b>{{ avaria.room }}</li>
+        </ul>
+{% endblock %}

@@ -646,3 +646,8 @@ def sala_delete(request, pk):
         return redirect(reverse('storageandgo:mapa_salas'))
     except:
         return HttpResponse("Contenedores o Tareas referenciados")
+
+
+def ceo_detall_averia(request, pk):
+    avaria = Avaria.objects.get(id=pk)
+    return render(request, 'Tecnics/tecnics-detall-tasca.html', {'avaria': avaria})

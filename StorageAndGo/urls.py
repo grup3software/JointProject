@@ -99,4 +99,5 @@ urlpatterns = [
     path('capacitat/', capacitat, name="capacitat"),
     path('complets_mes/', complets_mes, name="complets_mes"),
     path('ceo_historial', ListHistoryTasks.as_view(), name='task_history_list'),
+    path('ceo_detall_avaria/<pk>/', ceo_detall_averia, name="ceo_detall_avaria"),
 ]
