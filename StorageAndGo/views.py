@@ -435,7 +435,8 @@ class TaskOperatorModify(UpdateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        # FALTA GUARDAR MODIFICACIONS
+
+        super(TaskOperatorModify, self).form_valid(form)
 
         if self.request.user.groups.all()[0] == "Operari":
             return redirect('storageandgo:operari_home')
@@ -450,9 +451,13 @@ class TaskMaintenanceModify(UpdateView):
 
     def form_valid(self, form):
         form.instance.sender = self.request.user
-        # return super(TaskMaintenanceModify, self).form_valid(form)
-        url_report = self.request.META.get('HTTP_REFERER')
-        return redirect(url_report)
+
+        super(TaskMaintenanceModify, self).form_valid(form)
+
+        if self.request.user.groups.all()[0] == "Tecnic":
+            return redirect('storageandgo:tecnics_home')
+        else:
+            return redirect('storageandgo:gestor_arealizar')
 
 
 class TaskAvariaModify(UpdateView):
