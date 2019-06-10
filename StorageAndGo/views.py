@@ -222,7 +222,7 @@ def operari_finalizado(request):
 
 def operari_notification(request):
     current_user = request.user.id
-    task = Task.objects.filter(user=current_user, hight_priority=True, finished=False)
+    task = Task.objects.filter(user=current_user, high_priority=True, finished=False)
 
     if task.exists():
         return HttpResponse(task[0].pk)
@@ -541,13 +541,13 @@ def createTask(contenidor):
         if avaliable_room == 0:
             TaskOperator(description="Mover " + "contenedores de " + contenidor["name"], product=contenidor["name"],
                          origin=None, destination=Room.objects.all()[0], quantity=contenidor["qty"],
-                         accepted=False, finished=False, hight_priority=False)
+                         accepted=False, finished=False, high_priority=False)
 
         else:
             task = TaskOperator(description="Mover " + str(contenidor['qty']) + " contenedores de " + contenidor['name'],
                                 product=contenidor['name'], origin=None,
                                 destination=Room.objects.all()[0], quantity=contenidor['qty'], accepted=False,
-                                finished=False, hight_priority=False)
+                                finished=False, high_priority=False)
             task.save()
     else:
         ctypes.windll.user32.MessageBoxW(0, "No hay salas disponibles", "Error", 1)
@@ -568,13 +568,13 @@ def createTask2(contenidor):
         if avaliable_room == 0:
             TaskOperator(description="Mover " + "contenedores de " + contenidor["name"], product=contenidor["name"],
                          origin=Room.objects.all()[0], destination=None, quantity=contenidor["qty"],
-                         accepted=False, finished=False, hight_priority=False)
+                         accepted=False, finished=False, high_priority=False)
 
         else:
             task = TaskOperator(description="Mover " + str(contenidor['qty']) + " contenedores de " + contenidor['name'],
                                 product=contenidor['name'], origin=Room.objects.all()[0],
                                 destination=None, quantity=contenidor['qty'], accepted=False,
-                                finished=False, hight_priority=False)
+                                finished=False, high_priority=False)
             task.save()
     else:
         ctypes.windll.user32.MessageBoxW(0, "No hay salas disponibles", "Error", 1)
