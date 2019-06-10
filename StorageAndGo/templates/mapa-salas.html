@@ -7,13 +7,13 @@
                {% if sala.percent_ocupation < 50 %}
                    <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-green" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} </button></a>
                {% endif %}
-               {% if sala.percent_ocupation > 50 and sala.percent_ocupation < 75 %}
+               {% if sala.percent_ocupation >= 50 and sala.percent_ocupation < 75 %}
                    <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-yellow" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} </button></a>
                {% endif %}
-               {% if sala.percent_ocupation > 75 and sala.percent_ocupation < 100 %}
+               {% if sala.percent_ocupation >= 75 and sala.percent_ocupation < 100 %}
                    <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-orange" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} </button></a>
                {% endif %}
-               {% if sala.percent_ocupation == 100 %}
+               {% if sala.percent_ocupation >= 100 %}
                    <a href='{% url "storageandgo:sala_detail" sala.pk %}'><button class="w3-button w3-red" style="width: 100px; height: 100px; margin: 15px">SALA {{ sala.pk }} <br> {{ sala.contenidorsInside }}/{{ sala.capacity }} </button></a>
                {% endif %}
             {% endfor %}
