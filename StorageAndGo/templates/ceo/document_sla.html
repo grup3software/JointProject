@@ -55,7 +55,10 @@
         {% for manifesto in manifestos_sortida %}
             <tr>
                 <td>{{ manifesto.creationDate }}</td>
-                <td>{{ manifesto.products.name }}</td>
+                <td>{% for product in manifesto.products.all %}
+                        {{ product.name }} (x{{ product.qty }}) <br>
+                    {% endfor %}
+                </td>
                 <td>{{ manifesto.revisionDate }}</td>
             </tr>
         {% endfor %}
