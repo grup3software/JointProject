@@ -13,10 +13,12 @@ class CreateTecnicTaskForm(ModelForm):
         model = TaskMaintenance
         fields = '__all__'
 
+
 class CreateSala(ModelForm):
     class Meta:
         model = Room
         fields = '__all__'
+        exclude = ('contenidorsInside',)
 
 class CreateAvaria(ModelForm):
     class Meta:

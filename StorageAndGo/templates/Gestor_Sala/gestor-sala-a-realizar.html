@@ -13,9 +13,9 @@
         {% for task in task_operator %}
 
             <tr>
-                <td>{{ task.pk }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.product }}</td>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.product }}</a></td>
                 <td><a href='{% url "storageandgo:modify_operator" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
             </tr>
 
@@ -27,14 +27,14 @@
         <tr>
                 <th style="width:20%; text-align: left">Id</th>
                 <th style="width:20%; text-align: left">Descripción</th>
-                <th style="width:20%; text-align: left">Producto</th>
+                <th style="width:20%; text-align: left">Sala</th>
                 <th style="width:20%; text-align: left">Función</th>
         </tr>
     {% for task in task_maintenance %}
         <tr>
-            <td>{{ task.pk }}</td>
-            <td>{{ task.description }}</td>
-            <td>{{ task.product }}</td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
             <td><a href='{% url "storageandgo:modify_maintenance" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
         </tr>
     {% endfor %}

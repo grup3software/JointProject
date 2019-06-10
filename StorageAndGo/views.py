@@ -298,6 +298,10 @@ def tecnics_finalizado(request):
     return render(request, "Tecnics/tecnics-finalitzades.html", context=context)
 
 
+def tecnics_detall_tasca(request, pk):
+    task = TaskMaintenance.objects.get(id=pk)
+    return render(request, 'Tecnics/tecnics-detall-tasca.html', {'tasca': task})
+
 ################################################# TASKS ################################################################
 class ListUnasignedTasks(ListView):
     template_name = 'unasigned_task_list.html'
