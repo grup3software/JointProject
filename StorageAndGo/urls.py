@@ -44,7 +44,8 @@ urlpatterns = [
 
     #OPERARI
 
-    path('operari_home/', operari_home, name="operari_home"),
+    # path('operari_home/', operari_home, name="operari_home"),
+    path('operari_home/', operari_arealitzar, name="operari_home"),
     path('operari_arealizar/', operari_arealitzar, name="operari_arealitzar"),
     path('operari_realizando/', operari_realizando, name="operari_realizando"),
     path('operari_finalizado/', operari_finalizado, name="operari_finalizado"),
@@ -53,7 +54,8 @@ urlpatterns = [
 
     #TECNIC
 
-    path('tecnics_home/', tecnics_home, name="tecnics_home"),
+    # path('tecnics_home/', tecnics_home, name="tecnics_home"),
+    path('tecnics_home/', tecnics_arealitzar, name="tecnics_home"),
     path('tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
     path('tecnics_realitzant/', tecnics_realizando, name="tecnics_realizando"),
     path('tecnics_finalizado/', tecnics_finalizado, name="tecnics_finalizado"),
