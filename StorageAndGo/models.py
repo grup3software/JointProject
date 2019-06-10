@@ -15,7 +15,7 @@ class Task(models.Model):
                              verbose_name='Usuario')
     accepted = models.BooleanField(default=False, verbose_name='Acceptado')
     finished = models.BooleanField(default=False, verbose_name='Acabado')
-    hight_priority = models.BooleanField(default=False, verbose_name='Alta prioridad')
+    high_priority = models.BooleanField(default=False, verbose_name='Alta prioridad')
 
     def __str__(self):
         return str(self.pk) + " - " + self.description
@@ -152,8 +152,8 @@ class Room(models.Model):
 
 
 class Avaria(Task):
-    room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
-    object = models.TextField("Objecto", default="", blank=True)
+    room = models.ForeignKey('Room', default=1, on_delete=models.PROTECT, blank=True, null=True)
+    object = models.TextField('Pieza', default="", blank=True)
 
     def __str__(self):
         return str(self.pk) + " - " + self.room.name

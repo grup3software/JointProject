@@ -242,6 +242,18 @@ def tecnics_home(request):
     template = loader.get_template('Tecnics/tecnics-home.html')
 
     return render(request, "Tecnics/tecnics-home.html")
+@login_required()
+def CreateAvariaView(request):
+    if request.method == 'POST':
+        form = CreateAvaria(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:tecnics_home')
+    else:
+        form = CreateAvaria()
+        return render(request, "form_tècnic.html", {'form': form})
+
 
 
 class AvariaList(ListView):
@@ -673,3 +685,8 @@ def sala_delete(request, pk):
         return redirect(reverse('storageandgo:mapa_salas'))
     except:
         return HttpResponse("Contenedores o Tareas referenciados")
+
+
+def ceo_detall_averia(request, pk):
+    avaria = Avaria.objects.get(id=pk)
+    return render(request, 'Tecnics/tecnics-detall-tasca.html', {'avaria': avaria})

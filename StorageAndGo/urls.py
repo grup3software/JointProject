@@ -59,6 +59,7 @@ urlpatterns = [
     path('tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
     path('tecnics_realitzant/', tecnics_realizando, name="tecnics_realizando"),
     path('tecnics_finalizado/', tecnics_finalizado, name="tecnics_finalizado"),
+    path('create_averia/', CreateAvariaView, name = "afegir_averia"),
     path('tecnics_detall_tasca/<pk>/', tecnics_detall_tasca, name="tecnics_detall_tasca"),
 
 
@@ -98,4 +99,5 @@ urlpatterns = [
     path('capacitat/', capacitat, name="capacitat"),
     path('complets_mes/', complets_mes, name="complets_mes"),
     path('ceo_historial', ListHistoryTasks.as_view(), name='task_history_list'),
+    path('ceo_detall_avaria/<pk>/', ceo_detall_averia, name="ceo_detall_avaria"),
 ]

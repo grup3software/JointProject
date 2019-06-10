@@ -20,3 +20,7 @@ class CreateSala(ModelForm):
         fields = '__all__'
         exclude = ('contenidorsInside',)
 
+class CreateAvaria(ModelForm):
+    class Meta:
+        model = Avaria
+        fields = 'object', 'room','high_priority'
