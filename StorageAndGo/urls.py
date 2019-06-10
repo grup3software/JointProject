@@ -57,6 +57,7 @@ urlpatterns = [
     path('tecnics_arealizar/', tecnics_arealitzar, name="tecnics_arealizar"),
     path('tecnics_realitzant/', tecnics_realizando, name="tecnics_realizando"),
     path('tecnics_finalizado/', tecnics_finalizado, name="tecnics_finalizado"),
+    path('create_averia/', CreateAvariaView, name = "afegir_averia"),
 
 
     #TASKS

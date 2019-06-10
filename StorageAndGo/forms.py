@@ -18,3 +18,7 @@ class CreateSala(ModelForm):
         model = Room
         fields = '__all__'
 
+class CreateAvaria(ModelForm):
+    class Meta:
+        model = Avaria
+        fields = 'object', 'room','high_priority'

@@ -240,6 +240,18 @@ def tecnics_home(request):
 
     return render(request, "Tecnics/tecnics-home.html")
 
+def CreateAvariaView(request):
+    if request.method == 'POST':
+        form = CreateAvaria(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.save()
+            return redirect('storageandgo:tecnics_home')
+    else:
+        form = CreateAvaria()
+        return render(request, "form.html", {'form': form})
+
+
 
 class AvariaList(ListView):
     template_name = 'avaria_list.html'
