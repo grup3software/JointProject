@@ -17,6 +17,9 @@ class Task(models.Model):
     finished = models.BooleanField(default=False, verbose_name='Acabado')
     hight_priority = models.BooleanField(default=False, verbose_name='Alta prioridad')
 
+    def __str__(self):
+        return str(self.pk) + " - " + self.description
+
     def get_class(self):
         # return self.__class__.__name__
         return ""
@@ -32,9 +35,8 @@ class TaskMaintenance(Task):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
     temperature = models.IntegerField(default=0, blank=True, verbose_name='Temperatura')
 
-    def __unicode__(self):
-        # return u"%d - %d - %s" % self.room, self.temperature, self.description
-        return u"%s" % self.room
+    def __str__(self):
+        return str(self.pk) + " - " + self.description
 
     def get_class(self):
         return self.__class__.__name__
@@ -52,9 +54,8 @@ class TaskOperator(Task):
                                     null=True, verbose_name='Destino')
     quantity = models.IntegerField(null=False, default=0, verbose_name='Cantidad')
 
-    def __unicode__(self):
-        # return u"%d - %d - %s" % self.room, self.temperature, self.description
-        return u"%s" % self.description
+    def __str__(self):
+        return str(self.pk) + " - " + self.description
 
     def get_class(self):
         return self.__class__.__name__
@@ -89,8 +90,8 @@ class Manifesto(models.Model):
     def get_different_products(self):
         return Contenidor.objects.filter(Contenidor.manifesto == self.ref).distinct(Contenidor.name).count()
 
-    def __unicode__(self):
-        return u"%s" % self.name
+    def __str__(self):
+        return self.ref
 
 
 class Contenidor(models.Model):
@@ -122,8 +123,8 @@ class Contenidor(models.Model):
     def delete_container(self):
         Contenidor.objects.filter(self.id).delete()
 
-    def __unicode__(self):
-        return u"%s" % self.name
+    def __str__(self):
+        return str(self.pk) + " - " + self.name + " - " + str(self.qty)
 
 
 class Room(models.Model):
@@ -146,10 +147,13 @@ class Room(models.Model):
     def percent_ocupation(self):
         return (100 * self.contenidorsInside) / self.capacity
 
+    def __str__(self):
+        return self.name
+
 
 class Avaria(Task):
     room = models.ForeignKey("Room", default=1, on_delete=models.PROTECT, blank=True, null=True)
     object = models.TextField("Objecto", default="", blank=True)
 
-    def __unicode__(self):
-        return self.description
+    def __str__(self):
+        return str(self.pk) + " - " + self.room.name
