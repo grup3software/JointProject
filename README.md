@@ -1,5 +1,22 @@
 # JointProject
 
+## Default database
+It's name is db.sqlite3-copia.
+
+Rename it to db.sqlite3
+
+    cp db.sqlite3-copia db.sqlite3
+
+## Default users
+
+- admin
+- gestor1, gestor2, tecnic1, tecnic2, operari1, operari2, ceo1
+
+## Default password
+For admin: 12341234
+
+Others: 12341234abc
+
 
 ## Entities Model
 
