@@ -1,0 +1,43 @@
+{% extends "Gestor_Sala/gestor-sala-home.html" %}
+{% block content %}
+
+    <h1 style="display: inline;">OPERARIO - TAREAS A REALIZAR</h1><a href='{% url "storageandgo:CreateOperatorTaskView" %}'><button class="w3-button w3-grey" style="margin-left: 50px; margin-bottom: 20px; width: 100px; height: 40px">NUEVA</button></a>
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+                <th style="width:20%; text-align: left">Función</th>
+        </tr>
+
+        {% for task in task_operator %}
+
+            <tr>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+                <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.product }}</a></td>
+                <td><a href='{% url "storageandgo:modify_operator" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <h1 style="display: inline; margin-top: 20px;">TÉCNICO - TAREAS A REALIZAR</h1><a href='{% url "storageandgo:CreateTecnicTaskView" %}'><button class="w3-button w3-grey" style="margin-left: 67px; margin-top: 10px; margin-bottom: 20px; width: 100px; height: 40px">NUEVA</button></a>
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Sala</th>
+                <th style="width:20%; text-align: left">Función</th>
+        </tr>
+    {% for task in task_maintenance %}
+        <tr>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
+            <td><a href='{% url "storageandgo:modify_maintenance" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">EDITAR</button></a></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

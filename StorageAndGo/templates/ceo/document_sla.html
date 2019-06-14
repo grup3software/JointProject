@@ -1,0 +1,143 @@
+{% extends "ceo/ceo-home.html" %}
+{% block content %}
+    <h1>TOTAL COMPLETOS</h1>
+    <div class="myProgress" id="completosProgress">
+        <div class="myBar" id="completosBar">0%</div>
+    </div>
+    <h1></h1>
+
+    <h1>CAPACIDAD USADA</h1>
+    <div class="myProgress" id="capacidadProgress">
+        <div class="myBar" id="capacidadBar">0%</div>
+    </div>
+
+    <h1>MES
+        <select style="font-size: 12px" id="monthlist" name="monthlist" onChange="month_data();" >
+            {% for i in range %}
+                <option style="font-size: 12px" value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+            {% endfor %}
+        </select>
+    </h1>
+    <div class="myProgress" id="monthProgress">
+        <div class="myBar" id="monthBar">0%</div>
+    </div>
+
+    <h1>INFORMES ENTRADA</h1>
+<table>
+    {% if manifestos_entrada%}
+        <tr>
+            <th style="width:20%; text-align: left">Fecha entrada</th>
+            <th style="width:20%; text-align: left">Producto</th>
+            <th style="width:20%; text-align: left">Fecha salida</th>
+        </tr>
+        {% for manifesto in manifestos_entrada %}
+            <tr>
+                <td>{{ manifesto.creationDate }}</td>
+                <td>
+                    {% for product in manifesto.products.all %}
+                        {{ product.name }} (x{{ product.qty }}) <br>
+                    {% endfor %}
+                </td>
+                <td>{{ manifesto.revisionDate }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+    <table>
+    <h1>INFORMES SALIDA</h1>
+    {% if manifestos_sortida %}
+
+        <tr>
+            <th style="width:20%; text-align: left">Fecha entrada</>
+            <th style="width:20%; text-align: left">Producto</th>
+            <th style="width:20%; text-align: left">Fecha salida</th>
+        </tr>
+        {% for manifesto in manifestos_sortida %}
+            <tr>
+                <td>{{ manifesto.creationDate }}</td>
+                <td>{% for product in manifesto.products.all %}
+                        {{ product.name }} (x{{ product.qty }}) <br>
+                    {% endfor %}
+                </td>
+                <td>{{ manifesto.revisionDate }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+<script>
+function move(num, tag) {
+  var elem = document.getElementById(tag);
+  elem.style.backgroundColor = "#4CAF50";
+  var width = 0;
+  var id = setInterval(function() {frame(num);}, 10);
+  function frame(num) {
+    if (width >= num) {
+      clearInterval(id);
+    } else {
+      width++;
+      elem.style.width = width + '%';
+      elem.innerHTML = width * 1 + '%';
+    }
+  }
+}
+
+function month_data() {
+    var element = document.getElementById("monthlist")
+    var month = element.options[element.selectedIndex].value;
+    {#move(month, "monthBar")#}
+    $.ajax({
+        url: '/storageandgo/complets_mes/',
+        {#type: 'post',#}
+        dataType: 'json',
+        data: {
+              'month': month
+            },
+        success: function (data) {
+            if (data !== -1) {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data, "monthBar")
+            } else {
+                document.getElementById("monthBar").style.width = 100 + '%';
+                document.getElementById("monthBar").style.backgroundColor = "#af100d";
+                document.getElementById("monthBar").innerHTML = "NO HAY DATOS PARA ESTE MES";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("monthBar").innerHTML = "ERROR1";
+        }
+    });
+}
+
+$.ajax({
+        url: '/storageandgo/complets_sla/',
+        type: 'get',
+        success: function (data) {
+            if (data != '-1') {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data, "completosBar")
+            } else {
+                document.getElementById("completosBar").innerHTML = "ERROR2";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("completosBar").innerHTML = "ERROR1";
+        }
+    });
+
+$.ajax({
+        url: '/storageandgo/capacitat/',
+        type: 'get',
+        success: function (data) {
+            if (data != '-1') {
+                {#document.getElementById("myBar").innerHTML = "SUCCESS";#}
+                move(data, "capacidadBar")
+            } else {
+                document.getElementById("capacidadBar").innerHTML = "ERROR2";
+            }
+        },
+        failure: function (data) {
+            document.getElementById("capacidadBar").innerHTML = "ERROR1";
+        }
+    });
+</script>
+{% endblock %}

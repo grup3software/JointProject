@@ -1,0 +1,24 @@
+{% extends 'Gestor_Sala/gestor-sala-home.html' %}
+{% block content %}
+    <a href='{% url "storageandgo:mapa_salas" %}'>
+        <button class="w3-button w3-green" style="width: 100px; height: 50px; margin: 15px">VOLVER</button>
+    </a>
+    <h1 style="text-transform: uppercase"> SALA {{ sala.name }}</h1>
+    <ul>
+        <li><b> {{ sala.pk }} </b></li>
+        <li><b>CONTENEDORES: </b> {{ sala.contenidorsInside }}/{{ sala.capacity }}</li>
+        <li><b>HUMEDAD MAXIMA: </b> {{ sala.humitMin }}%</li>
+        <li><b>HUMEDAD MINIMA: </b> {{ sala.humitMax }}%</li>
+        <li><b>TEMPERATURA MAXIMA: </b> {{ sala.temperatureMin }}ºC</li>
+        <li><b>TEMPERATURA MAXIMA: </b> {{ sala.temperatureMax }}ºC</li>
+        <li><b>DESCRIPCION: </b> {{ sala.description }}</li>
+    </ul>
+    <a href='{% url "storageandgo:modify_sala" sala.pk %}'>
+        <button class="w3-button w3-grey" style="width: 100px; height: 50px; margin: 15px">EDITAR</button>
+    </a>
+    {% if sala.contenidorsInside == 0 %}
+    <a href='{% url "storageandgo:sala_delete" sala.pk %}'>
+        <button class="w3-button w3-red" style="width: 100px; height: 50px; margin: 15px">ELIMINAR</button>
+    </a>
+    {% endif %}
+{% endblock %}

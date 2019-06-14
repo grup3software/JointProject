@@ -21,4 +21,5 @@ branches:
     - master
     - DEV
 
-script: python manage.py test
+script:
+  python manage.py test

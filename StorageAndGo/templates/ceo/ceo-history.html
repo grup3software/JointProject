@@ -1,0 +1,38 @@
+{% extends "ceo/ceo-home.html" %}
+{% block content %}
+
+
+    <h1>HISTORIAL TAREAS OPERADOR</h1><br>
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Producto</th>
+                <th style="width:20%; text-align: left">Función</th>
+        </tr>
+    {% for task in task_operator %}
+        <tr>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a> </td>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:operari_detall_tasca'  pk=task.pk%}">{{ task.product }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <h1>HISTORIAL TAREAS MANTENIMIENTO</h1><br>
+    <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Sala</th>
+        </tr>
+    {% for task in task_maintenance %}
+        <tr>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+            <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

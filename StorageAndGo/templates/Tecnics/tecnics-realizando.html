@@ -1,0 +1,25 @@
+{% extends 'Tecnics/tecnics-home.html' %}
+{% block content %}
+
+    <h1>TAREAS REALIZANDO</h1>
+
+    {% if tasques_tecnics_realizando %}
+        <table style="width: 100%">
+        <tr>
+                <th style="width:20%; text-align: left">Id</th>
+                <th style="width:20%; text-align: left">Descripción</th>
+                <th style="width:20%; text-align: left">Sala</th>
+                <th style="width:20%; text-align: left">Función</th>
+        </tr>
+            {% for task in tasques_tecnics_realizando %}
+               <tr>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.pk }}</a></td>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.description }}</a></td>
+                   <td><a href="{% url 'storageandgo:tecnics_detall_tasca'  pk=task.pk%}">{{ task.room }}</a></td>
+                    <td><a href='{% url "storageandgo:finish_task" task.pk %}'><button class="w3-button w3-grey" style="width: 100px; height: 40px">FINALIZAR</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}
